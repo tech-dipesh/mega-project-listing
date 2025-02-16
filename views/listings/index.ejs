@@ -1,0 +1,42 @@
+  <head>
+    <link rel="stylesheet" href="/css/index.css">
+  </head>
+  <% layout("/layouts/boilerplate.ejs") -%>
+  <body> 
+    <div class="container mt-5 pt-4">
+    <h3 class="text-center">All of the listings</h3>
+    <div class="d-flex justify-content-center">
+      <form action="listings/new" method="GET">
+        <button class="mb-2 bg-primary text-white">Create a new listing</button>
+      </form>
+    </div>
+
+    <div class="card-container">
+      <% for(let Listing of allListings) { %>
+      <div class="card">
+        <figure>
+          <a href="/listings/<%=Listing._id %>"><img src="<%= Listing.image %>" alt="<%= Listing.title %>" /></a>
+          <div class="title"><a href="/listings/<%= Listing._id %>"><figcaption><%= Listing.title %></figcaption></a></div>
+        </figure>
+        <div class="card-content">
+          <p class="description">
+            <a href="/listings/<%=Listing._id %>"
+              ><strong>Description:</strong> <%= Listing.description %></a
+            >
+          </p>
+          <p class="price">
+            <strong>Price: &#2352;&#2370; </strong><%= Listing.price %>
+          </p>
+          <p class="location">
+            <strong>Location:</strong> <%= Listing.location %>
+          </p>
+          <p class="country">
+            <strong>Country:</strong> <%= Listing.country %>
+          </p>
+        </div>
+      </div>
+      <% } %>
+    </div>
+    </div>
+  </body>
+</html>

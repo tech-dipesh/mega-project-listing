@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/13225/13225806.png" type="image/x-icon"/>
+  <title>Edit your Listings, id: <%= listing._id %></title>
+  
+
+</head>
+<body>
+  <style>
+   button {
+      background-color: #2828b0;
+      font-size: 20px;
+      padding: 10px;
+      border: none;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+      background-color: #4b4bcc;
+    }
+    
+    form {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    input[type="text"], input[type="number"], textarea {
+      font-size: 18px;
+      padding: 10px;
+      width: 90%;
+      margin: 8px 0;
+      background-color: #f0f0f5;
+      border: 2px solid #ccccff;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    input[type="text"]:focus, input[type="number"]:focus, input[type="textarea"]:focus {
+      background-color: #e6e6ff;
+      border-color: #6666ff;
+      outline: none;
+      box-shadow: 0 0 5px #6666ff;
+    }
+
+    select {
+      padding: 8px;
+      font-size: 16px;
+      background-color: #f0f0f5;
+      border: 1px solid #ccccff;
+      border-radius: 5px;
+    }
+
+    h3 {
+      text-align: center;
+      font-size: 24px;
+    }
+  </style>
+    <% layout("/layouts/boilerplate.ejs") -%>
+  <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
+      <input type="text" name="listing[title]" value="<%= listing.title %>">
+      <br><br>
+      <textarea name="listing[description]" id="" cols="30" rows="10"><%=listing.description %></textarea>
+      <br><br>
+      <input type="text" name="listing[image]" value="<%= listing.image %>">
+      <br><br>
+      <input type="number" name="listing[price]" placeholder="Price is only is: &#2352;&#2370;" value="<%= listing.price %>">
+      <br><br>
+      <input type="text" name="listing[location]" value="<%= listing.location %>" required>
+      <br><br>
+      <select name="listing[country]" id="">
+        <% const countries = ["Nepal", "India", "Bhutan", "Japan", "South Korea", "Indonesia", "Bangladesh", "Thailand"]; %>
+        <% countries.forEach(country => { %>
+            <option value="<%= country %>"><%= country %></option>
+        <% }) %>
+    </select>
+      <br>
+      <button>Submit</button>
+  </form>
+</body>
+</html>

@@ -1,0 +1,472 @@
+first i install the json package with npm init -y
+
+then i install the express port which i will run on nodejs
+then we have to downloaded the ejs and mongoose which we have to set up
+
+now we have to show the databases which we right now using the mongoodb
+first prompt is show dbs to show all of the dbs
+
+then we have to create a folder of models and there we can create a listing.js: inside there we can set the constraint rules of nodejs and requiremongoose and schema rules on there.
+const listing=mongoose.model
+modules.export=listing; ("Listing", listingSchema); (with this way we can connect that constraint and export our rules)
+
+never ever fear of using docs when you forget it, it could be really useful to all to understand by doing it rather than remember it.
+
+then we can use the certain rule that can applied on our all data that will be stored after that we can require that into app.js and check the server is working with new route
+
+i have to extract the data and add them into object inside the array on data.js
+then i can run node app.js and go to mongosh to check whether working or not
+
+then our process would be first checking our server is that working after that create a get routing with listings url with res.render("app.ejs),{AllListing} (with allListings where all of our data is stored from tehe init data.js);
+inside view create a views folder inside that listing folder to separate all of our ejs folder
+
+when we rendering from app.get we generally use : res.render("index.ejs) but now we create a nested folder so we have to change into a "listings/index.ejs" which is a minor changes)
+const Listing = require("../models/listing.js"); (sometimes also check that required is correctly set up the data.js with require)
+after doing it check whether it is running the ejs or not with use the for (listing of allListings){ with li}here
+
+i'm keep gettting the error which i finally solved after spending more than 2 3 hour on single problem the problem is that i run the node app.js and in my ejs folder it is not updating my database like only showing the previous data not updated only showing one title which it keep duplicate to multiple items. i solved first by commenting my previous data and then i improve the require(..models/listing.js) befor it was only one dot which main cause then when we searching on the parent directory we have to use double dot to find that specific . and then i first run the node init/index.js then run the node app.js which solved the error.
+
+i can run the nodemon app.js which keep constanlty refresh when i change anythiing on my code i installed this as a global variable from npm which i don't need to download the every time.
+
+then our next steps is to create other route mainly :id route which we can go to specifc listing to check it.
+app.use(express.urlencoded({extended:true})); (it will prase the incoming bodies);
+
+after that i created the show.ejs and connected show.ejs to the new route of :id.
+i parse the other all details and then i styled with css with the card style box 
+now i create a new route of new.ejs with create a new button of create a new list
+
+while creating a form remember that give it a name of the form input format that could align with our database to directly save our data.
+
+it will encountered the one error we create a first :id and then new now backend will try to understand the new of keyword which we don't want, so for this issue solve just use the new route before :id route.
+
+with in post method i have first extracted all of the data with have to be a same name on form for easier .
+
+req.body and req.params difference
+When working with `req.body`, it's used to extract data sent from forms (usually in POST requests), where the data is hidden and not visible in the URL. On the other hand, `req.params` extracts data directly from the URL (commonly in GET requests), where the data is visible and part of the URL path.
+
+
+we can use the req.body method but also we can use the different approach to send the frontend data to backend with post request.
+    <input type="text" name="listing[title]" > (our object name would be listing and inside that it will be key name called title);
+    with this method our code syntx become more shorter on app.post method.
+      let listing=req.body.listing;
+  new Listing(listing); (this is the another approach to get the post methdo but there is even shorter method to do this post approach, new is a keyword remember that)
+i first i changed into this for shorter syntx: 
+  const newListing=new Listing(req.body.listing);
+  await newListing.save();
+  console.log(newListing);
+(in here i also .save(), which i stored the data on my database, then i insert the data on object format and await which is the asynchourns function and print the newListing to check whether my data is correctly added or not);
+
+    <form action="/listings" method="POST"> 
+ (there is the one error on my before this i have send the action method to /views/listings/index.ejs, which is the wrong method, so i have change the action method to only /listings which is working right now.)
+
+ //now i'm working on the edit and update route which is come under the crud opeartion first i created the both route
+
+
+ we have to edit & update route with perform on 2 steps with both get and post request
+instead of using the placeholder to show the previous non edited data we can use the value method on html form to make like textarea, with in build value.
+
+method-override is used when we want to use the put and delete method, it's as an npm package, now i have downloaded method-override i can use the put package on the edit.ejs. (method-override is middlwaare of express of put, patch and delete)
+now i send on the edit.ejs:   <form action="/listings/<%=listing._id%>?_method=PUT" method="POST"> (it will send the method on POST request but it will converted into the PUT request with the help of method-override)
+then i first require of methodoverride on app.js and then i have to use the : app.use(methodOverride("_method")); (why do we use methodOverride cause we give the value of require method same name and _method why do we use this cause we use the same format on edit.ejs form method);
+
+now we use the app.put method on the app.js to do the logic of put request which will evenetually update the new value.
+req.body.listing is a javascript object which there is all of the parameter what we require. first we deconstruct the id and then we will convert into the individual value.
+  Listing.findByIdAndUpdate(id, {...req.body.listing}) (the spread opearotr ... is a fastest way to take all property what we required, it helps us to make code cleaner in better way)
+
+     <select name="listing[country]" id="">
+        <% const countries = ["Nepal", "India", "Bhutan", "Japan", "South Korea", "Indonesia", "Bangladesh", "Thailand"]; %>
+        <% countries.forEach(country => { %>
+            <option value="<%= country %>"><%= country %></option>
+        <% }) %>
+    </select> (generally when we create a other types of input format it generally doesn't allign above i create the selection with dropdown which in normal way it will not align but with this way it align with the code i have to understand this code deepsly in future)
+
+delete routing which will destory the routes
+i have tried without doing async and await which takes too much time to take the deletedtion which i use the async and await method which is really helpful to me.
+
+//now as shradha khapra used the ejs-mate which is the npm library for like creating a template inside the ejs files
+
+
+//middlewares is the important topics on backend which i have to learn right now till now i have learn  
+
+it's an intermediatery between request and response.
+middlewares are not only in nodejs in general program world we can see the middlewares everywhere, right now.
+
+middlwares in express functions that come into play after the server recieve an request and before the response is send to the client.
+some common middlewares functin are: methodOverride (it uses for the use of the method such as put, post & delete), bodyParser (when request body have the data, the request/backend/server doesn't understand . we have to parse that data for the understandable form), express.static(it will used for the backend static static files to serve to the clients side. static files:related css, related javascript, any image that static files we have to serve to the client we use express.static), express.urlencoded(it is same we get the acess inside request access.).
+
+app.use(express.urlencoded({extended:true})); (the urlencoded is the middlewares function here on this code, )
+
+app.use(why do we use the app.use , when there is the request comes from anywhere like get request, post request, when that happened what we wan to perform is that's why we use the app.use)
+
+the things that every middlewares have:
+the req and res which is the object can acess from the anywhere, also what response it should go can also access the middlwaare.
+in one middlewares that's the possiblity of that could have the chaining. 
+let's ex: there is the request comes and we have to do multiple things at once it can be possible like chaining.
+if middlwaare he can send the response and stop the chaining process.
+in the case initially middlwares when the code started respons is send first it will send then other code executed, 
+middlwae execute any code
+middlwares end the request-response cycle.
+
+middlware have only 2 choice, 
+he can send responsed or either middlwares can call the next middlwares. like it will call the upcoming middlewares and handle the all of the remaining tasks.
+
+
+//now continue to our mega project
+
+validation error--
+
+when we enter the data on forms the client/browser will check the data is that data matched with our constraint?
+due to incorrect data our website could be the updated and can cause the multiple error on our database.
+
+there are 2 mainly validation : client side validation and server side validation:
+client side validation means use put the unintended data, unfullfiled data for ex: in locationo user put the title, it is the client side validation
+server side validation is check the constraint rules if they are matched with out filters, if yes user then only can fill the form.
+
+
+when we build the project , our intend always have to be that webpage can anyone access by any browsing method, and that should be easily accessible to increase our website traffic.
+
+
+the next things i have done is add the boostrap classes to my new.ejs file for better looks.
+
+with the helps of i create an success and failure message as a client side form submission.
+
+then i use the custom error handler to handle the error if use create a listing without filling data, as i already done that with the boostrap but this is the custom error handleer logic.
+first i use th app.use (with all 4 parameter and i send the response in case there is the error) and above in listings i use the try and catch i passed the next(err) on the catch method.
+
+i create the utils folder where i added the extra things like: error class,  valid synchrounousation and more like this other files.
+
+
+create the custome expressError 
+first i create an expressError.js file inside utils folder inside that i passed the passed with like thi:
+class expressError extends Error{
+  constructor(statusCode, message){
+    super();
+    this.statusCode=statusCode;
+    this.message=message;
+  }
+};
+
+module.exports=expressError;
+first i use the app.use("*") to select the non existent route and i passed the next( new expressError(404, "error"))
+then i use the app.use(()) which i do like let{status, message}=err. and i send it into res.status(status).send(message);
+with this now my route is working now.( in default use the status 404 for avoiding other error)
+
+now with this way it send the proper error without crashing the app.
+
+where there is the async function on route just use the wrapasync to avoid conflict of non existent routes.
+
+staus 400 mean bad request. which mean due to client mistake, server can't handle the request.
+
+http://localhost:8080/listings (when i send request as a post format which is the non existent in post format, if we send this request we got error like this: Listing validation failed: title: Path `title` is required. )
+
+
+  if(!req.body.listing){
+    throw new expressError(404, "listings is not valid")
+  } (i add this condition on inside /listings for check if that condition not matched send the error: i check with post request and i got the error, that mean my server is working now)
+
+
+  till now the error is showing only in res.send which is the not good way to show the error, for showing the good way is to create an error.ejs.
+
+
+  i have to do the ejs mate way back but right now i am doing.
+  ejs mate helps us to create the multiple ejs template that we can use . like we can create an separate header and footer. 
+  the topic also include/partial which are similar logic that we can use 
+  app.engine("ejs", ejsMate); (with this way i imported the ejsMate to my project.)
+  //this is similar to the require
+
+  i first create an layout folder inside views folder inside that i create an boilerplate.ejs. i write the :     <%- body %> (inside of the boilerplate to connect to other ejs template),   <% layout("/layouts/boilerplate.ejs") -%> (then i use this on top of page to show to ejs wheere we want to use it.)
+  the cleaner way to write the code is separate smaller section into different files , in future , we can easily able to find those where we want to find it. it also the best approach to write the code.
+
+  now i have update lot of things create an separate folder for the header and footer and connect them to boilderplate and conect them with main.
+  update lot of css things.
+
+  now i will learn the ejs erros.
+  with the help of the deep i fixed the navbar fixed.
+
+  now i am currently doing the error.ejs file improvement.
+
+  with showing the err.message we can also trace like: err.trace, err.stack. for showinng the error message.
+
+
+  schema validation :
+  first i send the request on the same url with post method from hoppscotch and inside on body i added the custom value, in other it is running it is showing 404 error which might be the custom errror.
+
+  like from hoppscotch we can also even send the data but in there in our own way we can save the data but only valid response should be on the data can make from schema validation:
+
+  in app.post method:
+  i can simple apply the if condition with send the throw like this:
+  let list=new list(req.body.list);
+  if(!list.title){
+    throw new expressError(404, "title is missing");
+  }
+
+  it will becomes the repetative if we want to apply for multiple, for this task to make effiect we use the tool called: Joi (joi.dev)
+  joi task is to validate the schema, this is also the server side validation.
+
+  now i created the new file named: schema.js., which will require the joi the and applied the rules with our own way.
+
+  const Joi=require("joi");
+const listingSchema=Joi.object({
+  listing:Joi.object({
+    title:Joi.string().min(5).required(),
+    description:Joi.string().min(5).required(),
+    image:Joi.string().allow("", null),
+    price:Joi.number().min(0).required(),
+    location:Joi.string()..required()
+}).required()
+}); (first i required the joi, then i create a list of rules, like in first inside listing inside object title should be required format is string, like this and image also allow the blank or null value) (i module exports with before listingSchema i added like: module.exports.)
+
+then i required the joi package and next step is to use the do like this: listingSchema.validate(req.body) (from the request body it will check whether the condition are fullfilled or not)
+
+with i print the listingSchema value if we send the request and joi will identify that error and console on terminal
+
+like in just here we will use the conditon like if joi throw and error we wil throw an error
+
+validation for middleware:
+first i create the function for the validate lisitng with middleware and also pass next if all of the condition is passed.
+
+first we will validate the listing schema from the request body that data is come. from the result we will extract the error with define the let {err}, i use the if else conndition like if(err) is comed throw the request else call the next.
+
+now we will add that function in this route to cheeck the condition that we are trying to check the schema validation.
+i use this function on : app.post("/listings), app.put("listings:id), 
+
+till now we have learn the client side validation, server side validation, also we manage the effectively handle the error with custom error with next call and middleware.
+
+if we got the error in reponse we get the response on object form. for extracting them, 
+
+      let errMsg=error.details.map((el)=>el.message).join(","); (i added this conditon for if we get the multiple error, we can handle it, in default error are comes in object format with .map i convert them into the string, and if there is the comma on that array just also join with main error ,.join method used to join the all element of the array into the single string.
+  the phase one has been completed of the project now it will start the phase 2.
+
+  
+
+
+project, phase 2:
+in mongodb relation topic we will cover new topic named: 
+handling deletetion using mongoose middleware. 
+we can use the 2 middleware: Pre & Post. 
+one example:
+like when we delete our instagram the data related to that username would also deleted like, story and posts. we called a handling deletetion. if one main model is deleted, it will check does that model have any connected model data stored, also those data would be deleted. it also called a cascading deletetion.
+how can we implement: we create a customer model and orders model. in customer model there is order id exist and also order product.  we called this mongoose middlewares. 
+the mongoose middleware are little bit difference from the express midlleware. 
+there is the types of middleware like: document middleware, query middleware, we will focus on query middleware. query middleware executes when you call exec() or then() on a query object. or await on a query object. in query middleware functions, this refers to the query itself.
+
+
+
+
+
+//creating a reviews model. which will show all of the reviews.
+in reviews we will only showing reviews, rating (1 to 5), created at(date will now show to the client server only server side.)
+first inside models i will create a another file called reviews.js, which will value all of the constraints.
+in date i have added the date and in default it will store the value of current date.
+
+in reviews.js file i created a simple contraint on js, and at the end, i exports that same modeel.
+then in listing.js i also create a another variable, inside that array it would be the array, instead of type: String, we will use the type:Schema.Types.ObjectId. will store like this. 
+revise above: in listing.js i create a reviews inside that i store the array with given a objectId. why objectId because this is the one to many relationship of database. on one listings, there could be the multiple of revieews, which why we use th one to many . in many it will only use one to few or one to many, as there it would not stored the one to squillion method. we also have to use the ref, to which reference which we are reffering, in this we use the Reviews, method on there.
+
+now i will create the form on show to give review on the form method.
+inside the show.ejs i created a 1 form last of the page with form method with get method and give stylying of how our form looks on frontend.
+first we have to understand that we don't create a separately the reviews part as is will have the relationoship with the listing db, so we will use the one many relationship, with the so we will use the   post: /listings/:id/reviews method for access that review. remember that it will have the one to many relationship with listings. we will just conenct them.
+
+ now the functionallity part is that first i require the reviews.js with same like listing.js and then i use the post method on form. then my next task is to create a post route. why don't we create a get route(because we don't need to show the review in separate page, as we will access them in any connected listings, that's why we don't require to use the get method.)
+
+ inside post route i give the post route first, for accesing that particular id:
+ app.post("/listings/:id/reviews", async (req, res)=>{
+ let idReview= await Listing.findById(req.params.id);
+  let newReview=new Review(req.body.review);
+}) (first on idReview i get the id access, and that particular id stored on the idReview, and the review i store on our ejs: name[reviews], is stored on here.)
+
+
+the errror i am causing is that: the name is mismatched which wasted my over the 2 to 3 hours to solve just basic problem. 
+now i make the comments required to users to add anything.
+
+now we will do the client side validartion first then server side validation.
+
+now i create a needs validaton boostrap javascript code inside public folder with js folder. now i have to connect them with boilerplate first. then i could use on our ejs. 
+now in every page that validation can run now with using the class on boostrap. we can prevent user from sending blank on reviews, but user also can send the request from hoppscotch with blank . so we have to fix that, till now our server side is not complelety safe like any user can send the request, using hoppscotch.
+
+for validating the server we use the joi to validating this, in the reviews we will also use the joi for that. for joi schema validating, we have made the function, then we passed as a middleware with app.post method. 
+now inside schema.js i will create a validation method and pass as a function.
+after creating i require on app.js with the listingSchema, then i will create the same function and then pass that function, then we can't send the request from any external site.
+but remember that, in the error body changeed the name to what have you required.
+the next process is to show our reviews, before that i will remove the empty value commments which i have created a empty comment during a testing. this is the commands: 
+db.reviews.deleteOne({_id: ObjectId("67acbc16bd2e7573243c3715")}) (with this i remove that particular objectId review, from the database)
+
+render our reviews, like show the review that is stored on our database.
+first i will see the with just pass the object id to check whether my server is working or not.
+
+# we can't directly access the valeu and data inside of reviews at that time we can simply use the populate method to extract inside that value. 
+  const listing = await Listing.findById(id).populate("reviews"); (with the populate method i can get the acces of reviews, now if i only print the value now it will print the entire valeu with comments and rating.)
+  
+
+we don't only want to get the reviews also we want to get the data of the review, at that time we only get the object_id and with for of loop we can get the data of inside reviews.
+
+now we want to styling our reveiws. our revewes, will show on the card forms. with using the boostrap i convert into the boostrap. 
+
+our class name of boostrap card becomes same so my above image inside the show.ejs i have to create a another class name -lising-card and i use that on the css. 
+i have to make the 2 cards to come on 1 line.
+
+we will use the mongo pull operator,  the $pull operator removes from an existing array all instances of a value or values that match a specified condition. it is a operator like: $set, $in and $between operator. 
+then i will create a form with delete button. with method post and action would be reviews/<%-listing._id %>.
+
+deleting our reviews, first we creaate a button below the reviews, to delete the listing. then we create route of /lisings/:id/reviews/:reviewsid . first it will delete from the review database, and also it should delete the reviews from our lisitngs database.
+
+then my next processs is to get the id of both id and review id with req.params. then in Listing i would use findByIdAndUpdate method inside of it with id, then it will update with deleted on our database the listings database of the reviews. with findById i will delete that specifically reviews database from insdie the listings database and the reviews database.
+delete middleware reviews:
+in inside listing there are multiple reviews and if we deleleted teh listiing inside that reviews it should also be deleleted. 
+if we just check on the database: 
+db.listings.find({title: "Mountain View Apartment"})
+[
+  {
+    _id: ObjectId("67a5cfc1b613465076f53dd7"),
+    title: 'Mountain View Apartment',
+    description: 'Enjoy panoramic views of the Himalayas from this modern apartment in Kathmandu.',
+    image: 'https://cdn.pixabay.com/photo/2015/05/30/12/46/nepal-790335_640.jpg',
+    price: 800,
+    location: 'Kathmandu',
+    country: 'Nepal',
+    __v: 2,
+    reviews: [
+      ObjectId("67ad8d22b683be2fe2ccb9e4"),
+      ObjectId("67ad8d31b683be2fe2ccb9eb")
+    ]
+  }
+] (it shows 2 object it mean that there is 2 reviews store.)
+for deleting also that, we will use the post mongoose.
+first i required the model on listing.js: const Review=require("./reviews.js");
+before this: 
+listingSchema.post("findOneAndDelete", async (listing)=>{
+  if(listing){
+    await Review.deleteMany({_id: {$in: listing.reviews}})
+  }
+}); (when we are trying to delete the any particular listing with this $in method it will also deleted those correspondecee reviews, it is working now.)
+
+now i will learn about the express router. 
+
+now first i will restructured of my listings. 
+first i will create the another folder called routes. inside the routes i create a file called listing.js inside that i will require the express, then i will create the route route, with const router=express.Router() i created a router.
+
+inside of app.js, all of the listing method router will copy to the listing.js inside the routes.
+first i required the express, then i i created a route with like this: const router=express.Router(); and also i module.exports=router;
+const listings=require("./routes/listing.js") (this is the method to require from the routes folder inside the listing.js )
+app.use("/listings", listings) (i also have to redirect it)
+
+till now there is lot's of error on my server which i have to solve, here is my the errors:
+in listings routes, we have use the lots of middleware like validateListing, validateReviews, i also have to required on the listing.js inside of routes. also on above there are lots of things that requires which we haven't required on the listing.js.
+
+first we have to requied on also on listing.js like on app.js: wrapasync, listingSchema, expressError then also other required such as: Reviews, Listings.
+
+the one thing i have to fix is that: const Review = require("./models/reviews.js"); (this is the required method and i just have to add doble .. to make "../models , cause it will now trying to find the folder in parent directory rather than current directory.)
+
+the error i am keep facing is that on listin.js inside routes: const Listing = require("../models/listing.js"); (i make the ../routes which i should make /models this is the error.)
+
+new topic:
+express router, cookies:
+
+ this are the miscellenouis topic of express router:
+ we will learn with doing restructering how we can make our express router better. and some basic conecpt of cookies. this concepts we will apply later.
+inside app.js we write the lots of code there. if we created a new modes and in app.js it will becomes the more lined coded. at one point to read the entire file would become too difficult.
+ now we will resturcuted our code with the helps of express router.
+it is not compulsory to use the express router but generally in good websites. in large scale website it is used the express router. 
+when code divided into smaller parts it would become easy for us to understand. the one example definetly would be the views folder inside listings folder.
+so it is useful to use teh express router in our projects.
+
+experss router are a way to organize your express application such that our primary app.js file does not become bloated.
+const router=express.Router() (it creates a new router object)
+ 
+a router object is an isolated instance of middleware and routes. you can think of it as a mini application. capable only of performing middleware and router function. every express application have the build in app router.
+for understanding this concept better we can create a new folder named a classroom, we will delete later we just now to understand the basic concepts.
+
+inside server.js i just use the 3000 port to check whether working or not.
+till now we have only create a only users route. 
+now we will create a multiple of users and post routes inside of server.js.
+
+i created a multiple of routes, with both for users and posts and i check it is working now.
+now inside classroom i created a another folders called routes.
+we trying to destructered the same routes inside routes. above on new server.js there are multiple of related routes /users. till now we have created a different routes on same file now will separate with users to another and posts no another to not make bloated code. 
+inside routes we will create a separate files to separate them.
+i created the post.js and user.js inside routes of classsroom folder. in there i first move the users only routes to users folder.
+ now we have to create a router object, for createing router express object have the Router method to create a new router like: const router=express.Router().
+
+we don't require to use the app.get now instead we can just use the router.get. then we also have to module.exports =router. for using the user.js we required them on our server.js file.
+still now our code won't work, the different paths we required them on router object but we have to use them, for using them we can use the app.use("/", users); (the all of the path used users what we required above. what does it mean this code: the all of the routes that we send them the request, whose routes start with "/' will try to matched the remaining of paths. then if there is the commong things on our routes in inital stages like "/users" is common here, so we write the common path on here: app.use("/users", users); on app.use to send the request.)
+now we can remove the common things of the router path from the user.js like app.get("/users") users is common on all of the paths we can simply do the : app.get("/"). now in future if we want to change something on user routes we don't required to go on server.js, just simply we can go on user.js to change something.
+now i have the same things to post.js first i moved the all post router to post.js and then i required a express and also teh router. then i rename the app.get to router.get. and then i module.exports=same name as Rotuer. module.exports-reouter.  first i use the posts with required that particular file(if it is on parent use .. if on same file use: . and then i use the :   app.use("/posts", posts);
+ for common path and on post.js i remove the common part.)
+
+cookies:
+http cookies are small blocks of data created by a web server while a user is browsing a website and placed on the user's computer or other device by the user's web browser. 
+we hav go lot's of new websites, generally it shows the option to accept the cookies or reject the cookies. we will learn what is cookies, how can we use them on our websites. we will try to understand the basic concepts of what the usage of cookies. cookies mean the web cookies (we also call them the web cookies). 
+cookies are tiny block of datas that stored on the web browser. who send and who store: it stored and send on the web server. 
+what's the usage of cookies:
+session managment: usually back in days, the website don't store data on database, like on shopping website when they added a cart and go to any page the stored card is store on cookies.
+tracking: it will get the info of what websites you frequently visit, what topic you are intersted. then browser will track you and based on that you will see the targeted ads.
+
+we will only learn the personalization topic uses not other:
+pracitcal examples like when you swtiched to the dark mode on any page with the help of cookies it will implement on all of the pages, also on facebook once you logged in you don't required to login again.
+generally cookies are paired on like key value pair on json format. you can see which website store your cookies or not on application on inspect page. 
+
+how to send cookies using express:
+inside setCookies route of localhost:3000 i send cookies with this way:   res.cookie("name", "dipesh");   res.cookie("country", "Nepal"); (this are the key value paired, cookies. with we can send multiple cookies, for checking, we can simple go application inspect and inside cookie you can seee key value and everything, once we send the value of cookies, it will store on that website whether you go another page, or come back after several days. (for get that cookies we have to go to that route first to run on our website.))
+we can read the docs on express webiste with res.cookie area.
+
+cookie parse package:
+one route can access that cookies now, but we want that another routes want to access that cookie or want to parsed (read) it. 
+on request the cookies are generally stored, req.cookies are there if we print the req.cookies . we can access the cookies. let's say we want to print the cookies on the root routes. we can do console.dir/console.log.
+
+from once setCookies is send the cookies, it will always have on other root of that cookies stored. if we go to localhost:3000 it will print the undefined on console. why?: because directly parsing the cookies on express is not possible. we have to use the middleware,  called: cookie-parser.
+first we have to install it's npm package.  then first i required and created a middleware, whenever new request comes first it will go from the cookieParser middleware then it can parse the cookies to any routes. required methd:const cookieParser=require("cookie-parser");
+app.use(cookieParser()); (this is the middleware method.) now it will show our cookies data.
+if we want we can add manually the cookies. with add new value i just added thew new value manually and it console on terminal.
+cookies nothing it just piece of information. now i will create a new route called greet route. 
+usually for related authorization, authotication we can done by cookies. 
+like if we want to add any value of default we can do that with:   let {country="masters"}=req.cookies; 
+
+
+signed cookies:
+basically there is normal cookies and there is signed cookies which mean that similar to physicl sign. like it put the stamps/signs. for example we take the water bottle from the market, like if the sealed is broken we thoght that is not healthy what we thought is that the bottle integreity is lost. so with using the browser manually we can change any cookies value or add cookies. so that mean we have done tempering with the cookies. for save from the tempering or unintinally value saved we use the signed cookies. 
+after sending the signed cookies we verify the signed cookies. like checking is that is that is the signed cookies, so that is the 2 step process. 
+we can set the property for signed cookies, when we send the cookiees with it if we est the {signed: true} . for creating the sign cookies, in app.use cookieParser we have to send teh "secretCode"/additional string ,  for signed cookies. the signed cookies then it will not go on raw form , then it will go on encoded form which is the unreadable form. even we can read that data. with the value we attached the code then with the help of it becomes the sign. 
+after setting the app.use("secretCdoe"), res.cookie({signed:true}), it becomes sign now.
+i created a another route name /verify. in verify route:   console.log(req.cookies) if console the req.cookies, and go to /verify route the intersting things come like it print the empty object, but if we try to add any key value from the application it will print that value into console. but it will not print the signed cookies value onlly it will print the value that you are trying ot add on browser manually. for accessing the signed cookies , like if someone try to change those value or get access, we can use the req.signedCookies. then the signed cookies will print the separately. in print normally . but how can we verify that whether someone is changed the value or not. like if i changed the entire signed cookies value to something else now it will just print the empty object. but like signed cookies value are like this: s%3AjavaScript.lu9eaFQh%2Fu4YiE%2B3mGwjs0 and if we changed the javascript into like Express with changing only value then it will show the name into false, that mean we have tempering our value. 
+
+
+
+State:
+protocol mean what kind of request is going what kind of response is going. the rules request, response follow called a protocal.
+  
+Stateful Protocol: Stateful Protocol require server to save teh status and session information. eg: ftp (file transfer protocol).
+Stateless Protocol: Stateless Protocol does not require the server to retain the server information. (it does not store the information of server or any session) eg: http. (till now with using the http protocol we are doing the development)
+
+when client is interacted with our website, and comes one times we called a single session. 
+
+when we have to pay the money to anyone, if we pay the money through physically it can call the stateless protocol as it doesn't have the any background info but if we pay through upi , we could track the payment , we can simply compare with the stteful protool.
+
+express Session: it's attempt to make our session stateful. session related information stored on the server side. like: for ex: for every user on instagram they are assigned to any unique session id, if they added any product it will stored inside that session id. like on for every unique id user. express session will store only one session info. like the session id is stored on the form of cookie format.
+why does it important: some customer are added some item on their carts like laptop and they switched on adding the any sportss product, should laptop added cart should be deleted, no absoluletly not, if we just use the stateless protocal it will not stored, but with the stateful protocal we can stored that.
+this information is not stored on database cuase database work is to save the information on pernamnet basis. the next question is arise why do we stored the information on server side. in cookies there is the limit, to save the information of the limit. it is quite less compare to temp storage. as well teh information we stored on cookies is not that secure. in cookies we just stored the session id not the entire data items. 
+now we will learn more about with implement the practically: 
+
+current important things to understand is that: the express-session work is that: it creaeted a session id for creating the temporary  storage store the data. 
+for testing the expres-session i created a new folder called express-session(but other are doing inside on classoom folder) and inside of it session.js and first i required a express and listen port. 
+now i first i have to install the npm package : called express-session, then i required on session.js with name session. for using the express session. as this is the middleware we wil have to use the: app.use(session()) (inside session we can use the differnt differnt option, the options are: cookie, but for now we only have to know the secret. secret is the required option for the current session we have to be the secrets )
+ as this is the sign-cookie and for the sign cookie it is required the secret code it also required here. this can be either a single string or multiple of array. a secret should not be easily parsed by human as it would best need random set of character. we update the secret code timely. app.use(session({secret: "secret"})); (inside session it should be secret code.) (it will comes 2 errors we can ignore that. )
+ now i just test on /test route. with on inspect application with deleted the existing data i can see the new data on tehre called connect.sid. this is the unique session id.
+the one things we can notice on there, on cookies we can see even if we go to another tab on same browser that we can see thee session id same. like on above given value connection id ans beloe cookie value connection id are same cause: within one browser if we open the tab on different tabs, the express with treat that as a 1 session. for example if we try with another browser we can see there the different session id. for using the same property . 
+i will create a one route to count how many we have open that session with counting. till now the count is not tracked like counting how many times we have visited. we first count with req.session.count. then we added te condition if exist it will increament else it will initiated to 1. 
+  if(req.session.count){
+    req.session.count++;
+  }
+  else{
+    req.session.count=1;
+  }
+  res.send(`you visited the website ${req.session.count} times.`) (with this condition i increament to 1 of the count, even it will work on new tab. req.session will track the single session. )
+sesion mean that client is sending the response to server and vise versa, this is the practical examples of how session would be used. the one things that noted is that the session of count is stored on the temporary basis. in express there is the warning related to the express-session. the default server side session storage which we also called a memoryStore, is not purposly not designed for the production envionment. 
+in express session the warning are coming here, for removing them we have to add 2 option name called, resave and saveinitialized option. the resave foreces the session to be if the session, in resave whether the the changes/modified or not it will resave to the session. then the resave by default we will set false for avoid any terminal deprecated , it will save false on app.use(session) and the saveinitialized. the saveinitialized is the session if not started/uninitiazation will store on session. it will set to the true. now deprecated warning will not show. 
+
+till now we are doing the development, in development there is the 2 stage, which we done under our sysem and another is production stage: where other peoples are using our website, in development we can store the MemoryStore /session-storage but when we deployed then it will be the production envionment then we will not use the memoryStore then we will use the Session Store like:Cassandra Store, connect-dynamodb. connect-m0ng0. this all are temporary store which aere well known based on database. 
+the one thing we can do is insiide app.use(session (the option that we define we can store on any variable and call that variable inside sesion.))
+now we will learn more about the storing the user info:
+inside session.js i create a one route called signup and inside there i will take name and with req.query i will extract that name: with the help of query string with register?name=dipesh, i can extract that name store into variable. if name is not exist we can give the default name. 
+same like on count we give the req.sesssion.count to count the total visit. with the same object helps we can able to store the session & using info. on the signup route if we console req.session we get output like this:Session {
+  cookie: { path: '/', _expires: null, originalMaxAge: null, httpOnly: true }} (also if we go to application and see details there it will also print the same on there. ) (by default there is alsway cookie on req.sessoin, by default httpOnly it always set to true.  )
+  if we assign the req.session.name to name and console that it will print the value what have we added there. we store the req.session also we can use that value on another callback/function/routes. now if we go to hello route which we create we can see there that value we have added on the another route, which that acces. the better way to do that is redirect them to the hello route with that same value

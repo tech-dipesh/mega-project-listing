@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a new listing</title>
+  <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/13225/13225806.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #121212; /* Dark background */
+      color: #f0f0f0; /* Light text */
+    }
+    .form-control, .form-select {
+      background-color: #222;
+      color: #fff;
+      border-color: #444;
+    }
+    .form-control:focus, .form-select:focus {
+      background-color: #333;
+      border-color: #777;
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+    }
+    .valid-feedback, .invalid-feedback {
+      color: #00e676;
+    }
+    .is-invalid .invalid-feedback {
+      color: #f44336;
+    }
+  </style>
+</head>
+<body>
+  <% layout("/layouts/boilerplate.ejs") -%>
+  <div class="container mt-5">
+    <h3>Your New Listing</h3>
+    <form class="row g-3 needs-validation" action="/listings" method="POST" novalidate>
+      <div class="col-md-6">
+        <label for="listingTitle" class="form-label">Name</label>
+        <input type="text" class="form-control" id="listingTitle" name="listing[title]" placeholder="Enter your name here" required>
+        <div class="valid-feedback">Looks good!</div>
+        <div class="invalid-feedback">Please enter your name.</div>
+      </div>
+      
+      <div class="col-md-6">
+        <label for="listingDescription" class="form-label">Description</label>
+        <input type="text" class="form-control" id="listingDescription" name="listing[description]" placeholder="Enter your description here" required>
+        <div class="invalid-feedback">Please provide a valid description.</div>
+      </div>
+      
+      <div class="col-md-6">
+        <label for="listingImage" class="form-label">Image URL</label>
+        <input type="text" class="form-control" id="listingImage" name="listing[image]" placeholder="Add image URL">
+      </div>
+      
+      <div class="col-md-6">
+        <label for="listingPrice" class="form-label">Price (&#2352;&#2370;)</label>
+        <input type="number" class="form-control" id="listingPrice" name="listing[price]" placeholder="Enter price" required>
+        <div class="invalid-feedback">Please provide a valid price.</div>
+      </div>
+      
+      <div class="col-md-6">
+        <label for="listingLocation" class="form-label">Location</label>
+        <input type="text" class="form-control" id="listingLocation" name="listing[location]" placeholder="Enter location" required>
+        <div class="invalid-feedback">Please provide a valid location.</div>
+      </div>
+      
+      <div class="col-md-6">
+        <label for="listingCountry" class="form-label">Country</label>
+        <select class="form-select" id="listingCountry" name="listing[country]" required>
+          <option value="country" name="country" selected>Select your country</option>
+          <option value="Nepal">Nepal</option>
+          <option value="India">India</option>
+          <option value="Bhutan">Bhutan</option>
+          <option value="Japan">Japan</option>
+          <option value="South Korea">South Korea</option>
+          <option value="Indonesia">Indonesia</option>
+          <option value="Bangladesh">Bangladesh</option>
+          <option value="Thailand">Thailand</option>
+        </select>
+        <div class="invalid-feedback">Please select a valid country.</div>
+      </div>
+      
+      <div class="col-12">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
+          <label class="form-check-label" for="termsCheck">Terms & Conditions.</label>
+          <div class="invalid-feedback">You must agree before submitting.</div>
+        </div>
+      </div>
+      
+      <div class="col-12">
+        <button class="btn btn-primary" type="submit">Submit</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    // Bootstrap validation logic
+    // (function () {
+    //   'use strict'
+
+    //   var forms = document.querySelectorAll('.needs-validation')
+
+    //   Array.prototype.slice.call(forms)
+    //     .forEach(function (form) {
+    //       form.addEventListener('submit', function (event) {
+    //         if (!form.checkValidity()) {
+    //           event.preventDefault()
+    //           event.stopPropagation()
+    //         }
+
+    //         form.classList.add('was-validated')
+    //       }, false)
+    //     })
+    // })()
+  </script>
+</body>
+</html>
+
+
+
+<!-- previous ui -->
+<!-- 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create a new listing</title>
+  <link rel="shortcut icon" href="https://cdn-icons-png.flaticon.com/128/13225/13225806.png" type="image/x-icon"/>
+  <link rel="stylesheet" href="/css/new.css">
+</head>
+<body>
+  <h3>Your new listing</h3>
+  <form action="/listings" method="POST"> 
+    <input type="text" name="listing[title]" placeholder="Enter your name here?" required>
+    <br><br>
+    <input type="text" name="listing[description]" placeholder="Enter your description here?" required>
+    <br><br>
+    <input type="text" name="listing[image]" placeholder="Add image url if you have?" required>
+    <br><br>
+    <input type="number" name="listing[price]" placeholder="Enter your new price here only in: &#2352;&#2370; here?" required>
+    <br><br>
+    <input type="text" name="listing[location]" placeholder="Enter your location of the listing site?" required>
+    <br><br>
+    <select name="listing[country]" id="" required>
+        <option value="" selected>Nepal</option>
+        <option value="">India</option>
+        <option value="">Bhutan</option>
+        <option value="">Japan</option>
+        <option value="">South Korea</option>
+        <option value="">Indonesia</option>
+        <option value="">Bangladesh</option>
+        <option value="">Thailand</option>
+    </select>
+    <br>
+    <br>
+    <button>Submit</button>
+  </form>
+</body>
+</html> -->
