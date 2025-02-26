@@ -1,15 +1,28 @@
 const express=require("express");
 const app=express();
 const session=require("express-session")
-
-
+//require the connect flash
+const flash=require("connect-flash");
+const path=require("path");
 const sessionValues={secret: "secretcode", resave: false, saveUninitialized: true}
+
+// for the ejs folder with express
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(session(sessionValues));
+app.use(flash())
+
 
 //path route
 app.listen(3000, ()=>{
   console.log("this is localhost:3000 route");
   
+})
+//middleware of flash message
+app.use((req, res, next)=>{
+  res.locals.successMsg=req.flash("success");
+  res.locals.errorMsg=req.flash("error"); 
+  next();
 })
 
 //homepage route
@@ -35,13 +48,20 @@ app.get("/count", (req, res)=>{
 
 //get the value on req query
 app.get("/signup", (req, res)=>{
-  let {name="please input your name"}=req.query;
+  let {name="anonymous"}=req.query;
   req.session.name=name
-  console.log(req.session.name);
-  res.send(name);
+  if(name==="anonymous"){
+    req.flash("error", "Please register first.")
+  }
+  else{
+  req.flash("success", "User succesfully registered.")
+}
+  res.redirect("hello")
 })
 
 //create a hello route
 app.get("/hello", (req, res)=>{
-  res.send(`Hello my name is ${req.session.name}`)
+  // console.log(req.flash("success"));
+
+  res.render("page.ejs", {name: req.session.name});
 })
