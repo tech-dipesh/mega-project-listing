@@ -163,6 +163,14 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("listings/error.ejs", { err });
   // res.status(statusCode).send(message);
 });
+app.get((req, res)=>{
+  res.redirect("/listings");
+})
+app.all("/", (req, res, next)=>{
+        // next( new expressError(404, "Chat Not found you are looking forward to!"))
+        req.flash("error", "Please enter the correct url");
+        res.redirect("/listings");
+      })
 // app.all("/", (req, res, next)=>{
 //         next( new expressError(404, "Chat Not found you are looking forward to!"))
 //       })
