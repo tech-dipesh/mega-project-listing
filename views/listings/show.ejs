@@ -1,148 +1,181 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>User: <%= listing.title %></title>
-    <link
-      rel="shortcut icon"
-      href="https://cdn-icons-png.flaticon.com/128/13225/13225806.png"
-      type="image/x-icon"
-    />
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
-    <style>
-      .card {
-        border-radius: 15px;
-        background-color: #343a40;
-        color: white;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-      }
+ <title>User: <%= listing.title %>
+  </title>
+  <style>
+    .card {
+      border-radius: 15px;
+      background-color: #343a40;
+      color: white;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
-      .card img {
-        border-radius: 15px 15px 0 0;
-        height: 400px;
-        object-fit: cover;
-      }
+    .card img {
+      border-radius: 15px 15px 0 0;
+      height: 400px;
+      object-fit: cover;
+    }
 
-      .card-title {
-        font-size: 1.8rem;
-      }
+    .card-title {
+      font-size: 1.8rem;
+    }
 
-      .card-body p {
-        font-size: 1.1rem;
-      }
+    .card-body p {
+      font-size: 1.1rem;
+    }
 
-      .edit {
-        margin-top: 30px;
-        text-align: center;
-      }
+    .edit {
+      margin-top: 30px;
+      text-align: center;
+    }
 
+
+/* this is showing the maptiles map to the end of the page */
+
+#map {
+  width: 70%;
+  height: 400px;
+  align-items: center;
+}
+
+  </style>
+
+<body>
+  <% layout("/layouts/boilerplate.ejs") -%>
+  <script>
+    let mapImport="<%= process.env.MAP_TOKEN %>";
+    let coordinate=<%- JSON.stringify(listing.geometry.coordinates) %>;
+  </script>
   
-    </style>
-  </head>
-  <body>
-    <% layout("/layouts/boilerplate.ejs") -%>
+  <!-- Include MapTiler SDK -->
+<!-- Make sure to include these scripts in the correct order -->
+<script src="https://unpkg.com/@maptiler/sdk@^1.0.0/dist/maptiler-sdk.umd.js"></script>
+<script src="https://unpkg.com/maplibre-gl@2.4.0/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/@maptiler/sdk@^1.0.0/dist/maptiler-sdk.css" rel="stylesheet" />
+
     <div class="container">
-      <h3 class="text-center mt-5">Details of: <%= listing._id %></h3>
+      <h3 class="text-center mt-5">Details of: <%= listing._id %>
+      </h3>
 
       <div class="row justify-content-center mt-4" style="cursor: pointer;">
         <div class="col-md-8">
           <div class="card">
-            <img
-              class="card-img-top"
-              src="<%= listing.image %>"
-              alt="<%= listing.title %>"
-            />
+            <img class="card-img-top" src="<%= listing.image.url %>" alt="<%= listing.title %>" />
             <div class="card-body text-center">
               <h5 class="card-title font-weight-bold">
                 Title: <%= listing.title %>
               </h5>
+              <p class="card-text">Owned By: <%= listing.owner.username %>
+              </p>
+              <br />
               <p class="card-text">
-                <strong>Description: </strong><%= listing.description %>
+                <strong>Description: </strong>
+                <%= listing.description %>
               </p>
               <p class="card-text">
                 <strong>Price: &#2352;&#2370;<%= listing.price %></strong>
               </p>
               <p class="card-text">
-                <strong>Location: </strong><%= listing.location %>
+                <strong>Location: </strong>
+                <%= listing.location %>
               </p>
               <p class="card-text">
-                <strong>Country: </strong><%= listing.country %>
+                <strong>Country: </strong>
+                <%= listing.country %>
               </p>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="edit">
-        <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary edit-btn">
-          Edit your Listings
-        </a>
 
-        <form
-          action="/listings/<%= listing._id %>/?_method=DELETE"
-          method="POST"
-        >
-        <br><br>
-          <button type="submit" class="btn btn-success mx-auto">Delete</button>
-        </form>
-        <br><br> 
-
-      </div>
-
-      <hr/>
-      <div class="col-8 offest-3 mb-3">
-        <h3>Leave a Rating</h3>
-
-        <form action="/listings/<%= listing.id %>/reviews" method="post" class="needs-validation" novalidate>
-          
-            <div class="mb-3 mt-3">
-              <label for="range" class="form-label">Your Rating</label>
-              <input type="range" id="range" min="1" max="5" name="review[rating]" class="form-range">
-            </div>
-            <hr/>
-            <div class="mb-3 mt-3">
-                <label for="Comments">Your Comments:</label>
-                <textarea name="review[comment]" id="comments" cols="30" rows="5" placeholder="Please tell me your experience?"  class="form-control" required></textarea>
-                <div class="invalid-feedback">Please Write on your Feedback.</div>
-            </div>
+      <% if (currUser && listing.owner._id.equals(currUser._id)) { %>
+        <div class="edit">
+          <a href="/listings/<%= listing._id %>/edit" class="btn btn-primary edit-btn">
+            Edit your Listings
+          </a>
+          <form action="/listings/<%= listing._id %>/?_method=DELETE" method="POST">
             <br><br>
-            <button class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-      
-      <!-- <p><%= listing.reviews %></p> -->
-      <!-- <ul>
-        <% for(review of listing.reviews){%>
-        <p><%=review.rating %>Stars</p>
-        <p><%= review.comment %></p>
-        <%}%>
-      </ul> -->
-      
-      <!-- for the giving the card stylng of our reviews. -->
-      <h2><b>All Reviews:</b></h2>
-      <div class="row">
-        <% for(review of listing.reviews){ %>
-          <div class="col-md-6 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <div class="card-title">Name:John Doe</div>
-                <div class="card-text">Comment: <%= review.comment %></div>
-                <div class="card text">Rating: <%= review.rating %></div>
-                <div class="card-text"><%=review.createdAt %></div>
-                <form action="/listings/<%= listing._id %>/reviews/<%=review._id %>?_method=DELETE" method="post" class="mb-3 mt-0">
-                
-                  <button class="btn btn-sm btn-dark">Delete</button>
-                </form>
-              </div>
-            </div>
-          </div>
-        <%} %>
-      </div>
-<script src="/js/script.js"></script>
+            <button type="submit" class="btn btn-success mx-auto">Delete</button>
+          </form>
+          <br><br>
 
-  </body>
-</html>
+        </div>
+        <%} %>
+          <hr />
+
+          <div class="col-8 offest-3 mb-3">
+            <% if(currUser){ %>
+              <h3>Leave a Rating</h3>
+              <form action="/listings/<%= listing._id %>/reviews" method="POST" class="needs-validation" novalidate>
+              
+                <!-- <div class="mb-3 mt-3">
+                            <label for="range" class="form-label">Your Rating</label>
+                            <input type="range" id="range" min="1" max="5" name="review[rating]" class="form-range">
+                          </div> -->
+                <hr />
+                <div class="mb-3 mt-3">
+                  <fieldset class="starability-slot">
+                    <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                    <label for="first-rate1" title="Terrible">1 Stars</label>
+
+                    <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                    <label for="first-rate2" title="Not good">2 Stars</label>
+
+                    <input type="radio" id="first-rate3" name="review[rating]" value="3" checked/>
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+
+                    <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                    <label for="first-rate5" title="Amazing">5 Stars</label>
+                  </fieldset>
+                </div>
+
+                <div class="mb-3 mt-3">
+                  <label for="Comments">Your Comments:</label>
+                  <textarea name="review[comment]" id="comments" cols="30" rows="5"
+                    placeholder="Please tell me your experience?" class="form-control" required></textarea>
+                  <div class="invalid-feedback">Please Write on your Feedback.</div>
+                </div>
+                <br><br>
+                <button class="btn btn-primary">Submit</button>
+              </form>
+              <% } %>
+          </div>
+          <% if(listing.reviews.length>0){ %>
+            <div class="row">
+            <h2><b>All Reviews:</b></h2>
+            <% for(review of listing.reviews){ %>
+              <div class="col-md-6 mb-3">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="card-title">Author: <%= review.author.username %>
+                    </div>
+                    <p class="starability-result card-text" data-rating="<%= review.rating %>">Stars</p>
+                    <div class="card-text">Comment: <%= review.comment %>
+                    </div>
+                    <!-- <p  class="card-text"><%= review.rating %> Stars</p> -->
+                    <!-- <div class="card-text"><%=review.createdAt %></div> -->
+                    <% if (currUser && review.author._id.equals(currUser._id)) { %>
+                      <form action="/listings/<%= listing._id %>/reviews/<%=review._id %>?_method=DELETE" method="post"
+                        class="mb-3 mt-0">
+                        <button class="btn btn-sm btn-dark">Delete</button>
+                      </form>
+                      <% } %>
+                  </div>
+                </div>
+              </div>
+              <%} %>
+          </div>
+        <% } %>
+        <div class="row justify-content-center mb-4">
+          <div class="col-8 text-center">
+            <h3>Listing Location:</h3>
+            <div id="map" class="mx-auto"></div>
+          </div>
+        </div>
+        <script>
+          
+        </script>
+<script src="/js/script.js"></script>
+<script src="/js/map.js"></script>
+</body>

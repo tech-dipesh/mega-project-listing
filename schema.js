@@ -3,7 +3,11 @@ module.exports.listingSchema=Joi.object({
   listing:Joi.object({
     title:Joi.string().min(5).required(),
     description:Joi.string().min(5).required(),
-    image:Joi.string().allow("", null),
+    // url:Joi.string().allow("",),
+    image: Joi.object({
+      filename: Joi.string().allow(""),
+      url: Joi.string().allow(""),
+    }).optional(),
     price:Joi.number().min(0).required(),
     location:Joi.string().required(),
     country:Joi.string()

@@ -17,14 +17,15 @@ body {
 .card-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 10px;
   width: 100%;
 }
 
 .card {
   background-color: #1a1a1a;
-  flex: 1 0 calc(24% - 20px);
+  /* flex: 1 0 calc(24% - 20px); */
+  flex: 0 0 calc(24% - 20px);
   margin: 10px 0;
   padding: 20px;
   border-radius: 10px;
@@ -92,3 +93,4 @@ button{
   text-decoration: underline;
   color: #e0e3dc;
 }
+

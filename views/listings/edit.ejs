@@ -59,14 +59,28 @@
       text-align: center;
       font-size: 24px;
     }
+    img{
+      height: 400px;
+      width: 400px;
+    }
   </style>
     <% layout("/layouts/boilerplate.ejs") -%>
-  <form action="/listings/<%=listing._id%>?_method=PUT" method="POST">
+  <form action="/listings/<%=listing._id%>?_method=PUT" method="POST" enctype="multipart/form-data">
       <input type="text" name="listing[title]" value="<%= listing.title %>">
       <br><br>
       <textarea name="listing[description]" id="" cols="30" rows="10"><%=listing.description %></textarea>
       <br><br>
-      <input type="text" name="listing[image]" value="<%= listing.image %>">
+      <!-- <input type="text" name="listing[image]" value="<%= listing.image %>"> -->
+       <div class="col-mb-6">
+        <img src="<%=listing.image.url %>" alt="<%=listing.title %>">;
+    </div>
+ 
+    <div class="row justify-content-center mt-5">
+      <div class="col-md-6">
+        <input type="file" class="form-control" id="listingImage" name="listing.image.url" placeholder="Add image URL">
+      </div>
+    </div>
+    
       <br><br>
       <input type="number" name="listing[price]" placeholder="Price is only is: &#2352;&#2370;" value="<%= listing.price %>">
       <br><br>

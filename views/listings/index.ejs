@@ -1,13 +1,99 @@
   <head>
     <link rel="stylesheet" href="/css/index.css">
   </head>
-  <% layout("/layouts/boilerplate.ejs") -%>
+  <style>
+    #filters{
+      display: flex;
+      flex-wrap: nowrap;
+    }
+    #filter{
+      margin-top: 2rem;
+      margin-right: 5rem;
+      text-align: center;
+      opacity: .8;
+    }
+    #filter:hover{
+      opacity: 1;
+      cursor: pointer;
+    }
+    #filter p{
+      font-size: .8rem;
+    }
+    .form-check{
+      margin-top: 5rem;
+      cursor: pointer;
+    }
+    .tax{
+      display: none;
+    }
+    .form-check {
+      border: 1px solid #ff5160;
+    border-radius: 1rem;
+    height: 3rem;
+    padding: 1rem;
+    margin-right: 1rem;
+    margin-top: 1rem;
+    }
+
+
+  </style>
   <body> 
-    <div class="container mt-5 pt-4">
-    <h3 class="text-center">All of the listings</h3>
+    <% layout("/layouts/boilerplate.ejs") -%> 
+     <!-- Display the success flash message -->
+     <div><br> </div>
+     <div id="filters" class="mt-5">
+      <div id="filter">
+        <div><i class="fa-solid fa-person-breastfeeding"></i></div>
+        <p>Trending</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-building"></i></div>
+        <p>Apartment</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-shield-dog"></i></div>
+        <p>Cabin</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-lock"></i></div>
+        <p>Island</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-city"></i></div>
+        <p>Cities</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-regular fa-clock"></i></div>
+        <p>Coming Soon</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-gas-pump"></i></div>
+        <p>Most Popular</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-house-signal"></i></div>
+        <p>Relax</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-house-flag"></i></i></div>
+        <p>Mansion</p>
+      </div>
+      <div id="filter">
+        <div><i class="fa-solid fa-car-tunnel"></i></div>
+        <p>Traditional</p>
+      </div>
+      <div class="tax-toggle">
+        <div class="form-check form-check-reverse form-switch">
+          <label class="form-check-label ml-2" for="flexSwitchCheckDefault">Before & After Taxes</label>
+          <input class="form-check-input ml-15" type="checkbox" role="switch" id="flexSwitchCheckDefault">
+        </div>
+      </div>
+    </div>
+    <div class="container">
+    <h3 class="text-center"></h3>
     <div class="d-flex justify-content-center">
-      <form action="listings/new" method="GET">
-        <button class="mb-2 bg-primary text-white">Create a new listing</button>
+      <form action="/listings/new" method="GET">
+        <button class="mb-2 bg-primary text-white text-right">Create a new listing</button>
       </form>
     </div>
 
@@ -15,7 +101,7 @@
       <% for(let Listing of allListings) { %>
       <div class="card">
         <figure>
-          <a href="/listings/<%=Listing._id %>"><img src="<%= Listing.image %>" alt="<%= Listing.title %>" /></a>
+          <a href="/listings/<%=Listing._id %>"><img src="<%= Listing.image.url %>" alt="<%= Listing.title %>" /></a>
           <div class="title"><a href="/listings/<%= Listing._id %>"><figcaption><%= Listing.title %></figcaption></a></div>
         </figure>
         <div class="card-content">
@@ -25,7 +111,7 @@
             >
           </p>
           <p class="price">
-            <strong>Price: &#2352;&#2370; </strong><%= Listing.price %>
+            <strong>Price: &#2352;&#2370; </strong><%= Listing.price %> <i class="tax">+ &nbsp; 13% Tax</i>
           </p>
           <p class="location">
             <strong>Location:</strong> <%= Listing.location %>
@@ -38,5 +124,21 @@
       <% } %>
     </div>
     </div>
+    <script>
+      let toggleSwitch=document.getElementById("flexSwitchCheckDefault");
+      let priceBefore=document.querySelector(".price");
+      toggleSwitch.addEventListener("click", ()=>{
+        // priceBefore.textContent=(priceBefore*.18)+priceBefore;
+        let tax=document.getElementsByClassName("tax");
+        for(info of tax){
+         if(info.style.display!= "inline"){
+          info.style.display="inline";
+         }
+         else{
+          info.style.display="none";
+         }
+        }
+      })
+    </script>
   </body>
 </html>
