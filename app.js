@@ -168,7 +168,7 @@ app.get((req, res)=>{
 })
 app.all("/", (req, res, next)=>{
         // next( new expressError(404, "Chat Not found you are looking forward to!"))
-        req.flash("error", "Please enter the correct url");
+     req.flash("success", "Congratulations! You now have access to view my portfolio website project.");
         res.redirect("/listings");
       })
 // app.all("/", (req, res, next)=>{
