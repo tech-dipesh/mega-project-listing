@@ -895,3 +895,6 @@ git status(it should shouw nothing to comming with on branch main)
 first i have to connect render to github (remember that only selected repo, as i only want to give access to my project not my entire profile.)
 then i have to connect and given a name, regions, runtime(set to node), build command(set to npm install as we will install of package from npm install), start command (node app.js set node caus we only run one times that's why we don't use nodemon app.js), auto deploy ( we can set to no , on advanced option, ), select on create web service)
 it will take time to it, if we just deploy that it will failed it, cause we use environment variable on multiple times on our code but we are not giving access to envionment variable which is why it cause as error.
+for making successfull of deployment:
+configure the atlas and envionment variable. till now our database is connect a local system but now we will connect with render. render will have different ip address. tha we have to store onn mogodb. so that atlas identify the white list of render ip. 
+for adding the envionment variable. in environment i will each added the each envionment variable. first i add each environment with key and their value each.
