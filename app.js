@@ -106,7 +106,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   next();
 });
-//
+
 
 //fakeUser signup
 app.get("/fakeUser", async (req, res) => {
@@ -163,6 +163,10 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("listings/error.ejs", { err });
   // res.status(statusCode).send(message);
 });
+
+app.get((req, res)=>{
+  res.redirect("/listings");
+})
 // app.all("/", (req, res, next)=>{
 //         next( new expressError(404, "Chat Not found you are looking forward to!"))
 //       })
