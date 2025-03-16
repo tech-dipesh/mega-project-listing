@@ -1,19 +1,25 @@
 {
-  "engines": {
-    "node": "22.11.0"
-  },
   "name": "air-bnb-project",
   "version": "1.0.0",
+  "description": "My airbnb Project",
+  "keywords": [],
+  "homepage": "https://github.com/tech-dipesh/mega-project-listing#readme",
+  "bugs": {
+    "url": "https://github.com/tech-dipesh/mega-project-listing/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tech-dipesh/mega-project-listing.git"
+  },
+  "license": "ISC",
+  "author": "Dipesh sharma",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node --no-deprecation app.js",
     "dev": "nodemon --no-deprecation app.js"
   },
-  "keywords": [],
-  "author": "Dipesh sharma",
-  "license": "ISC",
-  "description": "My airbnb Project",
   "dependencies": {
     "@mapbox/mapbox-sdk": "^0.16.1",
     "@maptiler/sdk": "^3.0.1",
@@ -35,5 +41,9 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^8.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": "22.11.0"
   }
 }

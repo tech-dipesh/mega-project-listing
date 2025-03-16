@@ -27,7 +27,7 @@ const { query } = require('express');
 //     //   // }
 //     //   // this is the longer routerroach with code repeatable we can use the joi package to handle this required logic
 //     const response = await geocodingClient.forwardGeocode({
-//   query: 'Paris, France',  // You can replace this with dynamic input
+//   query: 'Paris, France',  // You can replace this with dynamic i  nput
 //   limit: 1
 // })
 // .send();

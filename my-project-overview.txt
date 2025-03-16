@@ -2,7 +2,6 @@ first i install the json package with npm init -y
 
 then i install the express port which i will run on nodejs
 then we have to downloaded the ejs and mongoose which we have to set up
-
 now we have to show the databases which we right now using the mongoodb
 first prompt is show dbs to show all of the dbs
 
@@ -10,17 +9,15 @@ then we have to create a folder of models and there we can create a listing.js: 
 const listing=mongoose.model
 modules.export=listing; ("Listing", listingSchema); (with this way we can connect that constraint and export our rules)
 
-never ever fear of using docs when you forget it, it could be really useful to all to understand by doing it rather than remember it.
-
+#never ever fear of using docs when you forget it, it could be really useful to all to understand by doing it rather than remember it.
 then we can use the certain rule that can applied on our all data that will be stored after that we can require that into app.js and check the server is working with new route
-
 i have to extract the data and add them into object inside the array on data.js
 then i can run node app.js and go to mongosh to check whether working or not
 
 then our process would be first checking our server is that working after that create a get routing with listings url with res.render("app.ejs),{AllListing} (with allListings where all of our data is stored from tehe init data.js);
 inside view create a views folder inside that listing folder to separate all of our ejs folder
 
-when we rendering from app.get we generally use : res.render("index.ejs) but now we create a nested folder so we have to change into a "listings/index.ejs" which is a minor changes)
+when we rendering from app.get we generally use : res.render("index.ejs) but now we create a nested folder so we have to change into a "listings/index.ejs" which is a minor changes.
 const Listing = require("../models/listing.js"); (sometimes also check that required is correctly set up the data.js with require)
 after doing it check whether it is running the ejs or not with use the for (listing of allListings){ with li}here
 
@@ -31,19 +28,19 @@ i can run the nodemon app.js which keep constanlty refresh when i change anythii
 then our next steps is to create other route mainly :id route which we can go to specifc listing to check it.
 app.use(express.urlencoded({extended:true})); (it will prase the incoming bodies);
 
-after that i created the show.ejs and connected show.ejs to the new route of :id.
-i parse the other all details and then i styled with css with the card style box 
-now i create a new route of new.ejs with create a new button of create a new list
+#the imprtant things while sendind data from the server to client side is while using the ejs: app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views")); (first it will set the ejs files will be created, in the views folder of the directory name.)
+the app.set method can able to control the view enginer and static file served of html, css and js. the second line tells that where our folder is. and __dirname is set the absolute htat path. 
 
+after that i created the show.ejs and connected show.ejs to the new route of :id.
+now i create a new route of new.ejs with create a new button of create a new list.
 while creating a form remember that give it a name of the form input format that could align with our database to directly save our data.
 
 it will encountered the one error we create a first :id and then new now backend will try to understand the new of keyword which we don't want, so for this issue solve just use the new route before :id route.
 
 with in post method i have first extracted all of the data with have to be a same name on form for easier .
 
-req.body and req.params difference
-When working with `req.body`, it's used to extract data sent from forms (usually in POST requests), where the data is hidden and not visible in the URL. On the other hand, `req.params` extracts data directly from the URL (commonly in GET requests), where the data is visible and part of the URL path.
-
+# req.body and req.params difference:When working with `req.body`, it's used to extract data sent from forms (usually in POST requests), where the data is hidden and not visible in the URL. On the other hand, `req.params` extracts data directly from the URL (commonly in GET requests), where the data is visible and part of the URL path.
 
 we can use the req.body method but also we can use the different approach to send the frontend data to backend with post request.
     <input type="text" name="listing[title]" > (our object name would be listing and inside that it will be key name called title);
@@ -88,8 +85,7 @@ i have tried without doing async and await which takes too much time to take the
 
 //middlewares is the important topics on backend which i have to learn right now till now i have learn  
 
-it's an intermediatery between request and response.
-middlewares are not only in nodejs in general program world we can see the middlewares everywhere, right now.
+it's an intermediatery between request and response. middlewares are not only in nodejs in general program world we can see the middlewares everywhere, right now.
 
 middlwares in express functions that come into play after the server recieve an request and before the response is send to the client.
 some common middlewares functin are: methodOverride (it uses for the use of the method such as put, post & delete), bodyParser (when request body have the data, the request/backend/server doesn't understand . we have to parse that data for the understandable form), express.static(it will used for the backend static static files to serve to the clients side. static files:related css, related javascript, any image that static files we have to serve to the client we use express.static), express.urlencoded(it is same we get the acess inside request access.).
@@ -114,9 +110,7 @@ he can send responsed or either middlwares can call the next middlwares. like it
 //now continue to our mega project
 
 validation error--
-
-when we enter the data on forms the client/browser will check the data is that data matched with our constraint?
-due to incorrect data our website could be the updated and can cause the multiple error on our database.
+when we enter the data on forms the client/browser will check the data is that data matched with our constraint? due to incorrect data our website could be the updated and can cause the multiple error on our database.
 
 there are 2 mainly validation : client side validation and server side validation:
 client side validation means use put the unintended data, unfullfiled data for ex: in locationo user put the title, it is the client side validation
@@ -145,15 +139,16 @@ class expressError extends Error{
     this.message=message;
   }
 };
+The super() function in JavaScript is used to call the constructor of the parent class. In ymyour example, the expressError class extends the built-in Error class, which means expressError is a subclass of Error. The super() call is required to properly initialize the parent Error class.
 
 module.exports=expressError;
+
 first i use the app.use("*") to select the non existent route and i passed the next( new expressError(404, "error"))
 then i use the app.use(()) which i do like let{status, message}=err. and i send it into res.status(status).send(message);
+
 with this now my route is working now.( in default use the status 404 for avoiding other error)
-
 now with this way it send the proper error without crashing the app.
-
-where there is the async function on route just use the wrapasync to avoid conflict of non existent routes.
+where there is the async function on route just use the wrapasync to avoid conflict of non existent routes. while doing the asynchrounus opeartion it is become essential to handle the operation such as if error occures handles that error before got stuck on anywhere.
 
 staus 400 mean bad request. which mean due to client mistake, server can't handle the request.
 
@@ -182,9 +177,8 @@ http://localhost:8080/listings (when i send request as a post format which is th
 
   now i will learn the ejs erros.
   with the help of the deep i fixed the navbar fixed.
-
+  
   now i am currently doing the error.ejs file improvement.
-
   with showing the err.message we can also trace like: err.trace, err.stack. for showinng the error message.
 
 
@@ -493,7 +487,9 @@ inside session i use this :   cookie:{
 till now we have done the cookies operation now we willl opeate teh flash message.when we create a new listing it should flash above of saying the new listng is created. teh one things we have to ensure is that, before the app.use routes i have to use teh flash method so it can go on all of teh the route.
 first inside on listing.js file i have send the res.flash message with variable name and the message with separated by comma, then i use the app.use(flash()) with the same name that we required, i will createa a app.use again with 3 parameter with inside i passed, the: res.locals.success=req.flash(success); 
   next()
-}) (first it will store the success message on locals #most importantly we have to call the next to operate the another next call. for use this inside the inde.eejs i have to make the structure of that flash message. the flash message will only for once if we refresh it, it will never come again.)
+) The next() function in Express is a built-in function that is used in middleware to pass control to the next middleware function in the stack. If you don't call next(), the request will be left hanging, and Express won't move on to the next middleware or route handler.
+
+(first it will store the success message on locals #most importantly we have to call the next to operate the another next call. for use this inside the inde.eejs i have to make the structure of that flash message. the flash message will only for once if we refresh it, it will never come again.)
 now in the next steps, we will define the success and failure message partial. the error is due to the typo error it should be success i write the succes on listing.js file of route. till now the flash message doesn't look good which we can improve by teh styling:
 we can use the different alerts but for now , we will use the bootsrap flash. instead of showing our message inside the index.ejs we can simply showing our success message to boilerplate.ejs. like we created the a new template for the success template. 
 inside include folder i will create a new ejs folder called: flash.ejs (for the template): inside there i include the flash file inside class with like this:  <div class="container">
@@ -893,8 +889,10 @@ git status(it should shouw nothing to comming with on branch main)
 
 //connect render to github
 first i have to connect render to github (remember that only selected repo, as i only want to give access to my project not my entire profile.)
-then i have to connect and given a name, regions, runtime(set to node), build command(set to npm install as we will install of package from npm install), start command (node app.js set node caus we only run one times that's why we don't use nodemon app.js), auto deploy ( we can set to no , on advanced option, ), select on create web service)
+then i have to connect and given a name, regions, runtime(set to node), build command(set to npm install as we will install of package from npm install), start command (node app.js set node caus we only run one times that's why we don't use nodemon app.js), auto deploy ( we can set to no , on advanced option, ), select on create web service.
 it will take time to it, if we just deploy that it will failed it, cause we use environment variable on multiple times on our code but we are not giving access to envionment variable which is why it cause as error.
 for making successfull of deployment:
 configure the atlas and envionment variable. till now our database is connect a local system but now we will connect with render. render will have different ip address. tha we have to store onn mogodb. so that atlas identify the white list of render ip. 
-for adding the envionment variable. in environment i will each added the each envionment variable. first i add each environment with key and their value each.
+for adding the envionment variable. in environment i will each added the each envionment variable. first i add each environment with key and their value each. the 3 ip of render i have to add on network access of mongodb atlas . then i also force the install process cause cloudinary lower version cause the errror: npm install --force. now finally my project has been finished.
+
+in the frontend after this i have learned the react and tailwind. now i should learn the:

@@ -12,8 +12,6 @@ const express = require("express");
 const app = express();
 const port = 8080;
 const mongoose = require("mongoose");
-const Listing = require("./models/listing.js");
-const Review = require("./models/reviews.js");
 const ejs = require("ejs");
 let engine = require("ejs-mate");
 
@@ -21,7 +19,6 @@ const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 
-let { listingSchema, reviewSchema } = require("./schema.js");
 
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
@@ -32,8 +29,6 @@ const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 const path = require("path");
-const { log } = require("console");
-const { wrap } = require("module");
 // for showing the listing propery using express
 app.use(express.urlencoded({ extended: true }));
 
@@ -167,8 +162,9 @@ app.use((err, req, res, next) => {
 app.get((req, res)=>{
   res.redirect("/listings");
 })
+
 app.all("/", (req, res, next)=>{
-        // next( new expressError(404, "Chat Not found you are looking forward to!"))
-        req.flash("error", "Please enter the correct url");
-        res.redirect("/listings");
+  // next( new expressError(404, "Chat Not found you are looking forward to!"))
+  req.flash("success", "Congratulations! You now have access to view my portfolio website project.");
+  res.redirect("/listings");
       })
