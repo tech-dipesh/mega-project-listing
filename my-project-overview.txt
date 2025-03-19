@@ -31,6 +31,13 @@ app.use(express.urlencoded({extended:true})); (it will prase the incoming bodies
 #the imprtant things while sendind data from the server to client side is while using the ejs: app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views")); (first it will set the ejs files will be created, in the views folder of the directory name.)
 the app.set method can able to control the view enginer and static file served of html, css and js. the second line tells that where our folder is. and __dirname is set the absolute htat path. 
+app.use(express.static(path.join(__dirname, "public"))); (This serves static files (e.g., CSS, JavaScript, images) from the specified directory.)
+__dirname:
+This is a Node.js global variable that gives the absolute path of the directory containing the current file (e.g., app.js).
+Example: If app.js is in D:\Project\my-app, then __dirname will be D:\Project\my-app. the path.join is utlity into single path. 
+in her: we set up the app.use a middleware function remember that.
+#in here first we have to require the path which we have used on the path.join . with const path=require("path"). 
+
 
 after that i created the show.ejs and connected show.ejs to the new route of :id.
 now i create a new route of new.ejs with create a new button of create a new list.
@@ -121,7 +128,6 @@ when we build the project , our intend always have to be that webpage can anyone
 
 
 the next things i have done is add the boostrap classes to my new.ejs file for better looks.
-
 with the helps of i create an success and failure message as a client side form submission.
 
 then i use the custom error handler to handle the error if use create a listing without filling data, as i already done that with the boostrap but this is the custom error handleer logic.
@@ -175,8 +181,7 @@ http://localhost:8080/listings (when i send request as a post format which is th
   now i have update lot of things create an separate folder for the header and footer and connect them to boilderplate and conect them with main.
   update lot of css things.
 
-  now i will learn the ejs erros.
-  with the help of the deep i fixed the navbar fixed.
+  now i will learn the ejs erros. @with the help of the deepseek i fixed the navbar fixed.
   
   now i am currently doing the error.ejs file improvement.
   with showing the err.message we can also trace like: err.trace, err.stack. for showinng the error message.

@@ -1,7 +1,9 @@
+const dotenv=require("dotenv").config();
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
   // console.log(process.env);
 }
+
 // console.log(process.env.SECRET);
 
 //for the avoidng any deprecration warning on terminal
@@ -104,15 +106,15 @@ app.use((req, res, next) => {
 
 
 //fakeUser signup
-app.get("/fakeUser", async (req, res) => {
-  let fakeUser = new User({
-    email: "dipeshsharma@gmail.com",
-    username: "newUser",
-  });
-  let newValue = await User.register(fakeUser, "password");
-  res.send(newValue);
-  // console.log(newValue);
-});
+// app.get("/fakeUser", async (req, res) => {
+//   let fakeUser = new User({
+//     email: "dipeshsharma@gmail.com",
+//     username: "newUser",
+//   });
+//   let newValue = await User.register(fakeUser, "password");
+//   res.send(newValue);
+//   // console.log(newValue);
+// });
 
 //this is for the listings that i moved to the app method to the listing: import the listings
 //redirect those listings to what i have made logic inside the listing.js . mount the listings router. i have to use after the app.use urlencoded code for any potential error.

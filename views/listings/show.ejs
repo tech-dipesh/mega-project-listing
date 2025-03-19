@@ -42,7 +42,7 @@
   <% layout("/layouts/boilerplate.ejs") -%>
   <script>
     let mapImport="<%= process.env.MAP_TOKEN %>";
-    let coordinate=<%- JSON.stringify(listing.geometry.coordinates) %>;
+    let coordinate="<%- JSON.stringify(listing.geometry.coordinates) %>"
   </script>
   
   <!-- Include MapTiler SDK -->

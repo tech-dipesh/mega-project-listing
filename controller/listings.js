@@ -1,7 +1,6 @@
 // // mapbox maptoken
 
 // const mbxGeoCoding = require('@mapbox/mapbox-sdk/services/geocoding');
-const mapToken=process.env.MAP_TOKEN;
 // // const geocodingClient = mbxGeoCoding({ accessToken: mapToken });
 // const maptiler = require('@maptiler/sdk').default;
 // const mapboxgl = require('@mapbox/mapbox-sdk');
@@ -10,12 +9,12 @@ const mapToken=process.env.MAP_TOKEN;
 // const geocodingClient = geocoding({ accessToken: process.env.MAP_TOKEN });
 
 
-  const Listing = require("../models/listing")
-  //list of require models that i use on listing
-  const {isL, isLoggedIn}=require("../middleware.js");
-  const validateListings = require("../utils/validateListings.js");
-  const wrapAsync=require("../utils/wrapAsync.js");
-const { query } = require('express');
+const mapToken=process.env.MAP_TOKEN;
+const Listing = require("../models/listing")
+//list of require models that i use on listing
+const {saveRedirectUrl, isLoggedIn}=require("../middleware.js");
+const wrapAsync=require("../utils/wrapAsync.js");
+const axios = require('axios');
 
 
 // module.exports.postListing= async(req, res, next)=>{
@@ -58,7 +57,6 @@ const { query } = require('express');
 // const geocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 
 // Add axios for HTTP requests
-const axios = require('axios');
 
 // In your postListing route, replace the geocoding code:
 
@@ -221,7 +219,6 @@ module.exports.reviewId=async(req, res) => {
   
   if (!listing) {
     // instead throw the message we can send the flash message
-    
     req.flash("error", "Listing you are trying to access is deleted or does not exist. ")
     res.redirect("/listings")
     // throw new expressError(404, "Listing not found");
