@@ -160,15 +160,15 @@ module.exports.postListing = async (req, res, next) => {
 
 
 module.exports.index= async (req, res) => {
- 
           const allListings = await Listing.find({});
         // res.send("router is running now");
         req.flash("success", "New listing added");
         res.render("listings/index.ejs", { allListings });
         };
-        
-        module.exports.editListings=async(req, res)=>{
-          let {id}=req.params;
+       
+
+module.exports.editListings=async(req, res)=>{
+  let {id}=req.params;
   const listing=await Listing.findById(id)
   if(!listing){
     req.flash("error", "Listing you requested is doesn't exist");
@@ -223,7 +223,6 @@ module.exports.reviewId=async(req, res) => {
     res.redirect("/listings")
     // throw new expressError(404, "Listing not found");
   }
-  
   res.render("listings/show.ejs", {listing, currUser: req.user});
 }
 
