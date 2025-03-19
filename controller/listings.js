@@ -1,17 +1,6 @@
-// // mapbox maptoken
-
-// const mbxGeoCoding = require('@mapbox/mapbox-sdk/services/geocoding');
-// // const geocodingClient = mbxGeoCoding({ accessToken: mapToken });
-// const maptiler = require('@maptiler/sdk').default;
-// const mapboxgl = require('@mapbox/mapbox-sdk');
-// const geocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-
-// const geocodingClient = geocoding({ accessToken: process.env.MAP_TOKEN });
-
-
 const mapToken=process.env.MAP_TOKEN;
-const Listing = require("../models/listing")
 //list of require models that i use on listing
+const Listing = require("../models/listing")
 const {saveRedirectUrl, isLoggedIn}=require("../middleware.js");
 const wrapAsync=require("../utils/wrapAsync.js");
 const axios = require('axios');
@@ -30,7 +19,6 @@ const axios = require('axios');
 //   limit: 1
 // })
 // .send();
-
 // console.log(response.body.features);
 // let url=req.file.path;
 //           let filename=req.file.filename;
@@ -43,27 +31,6 @@ const axios = require('axios');
 //         };
         
         
-
-
-
-
-
-
-
-
-
-// Remove Mapbox requires
-// const mapboxgl = require('@mapbox/mapbox-sdk');
-// const geocoding = require('@mapbox/mapbox-sdk/services/geocoding');
-
-// Add axios for HTTP requests
-
-// In your postListing route, replace the geocoding code:
-
-
-
-
-
 // this is my second last code
 // module.exports.postListing = async(req, res, next) => {
 //   try {
@@ -110,9 +77,6 @@ module.exports.contactForm=(req, res)=>{
   res.redirect("/listings")
   // res.render("listings/contact.ejs");
 }
-
-
-
 
 
 
@@ -225,4 +189,3 @@ module.exports.reviewId=async(req, res) => {
   }
   res.render("listings/show.ejs", {listing, currUser: req.user});
 }
-
