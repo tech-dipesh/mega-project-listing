@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 # For ignoring a git file
 node_modules/
 .env
+=======
+  #For ignoring a git file
+  node_modules/
+  .env
+>>>>>>> cf219797634786fdadaf158907d74221fbba9f5c
 .my-project-overview.txt
