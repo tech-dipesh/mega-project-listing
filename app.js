@@ -86,7 +86,6 @@ const sessionOptions = {
 
 
 app.use(session(sessionOptions));
-//our connect flash app.use method:
 app.use(flash());
 
 // intialize passport middleware
