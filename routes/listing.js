@@ -33,7 +33,7 @@ router.get("/contact", listingController.contactForm)
 
 router.route("/")
 //index home routing, which i will also show the flash connect 
-.get( wrapAsync(listingController.index))
+.get( wrapAsync(listingController.getListing))
 // create a post route to accept the newer data of create a new list
 .post(isLoggedIn, upload.single("listing[image]"), validateListings, wrapAsync(listingController.postListing));
 // validateListings,
