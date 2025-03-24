@@ -4,8 +4,6 @@ if (process.env.NODE_ENV != "production") {
   // console.log(process.env);
 }
 
-// console.log(process.env.SECRET);
-
 //for the avoidng any deprecration warning on terminal
 process.env.NODE_NO_WARNINGS = "1";
 
@@ -13,6 +11,7 @@ const methodOverride = require("method-override");
 const express = require("express");
 const app = express();
 const port = 8080;
+const path = require("path");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 let engine = require("ejs-mate");
@@ -20,8 +19,6 @@ let engine = require("ejs-mate");
 const listingsRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
-
-
 const wrapAsync = require("./utils/wrapAsync.js");
 const expressError = require("./utils/expressError.js");
 
@@ -30,14 +27,13 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-const path = require("path");
-// for showing the listing propery using express
-app.use(express.urlencoded({ extended: true }));
-
 //require the express session
 const flash = require("connect-flash");
 const session = require("express-session");
 const mongoStore=require("connect-mongo");
+
+// for showing the listing propery using express
+app.use(express.urlencoded({ extended: true }));
 
 
 

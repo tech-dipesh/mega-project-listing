@@ -138,7 +138,7 @@ module.exports.editListings = async (req, res) => {
 module.exports.updateRoute = async (req, res) => {
   let { id } = req.params;
   // let listing=await Listing.findById(id);
-  // if(!listing.owner.equals(req.user)){
+  // if(!listing.owner.equals(rjeq.user)){
   //   req.flash("error", "you don't have the right to edit the ")
   // }
   let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
