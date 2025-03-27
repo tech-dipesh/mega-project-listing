@@ -11,7 +11,6 @@ module.exports.showReview=async(req, res) => {
         if (!listing) {
             throw new expressError(404, "Listing not found");
           }
-          
           const newReview = new Review({
             comment: req.body.review.comment,
             rating: req.body.review.rating,
