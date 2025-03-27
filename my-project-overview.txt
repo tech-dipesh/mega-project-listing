@@ -293,8 +293,8 @@ db.reviews.deleteOne({_id: ObjectId("67acbc16bd2e7573243c3715")}) (with this i r
 render our reviews, like show the review that is stored on our database.
 first i will see the with just pass the object id to check whether my server is working or not.
 
-# we can't directly access the valeu and data inside of reviews at that time we can simply use the populate method to extract inside that value. 
-  const listing = await Listing.findById(id).populate("reviews"); (with the populate method i can get the acces of reviews, now if i only print the value now it will print the entire valeu with comments and rating.) 
+# we can't directly access the value and data inside of reviews at that time we can simply use the populate method to extract inside that value. 
+  const listing = await Listing.findById(id).populate("reviews"); (with the populate method i can get the acces of reviews, now if i only print the value now it will print the entire value with comments and rating.) 
   
 
 we don't only want to get the reviews also we want to get the data of the review, at that time we only get the object_id and with for of loop we can get the data of inside reviews.

@@ -1,4 +1,5 @@
 # For ignoring a git file
 node_modules/
 .env
+# my-project-overview.txt
 my-project-overview.txt
