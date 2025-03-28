@@ -1,7 +1,6 @@
 const User = require("../models/user.js");
 const wrapAsync=require("../utils/wrapAsync.js")
 const { saveRedirectUrl } = require("../middleware.js");
-const passport=require("passport");
 
 
 module.exports.signupPost=async (req, res)=>{

@@ -849,16 +849,14 @@ we have 2 option, when we want to hide anything: visiblity hidden , mean it will
          }
         }
       }) (with this logic i can simply add the if display is inline then do condition else another condition.) 
-      we can change teh search button .
-
-
+we can change the search button .
 
 
 now using the mongoose atlas. now we have stored the data on cloudinary now we will use mongo atlas for cloud database service. now our complete database will shifted to the cloud/online. first create a account on mongo atlas. in storage there are 2 types are storage: individual storage and shared storage. individual mean we only can access and shared mean that storage can use anyone but can't have the access to the other. for set the authentication we have to set the username and password. note the username and password. now on we can create user. what does it mean create user, when we create any database . till now we only created on local host. in our localhost db, from vs code when we want to do read write we can do that. we can set who only can read access and who only have write access like this. it is like different level of permission to user. like college student don't have the access to change marks while teacher have like this.
 i have add the password. now i have to connect to the local envionment  which requires the ip address. when we will upload to the internet we have to get the local environment for hosting: option are render and heroku. when we will deploying it will move to cloud. when it will go online we have to added th online ip. 
 how can we connect the local project to online database. when we will connect to the node.js it will show the database link of string. we have to copy and change the passwrod to your password. we have to add that string to app.js, where we connect to the mongodb of MONGO_URL we will change there. i store that password to env first, we will later not pushed the env file for security purpose, i first add on env and i changed the mongo_url to that process.env with any name and replace mongoose.connect with that same name. now we can check all of our data that we added here will not shown we can add any new listings now.
 
-mongoose session store. the next thing we will se before deployment is mongo session store with connect-mongo. as i remember that we use express sesion. the storage we use is local storage. the session storage not made for the deployment it meant only for the designing and development. due to it will leak memory, under most condition and cannot be teh scalable. it is only meant for debugging and development.
+mongoose session store. the next thing we will se before deployment is mongo session store with connect-mongo. as i remember that we use express sesion. the storage we use is local storage. the session storage not made for the deployment it meant only for the designing and development. due to it will leak memory, under most condition and cannot be the scalable. it is only meant for debugging and development.
 by default session storage we have to change it. there are lot of option. also we have experience on mongo we will use service called: connect-mongo. the all of the cookie,  user expiry date, user token all of the will be stored here. for using this we have to install it first. we have to require the connect mongo and also  express session(express-session ) is already required. we can pass the connect-mongo as a middleware or we also can even pass as a variable: 
   store: MongoStore.create({
     mongoUrl: 'dbUrl',
