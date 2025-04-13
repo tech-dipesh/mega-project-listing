@@ -121,7 +121,7 @@ module.exports.getListing = async (req, res) => {
   req.flash("success", "New listing added");
   res.render("listings/index.ejs", { allListings });
 };
-j
+
 module.exports.editListings = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);

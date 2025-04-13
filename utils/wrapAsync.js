@@ -6,7 +6,7 @@ function wrapAsync(fn){
     fn(req, res, next).catch(next);
   }
 }
-//shorter way to write the code with arrow function
+//shorter way to write thre code with arrow function
 module.exports=(fn)=>{
   return (req, res, next)=>{
     fn(req, res, next).catch(next);
