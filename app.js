@@ -1,7 +1,6 @@
 const dotenv=require("dotenv").config();
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
-  // console.log(process.env);
 }
 
 //for the avoidng any deprecration warning on terminal
@@ -27,7 +26,7 @@ const passport = require("passport");
 const localStrategy = require("passport-local");
 const User = require("./models/user.js");
 
-//require the express session
+// This is express ssession
 const flash = require("connect-flash");
 const session = require("express-session");
 const mongoStore=require("connect-mongo");
@@ -45,7 +44,7 @@ main()
     console.log("succesfully connected to the airbnb database");
   })
   .catch((err) => {
-    console.log(err);
+    console.log(`Not connected succesfully ${err}`);
   });
 async function main() {
   await mongoose.connect(dbUrl);
