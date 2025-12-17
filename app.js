@@ -4,6 +4,8 @@ if (process.env.NODE_ENV != "production") {
   // console.log(process.env);
 }
 
+
+
 //for the avoidng any deprecration warning on terminal
 process.env.NODE_NO_WARNINGS = "1";
 
@@ -100,16 +102,16 @@ app.use((req, res, next) => {
 });
 
 
-//fakeUser signup
-// app.get("/fakeUser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "dipeshsharma@gmail.com",
-//     username: "newUser",
-//   });
-//   let newValue = await User.register(fakeUser, "password");
-//   res.send(newValue);
-//   // console.log(newValue);
-// });
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+app.use(methodOverride("_method"));
+app.engine("ejs", engine);
+
+app.use(express.static(path.join(__dirname, "public")));
+// app.use("public/css", express.static(path.join(__dirname, "public/css")));
+
+
+
 
 //this is for the listings that i moved to the app method to the listing: import the listings
 //redirect those listings to what i have made logic inside the listing.js . mount the listings router. i have to use after the app.use urlencoded code for any potential error.
@@ -119,36 +121,12 @@ app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/", userRouter);
 // app.use("/listings/:id/reviews", reviews)
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(methodOverride("_method"));
-app.engine("ejs", engine);
-
-app.use(express.static(path.join(__dirname, "public")));
-// app.use("public/css", express.static(path.join(__dirname, "public/css")));
 
 app.listen(8080, (err) => {
   if (err) console.error("Server start error:", err);
   console.log("Server running on port 8080");
 });
 
-// app.get("/testListings", async (req, res) => {
-//   try {
-//     let sampleListing = new Listing({
-//       title: "my nepali villa on rent",
-//       description:
-//         "near to the beautiful mountain on the world, you can expect the best sunrise and best sunset from your room",
-//       price: 599,
-//       location: "Salyan, Baglung",
-//       country: "Nepal",
-//     });
-
-//     await sampleListing.save();
-//     res.send("test is working now and listing saved");
-//   } catch (error) {
-//     res.send(error);
-//   }
-// });
 
 app.use((err, req, res, next) => {
   let { statusCode = 404, message = "something went wrong" } = err;
@@ -156,9 +134,11 @@ app.use((err, req, res, next) => {
   // res.status(statusCode).send(message);
 });
 
-app.get((req, res)=>{
-  res.redirect("/listings");
-})
+
+// Note needed
+// app.get((req, res)=>{
+//   res.redirect("/listings");
+// })
 
 app.all("/", (req, res, next)=>{
   // next( new expressError(404, "Chat Not found you are looking forward to!"))

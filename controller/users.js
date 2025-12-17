@@ -3,7 +3,7 @@ const wrapAsync=require("../utils/wrapAsync.js")
 const { saveRedirectUrl } = require("../middleware.js");
 
 
-module.exports.signupPost=async (req, res)=>{
+module.exports.signupPost=async (req, res, next)=>{
   try{
   let {username, email, password}=req.body;
   const newUser=new User({email, username})
