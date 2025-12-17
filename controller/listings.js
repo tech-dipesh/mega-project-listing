@@ -73,7 +73,7 @@ const axios = require("axios");
 module.exports.contactForm = (req, res) => {
   req.flash(
     "error",
-    "sorry for the inconvinance, i will deploy contact form asap, contact me at @dipeshacademy linkedin"
+    "sorry for the inconvinance, i will deploy contact form asap, contact me at @tech-dipesh linkedin"
   );
   res.redirect("/listings");
   // res.render("listings/contact.ejs");
