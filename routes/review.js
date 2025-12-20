@@ -1,15 +1,16 @@
 const methodOverride=require("method-override");
+import methodOverride from "method-override"
+import express from "express"
+// other routes that i also have to requird from router.js to here:
+import wrapAsync from "../utils/wrapAsync.js";
+import expressError from "../utils/expressError.js";
+import validateReview from "../utils/validate.js"
+import { listingSchema, reviewSchema } from "../schema.js";
+import listing from "../models/listing.js";
+import Review from "../models/reviews.js"
 
-const express=require("express");
 // const router=express.Router();
 const router = express.Router({ mergeParams: true });
-// other routes that i also have to requird from router.js to here:
-const wrapAsync=require("../utils/wrapAsync.js")
-const expressError=require("../utils/expressError.js")
-const validateReview = require("../utils/validate.js");
-let {listingSchema, reviewSchema}=require("../schema.js");
-const Listing = require("../models/listing.js");
-const Review = require("../models/reviews.js");
 
 const { isLoggedIn}=require("../middleware.js")
 

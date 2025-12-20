@@ -1,6 +1,6 @@
 // utils/validate.js
-const { reviewSchema, listingSchema } = require("../schema.js");
-const expressError = require("./expressError.js");
+import { reviewSchema, listingSchema } from "../schema.js";
+import expressError from "./expressError.js";
 
 // add the logic of the validateListing
 //create a function for validateListing with middleware:

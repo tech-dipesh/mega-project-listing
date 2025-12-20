@@ -1,6 +1,6 @@
 // utils/validate.js
-const { reviewSchema } = require("../schema.js");
-const expressError = require("./expressError.js");
+import { reviewSchema } from "../schema.js";
+import expressError from "./expressError.js";
 
 const validateReview = (req, res, next) => {
   const { error } = reviewSchema.validate(req.body);

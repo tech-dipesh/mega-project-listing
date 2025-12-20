@@ -1,10 +1,10 @@
-  const express=require("express");
+import express from "express"
   const router=express.Router();
-  const User=require("../models/user.js");
-  const wrapAsync = require("../utils/wrapAsync");
-  const passport=require("passport");
-  const { saveRedirectUrl } = require("../middleware.js");
-  const userController=require("../controller/users.js")
+  import User from "../models/user.js"
+  import wrapAsync from "../utils/wrapAsync";
+  import passport from "passport";
+  import {saveRedirectUrl} from "../middleware.js"
+  import userController from "../controller/users.js"
 
   router.route("/signup")
   .get( async (req, res)=>{

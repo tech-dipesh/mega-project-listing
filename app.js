@@ -30,7 +30,7 @@ import expressError from "./utils/expressError.js";
 //using the authentication method
 import passport from "passport";
 import localStrategy from "passport-local"
-const User = require("./models/user.js");
+import user from "./models/user.js"
 
 //require the express session
 import flash from "connect-flash"
