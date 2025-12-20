@@ -1,10 +1,9 @@
-const expressError=require("../utils/expressError.js")
-const Review=require("../models/reviews.js")
+import expressError from "../utils/expressError.js";
+import Review from "../models/reviews.js";
+import listing from "../models/listing";
 
-const Listing = require("../models/listing")
 //list of require models that i use on listing
-
-module.exports.showReview=async(req, res) => {
+const showReview=async(req, res) => {
   try {
 
     const listing = await Listing.findById(req.params.id);
@@ -31,7 +30,7 @@ module.exports.showReview=async(req, res) => {
       }
     };
 
-module.exports.destoryRoute=async (req, res) => {
+const destoryRoute=async (req, res) => {
   let { id, reviewId } = req.params;
   if(!req.author.equals(req.user._id)){
     req.flash("error", "you are not a owner of this review");
@@ -42,3 +41,6 @@ module.exports.destoryRoute=async (req, res) => {
   req.flash("success", "Your review is deleted")
   res.redirect(`/listings/${id}`);
   };
+
+
+  export {showReview, destoryRoute}

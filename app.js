@@ -1,4 +1,4 @@
-const dotenv=require("dotenv").config();
+import dotenv from "dotenv"
 if (process.env.NODE_ENV != "production") {
   require("dotenv").config();
   // console.log(process.env);
@@ -9,30 +9,33 @@ if (process.env.NODE_ENV != "production") {
 //for the avoidng any deprecration warning on terminal
 process.env.NODE_NO_WARNINGS = "1";
 
-const methodOverride = require("method-override");
-const express = require("express");
+import methodOverride from "method-override"
+import express from "express"
+import path from "path"
+import mongoose from "mongoose";
+import ejs from "ejs"
+import engine from "ejs-mate"
+
+
 const app = express();
 const port = 8080;
-const path = require("path");
-const mongoose = require("mongoose");
-const ejs = require("ejs");
-let engine = require("ejs-mate");
 
-const listingsRouter = require("./routes/listing.js");
-const reviewsRouter = require("./routes/review.js");
-const userRouter = require("./routes/user.js");
-const wrapAsync = require("./utils/wrapAsync.js");
-const expressError = require("./utils/expressError.js");
+import listingsRouter from "./routes/listing.js"
+import reviewsRouter from "./routes/review.js"
+import userRouter from "./routes/user.js"
+import wrapAsync from "./utils/wrapAsync.js";
+import expressError from "./utils/expressError.js";
+
 
 //using the authentication method
-const passport = require("passport");
-const localStrategy = require("passport-local");
+import passport from "passport";
+import localStrategy from "passport-local"
 const User = require("./models/user.js");
 
 //require the express session
-const flash = require("connect-flash");
-const session = require("express-session");
-const mongoStore=require("connect-mongo");
+import flash from "connect-flash"
+import session from "express-session";
+import mongoStore from "connect-mongo";
 
 // for showing the listing propery using express
 app.use(express.urlencoded({ extended: true }));

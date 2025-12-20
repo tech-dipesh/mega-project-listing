@@ -1,76 +1,12 @@
 const mapToken = process.env.MAP_TOKEN;
 //list of require models that i use on listing
-const Listing = require("../models/listing");
-const { saveRedirectUrl, isLoggedIn } = require("../middleware.js");
-const wrapAsync = require("../utils/wrapAsync.js");
-const axios = require("axios");
+import listing from "../models/listing";
+import { saveRedirectUrl, isLoggedIn } from "../middleware.js";
+import wrapAsync from "../utils/wrapAsync.js";
+import axios from "axios";
 
-// module.exports.postListing= async(req, res, next)=>{
-//   //   // let{title, description, price, location, country}=req.body;
-//   //   // let listing=req.body.listing;
-//   //   // new Listing(listing);
-//   //   // if(!req.body.listing){
-//     //   //   throw new expressError(404, "listings is not valid")
-//     //   // }
-//     //   // this is the longer routerroach wit h code repeatable we can use the joi package to handle this required logic
-//     const response = await geocodingClient.forwardGeocode({
-//   query: 'Paris, France',  // You can replace this with dynamic i  nput
-//   limit: 1
-// })
-// .send();
-// console.log(response.body.features);
-// let url=req.file.path;
-//           let filename=req.file.filename;
-//           const newListing=new Listing(req.body.listing);
-//           newListing.owner=req.user._id;
-//           newListing.image={url, filename};
-//           await newListing.save();
-//           req.flash("success", "New listings is added")
-//           res.redirect("/listings");
-//         };
 
-// this is my second last code
-// module.exports.postListing = async(req, res, next) => {
-//   try {
-//     // Geocoding with MapTiler
-//     const query = req.body.listing.location; // Use user input from form
-//     const response = await axios.get(
-//       `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json`,
-//       {
-//         params: {
-//           // params: { key: process.env.MAP_TOKEN },
-//           key: process.env.MAP_TOKEN,
-//           timeout: 300
-//         }
-//       }
-//     );
-
-//     const coordinates = response.data.features[0].geometry.coordinates;
-
-//     const newListing = new Listing(req.body.listing);
-//     newListing.geometry = {
-//       type: "Point",
-//       coordinates: coordinates
-//     };
-
-//     // Rest of your existing code...
-//     newListing.owner = req.user._id;
-//     console.log(response.body.features);
-
-//     newListing.image = { url: req.file.path, filename: req.file.filename };
-
-//     await newListing.save();
-//     req.flash("success", "New listing added");
-//     res.redirect("/listings");
-//   } catch (error) {
-//     console.error("Geocoding failed:", error);
-//     req.flash("error", "Could not determine location coordinates");
-//     return res.redirect("/listings/new");
-//   }
-//   // console.log(process.env.MAP_TOKEN)
-// };
-
-module.exports.contactForm = (req, res) => {
+export const contactForm = (req, res) => {
   req.flash(
     "error",
     "sorry for the inconvinance, i will deploy contact form asap, contact me at @dipeshacademy linkedin"
@@ -80,7 +16,7 @@ module.exports.contactForm = (req, res) => {
 };
 
 
-module.exports.postListing = async (req, res, next) => {
+export const postListing = async (req, res, next) => {
   try {
     const query = req.body.listing.location;
     const response = await axios.get(
@@ -115,14 +51,14 @@ module.exports.postListing = async (req, res, next) => {
   }
 };
 
-module.exports.getListing = async (req, res) => {
+export const getListing = async (req, res) => {
   const allListings = await Listing.find({});
   // res.send("router is running now");
   req.flash("success", "New listing added");
   res.render("listings/index.ejs", { allListings });
 };
 
-module.exports.editListings = async (req, res) => {
+export const editListings = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
@@ -135,7 +71,7 @@ module.exports.editListings = async (req, res) => {
 };
 
 //update route
-module.exports.updateRoute = async (req, res) => {
+export const updateRoute = async (req, res) => {
   let { id } = req.params;
   // let listing=await Listing.findById(id);
   // if(!listing.owner.equals(rjeq.user)){
@@ -154,7 +90,7 @@ module.exports.updateRoute = async (req, res) => {
 };
 
 //delete route
-module.exports.deleteRoute = async (req, res) => {
+export const deleteRoute = async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Your listing is deleted");
@@ -162,7 +98,7 @@ module.exports.deleteRoute = async (req, res) => {
 };
 
 // show review id
-module.exports.reviewId = async (req, res) => {
+export const reviewId = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id)
     .populate({

@@ -1,9 +1,9 @@
-const User = require("../models/user.js");
-const wrapAsync=require("../utils/wrapAsync.js")
-const { saveRedirectUrl } = require("../middleware.js");
+import user from "../models/user.js";
+import wrapAsync from "../utils/wrapAsync.js";
+import { saveRedirectUrl } from "../middleware.js";
 
 
-module.exports.signupPost=async (req, res, next)=>{
+const signupPost=async (req, res, next)=>{
   try{
   let {username, email, password}=req.body;
   const newUser=new User({email, username})
@@ -23,7 +23,7 @@ module.exports.signupPost=async (req, res, next)=>{
   }
 };
 
-module.exports.loginPost=async (req, res)=>{
+const loginPost=async (req, res)=>{
   // console.log(req.user);
   console.log(`Someone named ${req.user.username} signin to my site with ${req.user.email} email.`)
   req.flash("success", "Welcome back to our Listing site")
@@ -31,7 +31,7 @@ module.exports.loginPost=async (req, res)=>{
   res.redirect(redirectUrl)
 };
 
-module.exports.logOutGet=(req, res)=>{
+const logOutGet=(req, res)=>{
   req.logout((err)=>{
    if(err){
      next(err);
@@ -40,3 +40,5 @@ module.exports.logOutGet=(req, res)=>{
    res.redirect("/listings")
   })
 }
+
+export {signupPost, loginPost, logOutGet}
