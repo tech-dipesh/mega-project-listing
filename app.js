@@ -1,6 +1,6 @@
 import dotenv from "dotenv"
 if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
+  dotenv.config();
   // console.log(process.env);
 }
 
@@ -15,12 +15,13 @@ import path from "path"
 import mongoose from "mongoose";
 import ejs from "ejs"
 import engine from "ejs-mate"
-
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 
 const app = express();
 const port = 8080;
 
-import listingsRouter from "./routes/listing.js"
+import {router as listingsRouter} from "./routes/listing.js"
 import reviewsRouter from "./routes/review.js"
 import userRouter from "./routes/user.js"
 import wrapAsync from "./utils/wrapAsync.js";
@@ -30,7 +31,7 @@ import expressError from "./utils/expressError.js";
 //using the authentication method
 import passport from "passport";
 import localStrategy from "passport-local"
-import user from "./models/user.js"
+import User from "./models/user.js"
 
 //require the express session
 import flash from "connect-flash"
@@ -58,7 +59,7 @@ async function main() {
 }
 
 // session store using connect-mongo
-store= mongoStore.create({
+const store= mongoStore.create({
   mongoUrl: dbUrl,
   crypto: {
     secret: process.env.CONNECT_MONGO
@@ -105,10 +106,9 @@ app.use((req, res, next) => {
 });
 
 
-app.set("view engine", "ejs");
-app.set("views", path.join(__dirname, "views"));
-app.use(methodOverride("_method"));
-app.engine("ejs", engine);
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 // app.use("public/css", express.static(path.join(__dirname, "public/css")));

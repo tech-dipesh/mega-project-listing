@@ -1,12 +1,11 @@
 const mapToken = process.env.MAP_TOKEN;
 //list of require models that i use on listing
-import listing from "../models/listing";
 import { saveRedirectUrl, isLoggedIn } from "../middleware.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import axios from "axios";
 
 
-export const contactForm = (req, res) => {
+ const contactForm = (req, res) => {
   req.flash(
     "error",
     "sorry for the inconvinance, i will deploy contact form asap, contact me at @dipeshacademy linkedin"
@@ -16,7 +15,7 @@ export const contactForm = (req, res) => {
 };
 
 
-export const postListing = async (req, res, next) => {
+ const postListing = async (req, res, next) => {
   try {
     const query = req.body.listing.location;
     const response = await axios.get(
@@ -51,14 +50,14 @@ export const postListing = async (req, res, next) => {
   }
 };
 
-export const getListing = async (req, res) => {
+ const getListing = async (req, res) => {
   const allListings = await Listing.find({});
   // res.send("router is running now");
   req.flash("success", "New listing added");
   res.render("listings/index.ejs", { allListings });
 };
 
-export const editListings = async (req, res) => {
+ const editListings = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
   if (!listing) {
@@ -71,7 +70,7 @@ export const editListings = async (req, res) => {
 };
 
 //update route
-export const updateRoute = async (req, res) => {
+const updateRoute = async (req, res) => {
   let { id } = req.params;
   // let listing=await Listing.findById(id);
   // if(!listing.owner.equals(rjeq.user)){
@@ -90,7 +89,7 @@ export const updateRoute = async (req, res) => {
 };
 
 //delete route
-export const deleteRoute = async (req, res) => {
+const deleteRoute = async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Your listing is deleted");
@@ -98,7 +97,7 @@ export const deleteRoute = async (req, res) => {
 };
 
 // show review id
-export const reviewId = async (req, res) => {
+ const reviewId = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id)
     .populate({
@@ -119,3 +118,6 @@ export const reviewId = async (req, res) => {
   }
   res.render("listings/show.ejs", { listing, currUser: req.user });
 };
+
+
+export {contactForm, postListing, getListing, editListings, updateRoute, deleteRoute, reviewId}

@@ -21,6 +21,6 @@ export const reviewSchema = new Schema({
   }
 });
 
-// const Review = mongoose.model("Review", reviewSchema);
+export default mongoose.model("Review", reviewSchema);
 
 // shorter approach of exporting module exports.

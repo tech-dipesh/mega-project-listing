@@ -1,6 +1,6 @@
 import expressError from "../utils/expressError.js";
 import Review from "../models/reviews.js";
-import listing from "../models/listing";
+import listing from "../models/listing.js";
 
 //list of require models that i use on listing
 const showReview=async(req, res) => {
@@ -42,5 +42,5 @@ const destoryRoute=async (req, res) => {
   res.redirect(`/listings/${id}`);
   };
 
-
-  export {showReview, destoryRoute}
+export default showReview;
+  export {destoryRoute}

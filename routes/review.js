@@ -9,9 +9,8 @@ import { listingSchema, reviewSchema } from "../schema.js";
 // const router=express.Router();
 const router = express.Router({ mergeParams: true });
 
-const { isLoggedIn}=require("../middleware.js")
-
-const reviewController=require("../controller/reviews.js");
+import { isLoggedIn } from "../middleware.js";
+import reviewController from "../controller/reviews.js"
 
 
 router.use(methodOverride("_method"));
@@ -38,4 +37,4 @@ router.post("/", isLoggedIn,  validateReview, wrapAsync(reviewController.showRev
 router.delete("/:reviewId", isLoggedIn,  wrapAsync(reviewController.destoryRoute));
 
 
-export {router}
+export default router;

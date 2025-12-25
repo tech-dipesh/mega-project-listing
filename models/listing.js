@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
-const Review=require("./reviews.js");
-const User=require("./user.js");
+import Review from "./reviews.js"
+import user from "./user.js";
 const listingSchema = new Schema({
   title: {
     type: String,
@@ -51,4 +51,4 @@ listingSchema.post("findOneAndDelete", async (listing)=>{
   }
 });
 
-export const listing = mongoose.model("Listing", listingSchema);
+export default mongoose.model("Listing", listingSchema);

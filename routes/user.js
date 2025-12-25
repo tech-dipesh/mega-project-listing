@@ -23,4 +23,4 @@ import express from "express"
 
   router.get("/logout", userController.logOutGet)
 
-  export {router};
+  export default router;
