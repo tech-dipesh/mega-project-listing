@@ -1,26 +1,23 @@
-const methodOverride=require("method-override");
-
-const express=require("express");
+import methodOverride from "method-override"
+import express from "express"
 const router=express.Router();
-// other routes that i also have to requird from app.js to here:
-const wrapAsync=require("../utils/wrapAsync.js")
-const expressError=require("../utils/expressError.js")
-const validateListings = require("../utils/validateListings.js");
-const {isLoggedIn}=require("../middleware.js");
-
-
-let {listingSchema, reviewSchema}=require("../schema.js");
-const Listing = require("../models/listing.js");
-const Review = require("../models/reviews.js");
+import wrapAsync from "../utils/wrapAsync.js";
+import expressError from "../utils/expressError.js";
+import { validateListings } from "../utils/validateListings.js";
+import { isLoggedIn } from "../middleware.js";
+import { listingSchema, reviewSchema } from "../schema.js";
+import { listing } from "../models/listing.js";
+import Review from "../models/reviews.js"
 
 router.use(methodOverride("_method"));
 
 //import controllder route.
-let listingController=require("../controller/listings.js")
+import {listingController} from "../controller/listings.js"
+const {contactForm, postListing, editListings, updateRoute, deleteRoute, reviewId}=listingController;
 
 //use the multer
-const multer=require("multer");
-const {storage}=require("../cloudConfig.js");
+import multer from "multer"
+import { storage } from "../cloudConfig.js";
 const upload=multer({storage})
 
 //create a new route with create
@@ -70,5 +67,4 @@ router.get("/donate", async (req, res) => {
 //redirect to the user to the listing if url is mispalled.
 
 
-
-module.exports=router;
+export {router};

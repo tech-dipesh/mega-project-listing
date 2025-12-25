@@ -1,4 +1,4 @@
-const sampleListings = [
+export const sampleListings = [
   {
     title: "My Nepali Villa on Rent",
     description:
@@ -324,5 +324,3 @@ const sampleListings = [
      owner: "67b5c29e33cd11117a7d937d"
   },
 ];
-
-module.exports = { data: sampleListings };

@@ -14,5 +14,4 @@ let validateListings=(req, res, next)=>{
     next()
   }
 }
-
-module.exports = validateListings;
+export {validateListings}

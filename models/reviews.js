@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const reviewSchema = new Schema({
+export const reviewSchema = new Schema({
   comment: {
     type: String,
     required: true,
@@ -22,10 +22,5 @@ const reviewSchema = new Schema({
 });
 
 // const Review = mongoose.model("Review", reviewSchema);
-// module.exports = Review;
 
 // shorter approach of exporting module exports.
-module.exports=mongoose.model("Review", reviewSchema)
-
-
-// this is we can say one to many reviews.

@@ -1,4 +1,3 @@
-import user from "../models/user.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import { saveRedirectUrl } from "../middleware.js";
 
@@ -41,4 +40,4 @@ const logOutGet=(req, res)=>{
   })
 }
 
-export {signupPost, loginPost, logOutGet}
+export default {signupPost, loginPost, logOutGet}

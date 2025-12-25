@@ -12,4 +12,4 @@ const validateReview = (req, res, next) => {
   }
 };
 
-module.exports = validateReview;
+export default validateReview;

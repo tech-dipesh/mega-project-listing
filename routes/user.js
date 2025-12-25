@@ -1,7 +1,6 @@
 import express from "express"
   const router=express.Router();
-  import User from "../models/user.js"
-  import wrapAsync from "../utils/wrapAsync";
+  import wrapAsync from "../utils/wrapAsync.js";
   import passport from "passport";
   import {saveRedirectUrl} from "../middleware.js"
   import userController from "../controller/users.js"
@@ -24,4 +23,4 @@ import express from "express"
 
   router.get("/logout", userController.logOutGet)
 
-  module.exports=router;
+  export {router};
