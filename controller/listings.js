@@ -1,9 +1,12 @@
-const mapToken = process.env.MAP_TOKEN;
 //list of require models that i use on listing
+
 import { saveRedirectUrl, isLoggedIn } from "../middleware.js";
 import wrapAsync from "../utils/wrapAsync.js";
 import axios from "axios";
 import Listing from "../models/listing.js";
+import dotenv  from "dotenv";
+dotenv.config()
+const mapToken = process.env.MAP_TOKEN;
 
  const contactForm = (req, res) => {
   req.flash(

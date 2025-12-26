@@ -1,6 +1,6 @@
 import expressError from "../utils/expressError.js";
 import Review from "../models/reviews.js";
-import listing from "../models/listing.js";
+import Listing from "../models/listing.js";
 
 //list of require models that i use on listing
 const showReview=async(req, res) => {
