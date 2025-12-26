@@ -7,7 +7,8 @@ const userSchema=new Schema({
   email:{
     type: String,
     required: true,
-  }
+  },
+  // don't need username and password paspportjs handle it.
 });
 
 //it will automatically creates a username and password. 

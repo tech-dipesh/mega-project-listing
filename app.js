@@ -89,6 +89,7 @@ const sessionOptions = {
 
 app.use(session(sessionOptions));
 app.use(flash());
+app.engine('ejs', engine);
 
 // use the passport middleware
 app.use(passport.initialize());

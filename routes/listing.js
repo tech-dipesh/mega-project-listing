@@ -54,13 +54,14 @@
   //destory the routes which will delete that specific listing which will delete the listings
 
 
-  //this is for the showing the reviews id.
-  router.get("/:id", reviewId);
-
   //showing the donate router.
   router.get("/donate", async (req, res) => {
     res.render("listings/donate.ejs");
   });
+  
+  //this is for the showing the reviews id.
+  router.get("/:id", reviewId);
+
 
   //redirect to the user to the listing if url is mispalled.
 

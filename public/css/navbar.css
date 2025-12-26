@@ -12,9 +12,17 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.05);
     }
 
+    img.nav-bar-icon {
+    max-height: 50px;
+}
+    navbar-brand img{
+      max-height: 50px;
+      max-width: 50px;
+    }
     body {
       padding-top: 70px;
     }
+
 
     .nav-link-btn {
       padding: 6px 15px !important;
@@ -31,6 +39,8 @@
       width: 24px;
       height: 24px;
       transition: transform 0.3s ease;
+      max-height: 25px;
+      max-width: 25px;
     }
 
     .navbar-brand:hover img {
