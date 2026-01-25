@@ -16,3 +16,24 @@ My mega Project
 
 
 # Use `npm-check` for showing what have we used and what not.
+
+
+# Packages that i've used:
+ - axios
+ - cloudinary
+ - connect-flash
+ - connect-mongo
+ - dotenv
+ - ejs
+ - ejs-mate
+ - express
+ - express-session
+ - joi
+ - method-override
+ - mongoose
+ - multer
+ - multer-storage-cloudinary
+ - passport
+ - passport-local
+ - passport-local-mongoose
+ 

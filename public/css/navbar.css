@@ -16,10 +16,7 @@
     img.nav-bar-icon {
     max-height: 50px;
 }
-    navbar-brand img{
-      max-height: 50px;
-      max-width: 50px;
-    }
+  
     body {
       padding-top: 70px;
     }
@@ -37,11 +34,10 @@
     }
 
     .navbar-brand img {
-      width: 24px;
-      height: 24px;
       transition: transform 0.3s ease;
-      max-height: 25px;
-      max-width: 25px;
+      max-height: 100px;
+      height: auto;
+      width: auto;
     }
 
     .navbar-brand:hover img {

@@ -1,7 +1,6 @@
 //list of require models that i use on listing
 
 import { saveRedirectUrl, isLoggedIn } from "../middleware.js";
-import wrapAsync from "../utils/wrapAsync.js";
 import axios from "axios";
 import Listing from "../models/listing.js";
 import dotenv  from "dotenv";
@@ -57,7 +56,7 @@ const mapToken = process.env.MAP_TOKEN;
   const allListings = await Listing.find({});
   // res.send("router is running now");
   req.flash("success", "New listing added");
-  res.render("listings/index.ejs", { allListings });
+  res.render("listings/index.ejs", { allListings, currUser: req.user });
 };
 
  const editListings = async (req, res) => {
@@ -69,7 +68,7 @@ const mapToken = process.env.MAP_TOKEN;
   }
   let originalImage = listing.image.url;
   originalImage.replace("/upload", "/upload/h_300,w_250");
-  res.render("listings/edit.ejs", { listing, originalImage });
+  res.render("listings/edit.ejs", { listing, originalImage, currUser: req.user  });
 };
 
 //update route
