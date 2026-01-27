@@ -18,18 +18,14 @@
   import { storage } from "../cloudConfig.js";
   const upload=multer({storage})
 
-  //create a new route with create
   router.get("/new", isLoggedIn, (req, res)=>{
     res.render("listings/new.ejs");
   })  
-  //go to contact form
   router.get("/contact", contactForm)
 
 
   router.route("/")
-  //index home routing, which i will also show the flash connect 
   .get( wrapAsync(getListing))
-  // create a post route to accept the newer data of create a new list
   .post(isLoggedIn, upload.single("listing[image]"), validateListings, wrapAsync(postListing));
   // validateListings,
   // .post( postListing);  
@@ -47,23 +43,15 @@
 
 
   router.route("/:id")
-  // router.put("/:id", updateRoute);
   .put(isLoggedIn, upload.single("listing[image]"), validateListings,  wrapAsync(updateRoute))
   .delete(isLoggedIn, wrapAsync(deleteRoute));
 
-  //destory the routes which will delete that specific listing which will delete the listings
 
 
-  //showing the donate router.
   router.get("/donate", async (req, res) => {
     res.render("listings/donate.ejs");
   });
   
-  //this is for the showing the reviews id.
   router.get("/:id", reviewId);
-
-
-  //redirect to the user to the listing if url is mispalled.
-
 
   export {router};

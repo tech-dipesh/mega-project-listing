@@ -125,5 +125,23 @@ My mega Project
 
 
 
+## Project Phase 2:
+  ## Mmonggodb:
+    - for shoing a review liker ating we've to create the model realted to that data.
+    - and sindie that model we've to create another file for the constratin and can be add a datee of current.
 
-
+  
+  ## Middleware:
+  - two types of middelware:
+    - if username is deleted their related like post comment is deleted which connected mdoel called teh cascadiing deletion.
+   - the mongoose middleeware will be different compare to express midelware.-
+    - ex: docment middleware, query middleware.
+    - on query middleware execute when we call: `exec() or then()` or `await` on a query object.
+  
+  - with type like: `Schema.Types.ObjectId`
+  - have to create a objectId for the unique identification.
+  
+  ## Form connection:
+    - after creagin our form, we don't create separeate relatioon rather we wil use the one to many relationship, with: `post: /listings/:id/reviews` with dynamic id.
+    - with `post` metho form we can get the route data, 
+    - 

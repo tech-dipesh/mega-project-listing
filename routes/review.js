@@ -1,12 +1,9 @@
 import methodOverride from "method-override"
 import express from "express"
-// other routes that i also have to requird from router.js to here:
 import wrapAsync from "../utils/wrapAsync.js";
-import expressError from "../utils/expressError.js";
 import validateReview from "../utils/validate.js"
 import { listingSchema, reviewSchema } from "../schema.js";
 import Review from "../models/reviews.js"
-// const router=express.Router();
 const router = express.Router({ mergeParams: true });
 
 import { isLoggedIn } from "../middleware.js";
@@ -35,7 +32,6 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(async (req, res)=>{
   }
 }))
 
-//when any thing updated it should updated on reviews as this is for the reveiews area.
 // router.post("/", (reviewController.showReview));
 router.post("/", isLoggedIn,  validateReview, wrapAsync(reviewController.showReview));
 // Corrected delete route for reviews

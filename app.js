@@ -128,7 +128,7 @@ app.use("/", userRouter);
 
 app.listen(8080, (err) => {
   if (err) console.error("Server start error:", err);
-  console.log("Server running on port 8080");
+  console.log("Server running on port http://localhost:8080/");
 });
 
 
