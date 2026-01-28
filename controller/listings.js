@@ -12,7 +12,7 @@ const mapToken = process.env.MAP_TOKEN;
     "error",
     "sorry for the inconvinance, i will deploy contact form asap, contact me at @tech-dipesh linkedin"
   );
-  res.redirect("/listings");
+return  res.redirect("/listings");
   // res.render("listings/contact.ejs");
 };
 
@@ -46,7 +46,7 @@ const mapToken = process.env.MAP_TOKEN;
     console.log(saveListing);
 
     req.flash("success", "New listing added!");
-    res.redirect("/listings");
+   return res.redirect("/listings");
   } catch (err) {
     next(err);
   }
@@ -86,7 +86,7 @@ const updateRoute = async (req, res) => {
     await listing.save();
   }
   req.flash("success", "Your Listing is updated");
-  res.redirect(`/listings/${id}`);
+  return res.redirect(`/listings/${id}`);
   // res.redirect("index.ejs");
 };
 
@@ -95,7 +95,7 @@ const deleteRoute = async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Your listing is deleted");
-  res.redirect("/listings");
+  return res.redirect("/listings");
 };
 
 // show review id
@@ -115,7 +115,7 @@ const deleteRoute = async (req, res) => {
       "error",
       "Listing you are trying to access is deleted or does not exist. "
     );
-    res.redirect("/listings");
+  return  res.redirect("/listings");
     // throw new expressError(404, "Listing not found");
   }
   res.render("listings/show.ejs", { listing, currUser: req.user });

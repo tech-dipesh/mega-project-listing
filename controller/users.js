@@ -20,7 +20,7 @@ const signupPost=async (req, res, next)=>{
   catch(e){
     console.log(e);
     req.flash("error", e.message);
-    res.redirect("/signup");
+  return  res.redirect("/signup");
   }
 };
 
@@ -32,7 +32,7 @@ const loginPost=async (req, res)=>{
     console.log(`Someone named ${req.user.username} signin to my site with ${req.user.email} email.`)
     req.flash("success", "Welcome back to our Listing site")
     let redirectUrl=res.locals.redirectUrl || "/listings";
-    res.redirect(redirectUrl)
+   return res.redirect(redirectUrl)
   } 
   catch (error) {
     req.flash("error", error.message)
@@ -45,7 +45,7 @@ const logOutGet=(req, res)=>{
      next(err);
    }
    req.flash("success", "you are logged out!")
-   res.redirect("/listings")
+  return res.redirect("/listings")
   })
 }
 

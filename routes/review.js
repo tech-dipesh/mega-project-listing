@@ -24,7 +24,7 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(async (req, res)=>{
     await newReview.save();
     await listing.save;
     req.flash("success", "New Review Created");
-    res.redirect(`/listings/${listing._id}`);
+   return res.redirect(`/listings/${listing._id}`);
   } 
   catch (error) {
     req.flash("error", "Review Can't be created.")
