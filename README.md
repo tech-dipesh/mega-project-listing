@@ -50,6 +50,12 @@ My mega Project
   - With updating the duplicate data fix afer 2 to 3 hours, with parent directly problem
   - When try to create a dynamic routing we've to must use: `new` keyword for that which cuase my lot of time during debugging.
   - get the navBar issue with not align and also not geting teh my color choice which i've fix with google/internet.
+  -  The name is mismatched which wasted my over the 2 to 3 hours to solve just basic problem, make the comments required to users to add anything.
+  - in listings routes, we've to use the lots of middleware like: `validateListing, validateReviews` which is not correned property which i've fix that with taking lot of time
+  - During tehe review import modules for getting the parent directy we've to use: `..` not `.`
+  - for gettign a sibling items import folder method should have: `./file` not the `file` cause it's represent the library of not ./
+  - 
+
 
 ## Imp Notes For Future Learning:
 - `show dbs` to show all the dbs on the mongodb.
@@ -109,10 +115,15 @@ My mega Project
     - on the new file i've done lot of bootstarp code for success message and also teh failure message.
     - with custom error handler with both side client/server side.
     - `ejs-mate`- is usedful to create a template inside a ejs file
+
+
+  
+  ## Bootsrap Stylying:
+    - inside the show.ejse we've use a: `-listing-card` for stylying
+    - on the delete form, we use teh `post` method which action would be: `reviews/<%-listing._id%>`
     - have to setup on main folder with: `app.engine("ejs", ejsMate)`
     - create a layour structure of: `boilerplate, header, footer.ejs` files on teh ejs-mate
-  - Also write a bootsrarp stylying with the ejs-mate.
-  
+    - Also write a bootsrarp stylying with the ejs-mate.
 
 
 ## More step to add:
@@ -123,7 +134,7 @@ My mega Project
   - for joi Package we can validate our schema with: `listing.validate(req.body)` which joi itself identify a validatein and print on console.
   - with try catch block on middleware we've vliadate of listing with each validatino must be strictly passed.
   -  for showing the message of all the rror we can map and jion then on single value and print to the user.
-
+  - Innitially my parent file is `server.js` which i moved to `app.js` later
 
 
 
@@ -143,11 +154,59 @@ My mega Project
   - with type like: `Schema.Types.ObjectId`
   - have to create a objectId for the unique identification.
   
-  ## Form connection:
+  ## Form connection on the Database Method:
     - after creagin our form, we don't create separeate relatioon rather we wil use the one to many relationship, with: `post: /listings/:id/reviews` with dynamic id.
     - with `post` metho form we can get the route data, 
+    - while creatin our models, of one to many database, we've to store wit hthe squillion method, also have to us the `ref` mean referrign to another database. on the `show.ejs` after stylying our page, with: `post:/listings:id/reviews` method for access a review, which willl be a: one to many relationship with listings.
+    - on the functinoalpart part create the `post router` 
+    
+
+  ## Validation:
+    - With Bootsrap inside the `public/js` folder we connect al our boilerplaet
+    - we can check our server request iwth the `hopsscotch`
+    - while validating the server we'll use the joi for validating it, which we'l be pass a middleware: `app.post` method
+    - delete the particular objedId from database: ` db.reviews.deleteOne({_id: ObjectId("67acbc16bd2e7573243c3715")})`
+    - while we can't directly access the value of inside reviews we can simply use a populate method
+    - Populate method: `await Listing.findById(id).populate("reviews")`
+    - for getting the data we can get any particular value with: `object_id`
+    - with Mongo pull operatoro the: `$pull operator` remove a eisting array all instancedc of a value that match specificed condition like: `$in, $set, $between`
+    -  
+
+  ## Cruds:
+    - For accessing the aprticular id: `app.post("/listings/:id/reviews", async (req, res)=>await Listing.findById(req.params.id)new Review(req.body.review)})`
+    - while accessin on the ejs: `name[reviews]`
+    - For deleting out Review ew can create route: `/listings/id/reviews/:reviewsId` for delete the particular review.
+    - For get the id of profile and review we can use: `req.params`on listing we can use: `findByIdAndUpdate` for updating a particular id.
+    - inside teh listing if we want to delete a particular id:
+      - we can use: `db.listings.find({title: "Mountain view Apartment})[{id: id, newREviewsId}]`
+    - delete a partciular review: `schema.post("findOneAndDelete", async=>await Review.deleteMany({_id:${in:lisitng.reviews}}))`
+    - For delete the partciular listing with: `$in` method also delete that correspondend reviews.
     - 
 
+
+  ## Express Error:
+    - for gettiing the Express Error we've to restrcuture of our Listings
+    - on `new routes` folder we can make new router: `express.Router()` with export the module
+    -  we can redirect when needed with; `app.use("/listings", listings)`
+    - 
+
+  ## Express Router, Cookies:
+  - Express Router is teh way to organize our express application which our primary file doens't become bloated and create new instance router for any partciular routes.
+    - For express router we've to restructure our folder setup.
+    - we can code splitting or app.js file with movign where it required in one file it's become clutter/difficulat to understand
+    - it's not compulsory to use a express router but generaly it's good practice for the large scall websites.
+    - the middleware is capable of only perform single action while between the req to response time.
+    -  we've create multiple routes of teh `users and posts`
+    - for destrucuted teh same routes, we can make related routes `/users`
+    -  in the `post`.js inside teh classroom folder we'll be only adding a all the routes which area related to the `classroom/` folder.
+    >:white_check_mark: Now We don't require to use `app.get` now can use `router.get` with export our export `{router}`.
+    - our Code will not still work cause there's teh diferent path we rquired on the router object.
+    - as of now we've send required to: `app.use("/", users)`  now our routes will go to: `app.use("/users", users)`
+    - now our all teh path will redirect to new path with we can remove all teh common path now as router wil handle it.
+
+  ## Cookies:
+    - it's a small blocks of data created by a web server while a user is browsing a website and placed on the user's computer or other device by the user's web browser. 
+    -
 
 
 
