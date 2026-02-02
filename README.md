@@ -206,7 +206,49 @@ My mega Project
 
   ## Cookies:
     - it's a small blocks of data created by a web server while a user is browsing a website and placed on the user's computer or other device by the user's web browser. 
-    -
+    - Cookies are tiny bloc of data shtat stored on the web browser.
+    ### Use Case of Cookie:
+      1. Session Managment
+      2. Tracking a user for showing a targeted ads/relevance rpdocuts
+    - Cookies are paired with the key value pair which we can see on our web browser.
+
+    ### How to Send cookies using express:
+      1. on the `localhost:3000/setCookies` route we can send with: `res.cookie("name", "dipesh");   res.cookie("country", "Nepal")` Which are on the key value pari.
+      2. We can it'll persise that data.
+      2.   we can read the docs on express webiste with res.cookie area.
+    ## Cookies Parse Package:
+      - As of now only one route can access the particular cookies But for We want to make the cookies to access by all routes .
+      - Also we want to make the parse(read) for getting a data
+      -  We can access the cookie with: `req.cookies ` 
+      - For Printing a Cookie we can use the: `console.dir`
+  >:warning: Once we send teh cookies it'll have on other routes for stored, But when we go to browser it'll print a `undefined` Cause For parsing the cookies on the express is not possible we've to use the some sort of middleware for accessing it such as: `cookie-parse`
+    -  We can parse with teh `app.use(cookieParser)` for accessing by all routes.
+    - Usually for the related to the authorization/authenticatoin we can use the cookies.
+    - when we want to set the cookies by default we can do by: `req.cookies.country="masters"`
 
 
+    ## Signed Cookies:
+      - There's the normal cookis and signed cookies, which is similar to some kind of the physical sign, that putting a stamps/sign which the integiry of the data.
+        - We Use the signed cookies for avoiding a data temparing which save from hacker and other unintentional behvaiour.
+        - After sending the signed cookies We can verify that it's a not temperated and data integrity is not lost.
+        ## How to Implement the Signed Cookies:
+          - if we set the `{signed: true}` while sending the cookies it's treating as a sign cookies.
+          - Also we've to use teh `secretcode` for signed cookied. which goes to encoded/encrypted unreadable versio.
+          - such as: `app.use('secretCode)` and `res.cookie({signed: true})` which become a signed cookies now.
+          - now we can access with `req.cookies`
 
+  ## State:
+    -   protocol mean what kind of request is going what kind of response is going. the rules request, response follow called a protocal.
+    - STateful protocal persist the data status and session infomration such as: `ftp (file transfer protocal)`
+    - Stateless procotcal: Doesn't persist the data.
+
+    
+  ## Express Session:
+    - Which Makes Our sesion stateful, for storign teh session related information.
+    - Session id is stored on the form of cookies format.
+    ## Why Important:
+      - Some customer are added some item on their carts like laptop and they switched on adding the any sportss product, should laptop added cart should be deleted, no absoluletly not, if we just use the stateless protocal it will not stored, but with the stateful protocal we can stored that.
+      - In cookies there is the limit, to save the information of the limit. it is quite less compare to temp storage. as well teh information we stored on cookies is not that secure. 
+      - In cookies we just stored the session id not the entire data items. 
+    ## How to Implement Express Session:
+    - For testing the expres-session i created a new folder called express-session(but other are doing inside on classoom folder) and inside of it session.js and first i required a express and listen port. 
