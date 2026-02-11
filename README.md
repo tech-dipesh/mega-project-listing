@@ -343,5 +343,40 @@
     ## Next Middleware:
       - The next() function in Express is a built-in function that is used in middleware to pass control to the next middleware function in the stack.
       - If we don't call next(), the request will be left hanging, and Express won't move on to the next middleware or route handler.
+    -   we can show the user but it is still not fully functional. cause it will still show even we don't add any new listing, it will still show that alert.
+  
+  ## Success Error Message:
+    -   for the understanding the success that we send to our client side is array, even though if we don't send anything it is empty array, and that empty arrray keep going frontend and take his space. 
+    - For solving that we also have to add one more condition inside flash.ejs of && success.length (mean there should be some value on array, now it will work as expected.)
+    -  We can create a dismits alert inline of fade show. we also have to create a button and if we click on tbat button that alert will be vanished. 
+    - I use the bootstrap dismissible method and make z-index top of that things to fix it.
+    - Error flash message: let's suppose you have the listing and that listing is deleted and if you again go to that url we will redirecterd them to the all listing with flash message show saying that the listing you trying to access is deleted like that also we can do similar to the updated old id.
 
-   
+
+  ## Routes:
+  - Now we can do that with the same logic we can implement on different routes like delete, update, edit, and review route.
+  - I just add the req.flash ("success", "review deleted") like this on listing.js and review.js with also on review routes.
+  - i just make on show route with if does not exist just show the res.flash("error"). till now i haven't make the error message on app.use method on app.js i have to create that. in ejs we have created a success flash we also have to create for the error route. now that works we also can apply that method to the update route with previous id. 
+  
+
+  ## Authentication & Authorization:
+  Here's a more Consise version:
+    - What really Mean:
+  - Authentication: Verifies user identity (e.g., login).
+  - Authorization: Determines user access to specific content after login.
+
+-   Password Storage:
+  - Store passwords in hashed form (e.g., Bcrypt), not plain text.
+  - During login, hash the input password and compare it to the stored hash.
+
+  - Hashing:
+  - One-way function with fixed-length output, making the password secure and unrecoverable.
+
+  - Salting
+  - Adds random data to passwords before hashing to prevent attacks like reverse lookup.
+
+  Node.js Authentication:
+  - Passport.js: Middleware for authentication with various strategies (e.g., Google, Facebook).
+  - passport-local: Basic username/password authentication.
+  - passport-local-mongoose: Simplifies Passport integration with MongoDB.
+  - have to download : `passport-local, passport-local-mongoose` For start Implementing
