@@ -15,8 +15,7 @@ import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const app = express();
-const port = 8080;
-
+const PORT=process.env.PORT
 import {router as listingsRouter} from "./routes/listing.js"
 import reviewsRouter from "./routes/review.js"
 import userRouter from "./routes/user.js"
@@ -47,7 +46,6 @@ try {
       mongoose.connection.once('open', resolve);
     }
   });
-
   console.log("succesfully connected to the airbnb database");
   } catch (err) {
     console.log(err);
@@ -117,6 +115,7 @@ app.use("/", userRouter);
 
 app.listen(8080, (err) => {
   if (err) console.error("Server start error:", err);
+  console.log(`Server Running on Port: http://localhost:${PORT}`)
 });
 
 

@@ -379,4 +379,24 @@
   - Passport.js: Middleware for authentication with various strategies (e.g., Google, Facebook).
   - passport-local: Basic username/password authentication.
   - passport-local-mongoose: Simplifies Passport integration with MongoDB.
-  - have to download : `passport-local, passport-local-mongoose` For start Implementing
+  - have to download : `passport-local, passport-local-mongoose` For start Implementing.
+
+  ## Model:
+    - Now we have to define the user Model: inside models i will create a new file called user.js. 
+    - In signup/login there could be the multiple of pages we can, for now we will just start with smallest number of fields. 
+    - First we required the mogoose and Schema, now we will start with the email, username and passport.
+    >:white_check_mark: #but the `passport-local-mogoose` automaticaly creates add a username and password automatically hash and salt field.
+    - For now we just creates a email field. `userSchema.plugin(passportLocalMongoose)`; 
+    - (it will automatically creates a username and password)
+
+    -   `password-mongoose` add some method to your Schema automatically, like set password, change password and much more method will automatically implement.
+    -  Method meaning will understand when we work on project.
+  
+  ## Configuring Strategy:
+    - Configuring Strategy: we have to apply the basic settings to use a `passport-local` first we will require on app.js.
+    - For implement the `passport` we required to have the session, we can track the session we will just use the passport session.
+    - Just use on `app.use(passport.initialize())` (For track you can say it's a rules to configure before implemet to.it's a middleware that intitliaze passport )
+    - `passport.session()` (it helps us to identify the users as they browser from page to page. it will associsated with each on user)
+    - `passport.use(new localStrategy(User.authenticate()))`; (this middleware will passed all of the request that comes on our site will have to pass from our middleware.)
+  -  `passport.serializeUser(User.serializeUser)`;
+  - `passport.deserializeUser(User.deserializeUser)`; ( generate a function that is used by passport to serialse user into session, the all of the users data is stored is called seriealise and unstore called unseriealise. )

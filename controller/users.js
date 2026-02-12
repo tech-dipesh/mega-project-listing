@@ -1,7 +1,6 @@
 import wrapAsync from "../utils/wrapAsync.js";
 import { saveRedirectUrl } from "../middleware.js";
 import User from "../models/user.js"
-console.log(User);
 
 const signupPost=async (req, res, next)=>{
   try{
@@ -27,9 +26,7 @@ const signupPost=async (req, res, next)=>{
 
 
 const loginPost=async (req, res)=>{
-  // console.log(req.user);
   try {
-    console.log(`Someone named ${req.user.username} signin to my site with ${req.user.email} email.`)
     req.flash("success", "Welcome back to our Listing site")
     let redirectUrl=res.locals.redirectUrl || "/listings";
    return res.redirect(redirectUrl)

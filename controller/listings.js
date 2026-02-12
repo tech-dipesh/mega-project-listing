@@ -1,5 +1,3 @@
-//list of require models that i use on listing
-
 import { saveRedirectUrl, isLoggedIn } from "../middleware.js";
 import axios from "axios";
 import Listing from "../models/listing.js";
@@ -43,7 +41,6 @@ return  res.redirect("/listings");
     // Create a geometry object as expected by the schema
     newListing.geometry = geometry;
     let saveListing = await newListing.save();
-    console.log(saveListing);
 
     req.flash("success", "New listing added!");
    return res.redirect("/listings");
