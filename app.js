@@ -5,11 +5,9 @@ if (process.env.NODE_ENV != "production") {
 
 process.env.NODE_NO_WARNINGS = "1";
 
-import methodOverride from "method-override"
 import express from "express"
 import path from "path"
 import mongoose, { mongo } from "mongoose";
-import ejs from "ejs"
 import engine from "ejs-mate"
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -50,7 +48,6 @@ try {
   } catch (err) {
     console.log(err);
   }
-// await new Promise(resolve => setTimeout(resolve, 100));
 
 const store= Mongostore.create({
   client: mongoose.connection.getClient() ,

@@ -360,43 +360,144 @@
   
 
   ## Authentication & Authorization:
-  Here's a more Consise version:
-    - What really Mean:
-  - Authentication: Verifies user identity (e.g., login).
-  - Authorization: Determines user access to specific content after login.
+Here's a more Consise version:
+  - What really Mean:
+- Authentication: Verifies user identity (e.g., login).
+- Authorization: Determines user access to specific content after login.
 
 -   Password Storage:
-  - Store passwords in hashed form (e.g., Bcrypt), not plain text.
-  - During login, hash the input password and compare it to the stored hash.
+- Store passwords in hashed form (e.g., Bcrypt), not plain text.
+- During login, hash the input password and compare it to the stored hash.
 
-  - Hashing:
-  - One-way function with fixed-length output, making the password secure and unrecoverable.
+- Hashing:
+- One-way function with fixed-length output, making the password secure and unrecoverable.
 
-  - Salting
-  - Adds random data to passwords before hashing to prevent attacks like reverse lookup.
+- Salting
+- Adds random data to passwords before hashing to prevent attacks like reverse lookup.
 
-  Node.js Authentication:
-  - Passport.js: Middleware for authentication with various strategies (e.g., Google, Facebook).
-  - passport-local: Basic username/password authentication.
-  - passport-local-mongoose: Simplifies Passport integration with MongoDB.
-  - have to download : `passport-local, passport-local-mongoose` For start Implementing.
+Node.js Authentication:
+- Passport.js: Middleware for authentication with various strategies (e.g., Google, Facebook).
+- passport-local: Basic username/password authentication.
+- passport-local-mongoose: Simplifies Passport integration with MongoDB.
+- have to download : `passport-local, passport-local-mongoose` For start Implementing.
 
-  ## Model:
-    - Now we have to define the user Model: inside models i will create a new file called user.js. 
-    - In signup/login there could be the multiple of pages we can, for now we will just start with smallest number of fields. 
-    - First we required the mogoose and Schema, now we will start with the email, username and passport.
-    >:white_check_mark: #but the `passport-local-mogoose` automaticaly creates add a username and password automatically hash and salt field.
-    - For now we just creates a email field. `userSchema.plugin(passportLocalMongoose)`; 
-    - (it will automatically creates a username and password)
+## Model:
+- Now we have to define the user Model: inside models i will create a new file called user.js. 
+- In signup/login there could be the multiple of pages we can, for now we will just start with smallest number of fields. 
+- First we required the mogoose and Schema, now we will start with the email, username and passport.
+>:white_check_mark: #but the `passport-local-mogoose` automaticaly creates add a username and password automatically hash and salt field.
+- For now we just creates a email field. `userSchema.plugin(passportLocalMongoose)`; 
+- (it will automatically creates a username and password)
 
-    -   `password-mongoose` add some method to your Schema automatically, like set password, change password and much more method will automatically implement.
-    -  Method meaning will understand when we work on project.
-  
+-   `password-mongoose` add some method to your Schema automatically, like set password, change password and much more method will automatically implement.
+-  Method meaning will understand when we work on project.
+
   ## Configuring Strategy:
-    - Configuring Strategy: we have to apply the basic settings to use a `passport-local` first we will require on app.js.
-    - For implement the `passport` we required to have the session, we can track the session we will just use the passport session.
-    - Just use on `app.use(passport.initialize())` (For track you can say it's a rules to configure before implemet to.it's a middleware that intitliaze passport )
-    - `passport.session()` (it helps us to identify the users as they browser from page to page. it will associsated with each on user)
-    - `passport.use(new localStrategy(User.authenticate()))`; (this middleware will passed all of the request that comes on our site will have to pass from our middleware.)
-  -  `passport.serializeUser(User.serializeUser)`;
-  - `passport.deserializeUser(User.deserializeUser)`; ( generate a function that is used by passport to serialse user into session, the all of the users data is stored is called seriealise and unstore called unseriealise. )
+- Configuring Strategy: we have to apply the basic settings to use a `passport-local` first we will require on app.js.
+- For implement the `passport` we required to have the session, we can track the session we will just use the passport session.
+- Just use on `app.use(passport.initialize())` (For track you can say it's a rules to configure before implemet to.it's a middleware that intitliaze passport )
+- `passport.session()` (it helps us to identify the users as they browser from page to page. it will associsated with each on user)
+- `passport.use(new localStrategy(User.authenticate()))`; (this middleware will passed all of the request that comes on our site will have to pass from our middleware.)
+-  `passport.serializeUser(User.serializeUser)`;
+- `passport.deserializeUser(User.deserializeUser)`; ( generate a function that is used by passport to serialse user into session, the all of the users data is stored is called seriealise and unstore called unseriealise. )
+
+
+## fakeUser signup For Testing
+- This is just for the testing Purpose.
+- Create a new route called register to:
+- `app.get("/fakeUser", async (req, res)=>{
+    let fakeUser=new User({
+      email: "dipeshsharma@gmail.com",
+      username: "neww"
+    })
+    let newValue= await User.register(fakeUser, "password")
+    res.send(newValue)})
+- (inside here i create a fakeUser with User same name as defined rules).
+- With the register method, i can able to do: Instead of you having to write code to: Salt before hashing password, Hash the passwor, Check if the username already exists, Save the user info, Set up authentication, register does all of that for you in one simple method.
+- Till now we haven't save the user and doesn't perform anything, the above method on app.use says that we will use localStrategy, seriealise, deserializeUser, and passportLocalMongoose use saying it.  ) 
+## Demo:
+-  Next we will create a demo user, with there i createa a new demoUser route same as fakeUser with register.
+- register(user, password, cb) (with passwords we also can pass the callback inside the register which will convert into hash function., it also create the option of whether the username is unique or not )
+- (this is the same of demoUser which i create a twice)
+## Signup user Functionality:
+- Now we will add the functionality of with Signup User with both the get and post method.
+- It will be the signup route)
+- Inside the routes folder i created a `user.js` and inside there i import the experss.
+- Which also exports to module.exports=router; then we will require the `user.js` on app.js.
+- Then next process is to that `user.js` create a app.use like 2 other i also changed their name for not being confusion from : review to `reviewRouter` on the `app.js`.
+- I creatted a signup routes inside `user.js` which is working now.
+- Now inside the views folder i created another folder called users inside there i created a signup.ejs form route.
+- The signup route redirected to the signup.ejs.
+- the username i copied from the new.ejs and also email is simiilar to username.
+- Now we will implement the post method. in signup route first i createa form with post method - - - first i create a get route with just for the interaction i created a logic in post route, with first i extractedd the email, username and password. 
+- And the password is extracted in the form of `user.register`, which will hashed and salt the password for secure our site. 
+
+## Login Page Functionality:
+- Login page: get route. with i just created the same login ui of signup ui.
+- Next i created the `router.post` method: `router.post("/login", passport.authenticate("local", { failureRedirect: "/login", failureFlash: true})`,
+- (in mean passport.authenticate(with the local server which we used where should we redirect and with send like a flash message. )
+- The one things i have improved is validateListing move to the routes with listing.js and imported that file on other files. 
+## Connecting login routes:
+- We want to if anyone wants to create a listings they must have logged in before create a listing.
+- How can we check if user is logged in or not? 
+  -(use the req.isAuthenticated() passport method).
+- `if(!req.isAuthenticated()){req.flash("error", "Not Logged Int")eturn res.redirect("/listings")} `
+- (in here i check if the error is logged in or not if not i will show the flash we can redirect them to the login page.) 
+- (if we add this inside the route it will show the user details. but will now show the passsword ).
+- For editing and deleting the route we can also copy the routes but better way to do is transfer our logic in middleware and pass that functioon.
+### Middleware Logging Implementation:
+- I created a new file name called` middleware.js` and there i wrote the login inside the module.exports.isLoggedin and pass that function to listing.js with before i require the file.
+>:white_check_mark: on thing keep in mind we have to write the ename inside the curly brace for destructured the function from the module.
+- i also pass have to pass on other method, for doing the crud operation.
+
+##  logout route:
+- Now we will implement the logout route.
+- create a get request and with that method we will logout the user.
+- There is different approach to implement the logout but passport makes us easy to do that.
+- Already req.logout method exist,
+- first it will use the serialse and deserialize user methos use then will delete the user from the current session.
+- For logout them we have to write the req.logout.
+- For logout them it is a own callback as parameter, when use will logout immediately what should happended handled the callback. 
+- We can define the `err` parameter  (if sometime passport.js failed , then it will call that error otherwise pass the next(err) method). 
+- in case it didn't get error it will be empty undefined, we asdd the err paremter on if econditon else it will redirecterd to main page with flash message. 
+
+## Stylying signup/login:
+- First i created a 3 navbar item.
+- In any website you will not show all of 3 signin method, if use already logged in it only show logout vice versa.
+- For fix that we will use the in req there is user information store, we will use that.
+- Mean if `req.user` is undefined mean it only show the log in method not logout vice versa. 
+- We can't directly access the `req.user` method that we can use on ejs instead on our app.use middleware of error and flash message.
+-  we passed the `req.user` to the currUser variable: `res.locals.currUser=req.user;` 
+- Now with if condition we can implement on ejs) (the error i am encounter is that i passed the next 2 times on middleware)
+- Login after signup - passport login package automaticly establsh login session, mean if we sign up we haven't logged in.
+- As a user we signup we can verify on db but automatically logged in, in all of the platform it happened automatically log in we have to implement that. 
+- What we want is that when signup happened it should automatically logged it.
+- When database is stored it will automatically logged in. 
+- Ex:  req.login(registeredUser, (err)=>{
+      if(err){
+        return next(err);
+      }
+      req.flash("success", "welcome to the airbnb");
+      res.redirect("/listings");
+  })
+-  (i pass with first show error if any gogt errror else do next step. )
+
+## Post Login Page:
+- When we create a new listing and after logged in it redirected us to the main page, for user convenience we will redirected them to where they left.
+- For building the functionallity one things we have to know in request object there is lots of information is stored,
+- When i print the console of req from middleware.js we will see all details on there.
+- Even it will tell what path we are trying to access, also stored the session related info. 
+- I also console the originalUrl to check our url. this is the originalUrl we want to redirected the user after the login. 
+- We have to save the originalUrl which is a url on the middlweare before redirected there we only want to redirected them when user is logged in . 
+- We only save when user is not logged in. 
+We will store dhte req.session.redirectUrl=req.originalUrl (in middleware). the flow of this approach: when user is logged in successfully then instantly where is her trying to access the url, We will redirect there.
+- But there is the one problem We can redirect on req.session.redirectUrl (but in passport.js when the req.isAuthenticated and success the passport in default wil reset our session.
+- The response will get the undefined. ) for fix that the redirectUrl will save on local variable where the local is accessible everywhere.
+- Where passport don't have the access to reset our session. 
+- I created a another module.exports if the req.session.redirectUrl exist We will store that value like this:  
+- Ex:`if(req.session.redirectUrl)  res.locals.redirectUrl=req.session.redirectUrl`
+- We will call next then We also have to call hte middleware on `user.js` and use same name on login route, also don't forget to require the file on `user.js` . 
+- We have done but there is the error, when We directly trying to login it will show page not found cause We will redirected where they left but now: when We diretly login at that time isLoggedin in triggered, and then thre redirectUrl is not exist which wil casue the error. 
+- We can create new variable and check conditon.  
+- let redirectUrl=res.locals.redirectUrl || "/listings"; (it check the condition.)
+>fire: The smalll flaus We have to know like the small details We are trying to add on our Website we have to know clearly, in case any error got during implement which will get the reason.

@@ -5,3 +5,4 @@ node_modules/
 # my-project-overview.txt
 my-project-notes.txt
 my-project-notes.md
+package-lock.json
