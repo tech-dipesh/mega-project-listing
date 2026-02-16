@@ -62,7 +62,18 @@
     - But it will only come once for temporary and after one time it wil vanished.
   - The error on the connect flash-message is due to the typo error it should be success i write the succes on listing.js file of route.
   - The Eror that i face it shows the connect flash message before teh body, due to bootstrap alert stylying issue.
-
+  - The error i am encouter is Login dn signup porcess becomes too slow. also when i add a new listing it is not configuring well to username route. fix that.
+  now we will start authorization:
+  - - also on in case middleware is not running or get the error that mean current user is not saved in that case we can check with currUser with && condition and check both conditon. it is running but the username is not showing in some listing and also some is got error of username.
+  - the error i am encoutered due to the .populate("owner") method. the error of async true is ejs also take the html comments.
+  - so next time don't comment any html on ejs template. yes we made only on front end side but if we send a post request from the hoppscotch we can bypass our logic for this we also have to make the logic on database.
+  -   the one things i have done just now it might occur error later. on routes `listing.js` validateListings shifted to the utils validateListing converted to models and i require there and used it there 
+  - `listing = require("../models/listings.js")`; (i think it should be the listings.js but when i use that i got the error)
+  -  <div class="card-title"><%= review.author.username</div> (i added this @it might be cause the error. ) and after this line:                 <div class="card-title"><%= review.author.username</div> (it might also have the error) 
+  if we want show the stars according to range the above is code. now we will complelety remove the range order to this starblity rating. 
+-  The error i am facing: i am not able to submit the rating, as it get the cannot get `post` error and also when i logged in i am not able to logout as it says cannot get logout error.  
+ -  finally i find the error th error is i didn't require on review.js to happened this event. and also i have to add: const router = express.Router({ mergeParams: true });
+  (for the requring a i require the child which is required. )
 
 
 
@@ -501,3 +512,98 @@ We will store dhte req.session.redirectUrl=req.originalUrl (in middleware). the 
 - We can create new variable and check conditon.  
 - let redirectUrl=res.locals.redirectUrl || "/listings"; (it check the condition.)
 >fire: The smalll flaus We have to know like the small details We are trying to add on our Website we have to know clearly, in case any error got during implement which will get the reason.
+
+## listing owner:
+- Next with all of the listings we will associate with the owner.
+- Why it is necessery to associated with owner. we can correct authorized to the user.
+- It is like giving permission to the correct person. this is also the  authorization.
+- Till we only giving the lisitng to the listing later we will also give the user of owner to delete any reviews. 
+- Before this we have to add the owner property. for this we have to add the owner from the schema. 
+- Inside the listing.js inside the models we will create a single ownder object array. 
+- For that the owneer also should be the registered user. with giving the ref to owner.
+- if we check on dbs the data will not be initialiazed yet , as we haven't initialiazed yet the Owner before this due to this we can't see the owner of any listing.
+- for changing that we will initialized the database.
+- one things we can do is inside the `data.js` we can give the owner property:
+  - also we can add the owner in bulk for all of the listing.
+- We can addd the objectId for everyone which is repeatable things instead  we will go to `index.js` which initialiazed our database. 
+- I copied any random listing objectId,   `initData.data.map((obj)=>({...obj, Owner: "67b4cee58dc05bd3c54a3302"}));` (it gives the every listing owner of same name to eveyone. )
+- The map function will create a new object with returning new object with the changes.
+- Now it associated with the obejct id each one for.
+- Inside the route listing with id route we can .populate our reviews as it is multiple owner we can populate it. 
+- remember that when using Mongoose, if a reference field isn't populated, it just returns the ObjectId.
+  - ex: `.populate({path: "reviews",populate: { path: "author" }}).populate("owner");`
+   - (with this only becomes the populate)
+
+## Authorization Data Access:
+- Now with the populate method i am not able to do that instead i add the owner name for each on of `data.js`.
+- If we just show the `listing.owner` it will print all of the data we just need username so we can write `owner.username` to show it. this is for the previous data but for creating a cofiguring with the new user:
+- Now we will make the limit which person created those listing only can edit and delete it.
+- Now i have to delete and edit button who are not the owner of that listing.
+- For hide that feature from the user we have to know the who is the owner of listing.
+-  who is the user that trying to edit/delete that listinng.
+- the current user is stored on locals and compare to the ejs template listing.
+- We can make the condition like: `if(currUser && currUser._id.equals(listing.owner) ).equals` is a method of comparing between two. `like == method`. 
+- for making the authorized for the listing: 
+- this is for setting the authorized. in the update route.
+- Iin the put show id route it is `findByIdAndUpdate` si working on there.
+-  now we will separate the `findByIdAndUpdate` will separate into two parts.
+- Cause we will find where that listing is located and will check if that user stored on `res.locals` is that same user only we will give access.
+## Authorization For Listing:
+-  i have not fully read this topic .
+- Now we will set the authorizatoin for listing:
+- for this with every review there should be the author, and for deleting the review only author will have the access to delete. 
+- first i give the types fo author on `review.js` of model models.
+- Like we can see post on linkedin but can't post the comment on there same implement we will apply here.
+- We only show the leave a review option to the logged in user with add the logic of if(currUser) on show.ejs.
+- now we have protect frontend but can anyone send the request from postman or hoppscotch , anyone can create without logged in.
+- I just pass the fucntion on review.js with require from middleware.
+- Now how can we store the author. @i got the error of not submitting the reviews.
+-  #didn't watch the part 2 for creating a review.
+
+## Phase 3 Extra Features:
+- In our project we have build the core funcitonality till now, mean this understand will not only used on this project it will used fro on any porject. : 
+- Phase 3 in here we build the extra thing:  for making a better we will add more feature.
+  MVC: Model, View, Controller (Implement Design Pattern for Listings) (mvc is the term in development, it will not add anything but make better of existing code.)
+- In the designed code where eveything is there, backend frontend and database, how it code is written. we divide into 3 components. 
+- This is our just pattern mean fixed way to write the structured code:(models: all of the models is written there and it uses is store the database. view: render the frontend code,  controller: we will store the core functionality of backend)
+- Inside the `listing.js` of routes, there is the asynchourns callback which will shifted to the another file, so that routes folder are compact more. 
+- in our code we must possibly create the must readable code so with us other everyone can understand the code which file located here. 
+- All componenent inside the models segregrate is helped us to do mvc.
+- All of the callback we will move to another folder. 
+- we have first created a controller folder. 
+- inside there we create a fild name: listings.js.
+  - the asynchouns call back indside routes folder and `listing.js` file, we will shifted to the listings.js inside controller. 
+-  "/", wrapasync (index) instead i use the (listingController.index) (which runs and i already imported the listingController above from my controller model.)
+>:fire: Which we make the mvc pattern:   i have done same with make the separat on for all of the 3, listing, user and review. it can't pas the multiple of middleware only 1 can pass, before this it got's me the error instead i will not pasas the middleeware which then working now.
+
+### Router.Route:
+- Router.route: a way to group together routes with different verbs but same paths.
+- In initially we write all of the `app.get` and `app.post` all of the method we writtern on app.js and then based upon what they are we shifted them to the routes folder.
+- the all of the router we written here , is also there is a way to written in compact way which is the router.route.
+- Instead of making the multiple logic for the same routes as differeent mmethod we can simple write `Router.route` adn can simply write all of the routes mehtod inside there:
+- ex:  router.route("/login").get( async (req, res)=>{ res.render("users/login.ejs")}) 
+-  no i will just do with all of there.
+
+## Rating Stars Better Way:
+- rating are shows in the not quite good way like i have to restyle our rating. in other website start froms are shown.
+- till now the stylig of rating is only the range based which is quite not good i have to improve.
+- We will use the `starblity` library to shown the how many stars. now we will copy the prefered css and create a new file called: rating.css inside public folder. 
+- Wen we copy paste the `starblity` slot css to rating.css.
+-  i have to import them on boilerplate.js:   `<link rel="stylesheet" href="/css/rating.css">` (i import in boilerplate.js ).
+- then i paste the starblity-slot which working now.
+
+
+## Image Upload:
+-  image upload: 
+  - image upload process is quite lenghty process but with our code we can't directly send images to backend.
+  - Why Server Can't Recieve a data:
+   1) backend only recieving a raw format like raw text with this code backend can't accept the image format 
+   2) size limit: we can send but when files comes in backend where will we save the files. we know on mongodb only bson format data is saved. in bson there is the limit in bson there is limit for file size.
+-  we will make our form capable of sending our forms to backend.
+- Now first we have to maek the form to accept our files. 
+- With form capable of sending files. second steps would be save those files. 
+- Wwe will not use the mongooes to save those files. instead we will use the 3rd party service.-
+- those service are cloud service famous is aws cloud.
+- till now we are not doiing the production level as right now we are just doing the development for that we will use 3rd party service just for development. the party service is to save our fiels.
+- They will give the url link of the links. 3rd steps would be save this links on mongoose.
+
