@@ -4,7 +4,7 @@ if (process.env.NODE_ENV != "production") {
 }
 
 process.env.NODE_NO_WARNINGS = "1";
-
+import "./db.js"
 import express from "express"
 import path from "path"
 import mongoose, { mongo } from "mongoose";
@@ -29,25 +29,6 @@ import Mongostore from "connect-mongo";
 
 app.use(express.urlencoded({ extended: true }));
 
-const dbUrl=process.env.ATLASDB_URL
-
-async function main(){
- await mongoose.connect(dbUrl)
-};
-
-try {
-    await main();
-      await new Promise((resolve) => {
-    if (mongoose.connection.readyState === 1) {
-      resolve();
-    } else {
-      mongoose.connection.once('open', resolve);
-    }
-  });
-  console.log("succesfully connected to the airbnb database");
-  } catch (err) {
-    console.log(err);
-  }
 
 const store= Mongostore.create({
   client: mongoose.connection.getClient() ,
