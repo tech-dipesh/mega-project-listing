@@ -1,5 +1,5 @@
 import wrapAsync from "../utils/wrapAsync.js";
-import { saveRedirectUrl } from "../middleware.js";
+import { saveRedirectUrl } from "../middleware/saveRedirecturl.js";
 import User from "../models/user.js"
 
 const signupPost=async (req, res, next)=>{
@@ -17,7 +17,6 @@ const signupPost=async (req, res, next)=>{
  })
   }
   catch(e){
-    console.log(e);
     req.flash("error", e.message);
   return  res.redirect("/signup");
   }

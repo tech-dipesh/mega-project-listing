@@ -2,7 +2,7 @@ import express from "express"
   const router=express.Router();
   import wrapAsync from "../utils/wrapAsync.js";
   import passport from "passport";
-  import {saveRedirectUrl} from "../middleware.js"
+  import {saveRedirectUrl} from "../middleware/saveRedirecturl.js"
   import userController from "../controller/users.js"
 
   router.route("/signup")

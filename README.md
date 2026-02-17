@@ -74,6 +74,12 @@
 -  The error i am facing: i am not able to submit the rating, as it get the cannot get `post` error and also when i logged in i am not able to logout as it says cannot get logout error.  
  -  finally i find the error th error is i didn't require on review.js to happened this event. and also i have to add: const router = express.Router({ mergeParams: true });
   (for the requring a i require the child which is required. )
+-   @the error i not showing the picture file which i upload on the internet. also show the npm error when we trying to download the package of cloudinary.
+ - @i am still getting error of not able to show the geocoding.
+        we will just change the query to: req.body.location which we get what we search for.
+- solved error, i failed missureably on finding the error of insdie the postListing, as i constant get error. now i will move forward to day 54 and look back day 53 afterwards.
+-   the erro is that i have not imported a one module using the scrript. which i have done that. now my next task is to align with the . now can even change the label of map by just changing the style.
+  the error i finally encouenter is that:     let coordinate=<%- JSON.stringify(listing.geometry.coordinates) %>; i shouldn't use the double quotes on here when i put on double quotes it converted to the string, not a array but we want in array format that is causing the error.
 
 
 

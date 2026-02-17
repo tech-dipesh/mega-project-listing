@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import Review from "./reviews.js"
-import user from "./user.js";
+
 const listingSchema = new Schema({
   title: {
     type: String,

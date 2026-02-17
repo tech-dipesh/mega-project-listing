@@ -1,23 +1,23 @@
-import Joi from "joi"
+import Joi from "joi";
 
-export const listingSchema=Joi.object({
-  listing:Joi.object({
-    title:Joi.string().min(5).required(),
-    description:Joi.string().min(5).required(),
+export const listingSchema = Joi.object({
+  listing: Joi.object({
+    title: Joi.string().min(5).required(),
+    description: Joi.string().min(5).required(),
     // url:Joi.string().allow("",),
     image: Joi.object({
       filename: Joi.string().allow(""),
       url: Joi.string().allow(""),
     }).optional(),
-    price:Joi.number().min(0).required(),
-    location:Joi.string().required(),
-    country:Joi.string()
-}).required()
+    price: Joi.number().min(0).required(),
+    location: Joi.string().required(),
+    country: Joi.string(),
+  }).required(),
 });
 
-export const reviewSchema=Joi.object({
-  review:Joi.object({
-    rating:Joi.number().min(1).max(5),
-    comment:Joi.string().required()
-  }).required()
-})
+export const reviewSchema = Joi.object({
+  review: Joi.object({
+    rating: Joi.number().min(1).max(5),
+    comment: Joi.string().required(),
+  }).required(),
+});

@@ -4,7 +4,7 @@
   import wrapAsync from "../utils/wrapAsync.js";
   import expressError from "../utils/expressError.js";
   import { validateListings } from "../utils/validateListings.js";
-  import { isLoggedIn } from "../middleware.js";
+  import { isLoggedIn } from "../middleware/isLoggedIn.js";
   import { listingSchema, reviewSchema } from "../schema.js";
   import listing  from "../models/listing.js";
   import {reviewSchema as Review} from "../models/reviews.js"
@@ -13,7 +13,6 @@
   //import controllder route.
   import {getListing, contactForm, postListing, editListings, updateRoute, deleteRoute, reviewId} from "../controller/listings.js"
 
-  //use the multer
   import multer from "multer"
   import { storage } from "../cloudConfig.js";
   const upload=multer({storage})

@@ -1,9 +1,5 @@
-import { saveRedirectUrl, isLoggedIn } from "../middleware.js";
 import axios from "axios";
 import Listing from "../models/listing.js";
-import dotenv  from "dotenv";
-dotenv.config()
-const mapToken = process.env.MAP_TOKEN;
 
  const contactForm = (req, res) => {
   req.flash(
@@ -61,7 +57,7 @@ return  res.redirect("/listings");
   const listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing you requested is doesn't exist");
-    req.redirect("/listings");
+   return req.redirect("/listings");
   }
   let originalImage = listing.image.url;
   originalImage.replace("/upload", "/upload/h_300,w_250");

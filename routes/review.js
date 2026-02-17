@@ -2,14 +2,12 @@ import methodOverride from "method-override"
 import express from "express"
 import wrapAsync from "../utils/wrapAsync.js";
 import validateReview from "../utils/validate.js"
-import { listingSchema, reviewSchema } from "../schema.js";
 import Review from "../models/reviews.js"
 const router = express.Router({ mergeParams: true });
 
-import { isLoggedIn } from "../middleware.js";
+import { isLoggedIn } from "../middleware/isLoggedIn.js";
 import reviewController from "../controller/reviews.js"
 import Listing from "../models/listing.js";
-import reviews from "../models/reviews.js";
 
 router.use(methodOverride("_method"));
 
