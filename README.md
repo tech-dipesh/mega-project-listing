@@ -889,3 +889,75 @@ CLOUD_API_SECRET=myKey
   -ex: ` store: MongoStore.create({ mongoUrl: 'dbUrl', crypto: {  secret: secret } })`
     
   - with this we called where is our database,it will also be the advanced option, in advaned option we can use the encryption,  in here i pass the secret code: secret, i pass the same secret as above. 
+
+## User Session Information:  
+-  we also can pass the touch after which is common used method, like on facebook when we after logged in if we close that tab and again opened our accoutn will be still logged in, it mean if we do multiple times of refresh it will update the session information.
+-  whether the changes on session or not. 
+-  what we want even after refreshing, touchAfter mean that if there is no updation on session we wil update after the 24 hours.
+-  i moved this before `sessionoptions` and i also passed the store which is the name to insdie `sessionOptions`, it is mongo related information. 
+-now our session information stored on atlas database, if we want to store on local database we can simply pass the `mongo_url`, on mongoUrl. 
+
+### Mongostorage Erro Handle
+-  we wil pass the another function after the store, for incase if there is the error on mongoStore, we just console and know where is the error.
+-  like this way: `store.on("error", ()=>{console.log("Error mongo store", err);})`
+-  now if we just run on atlas database inside the collection we will see another collection called sessions, why, in here it will store the session related info. back then when we using the local it was saved on memory storage now it will saved on atlas sessoins collections.
+-  in session it will show the last modified details , expires changes of the modified and expires.
+-  the information related our session, the maximum lifetime is 14 days if we didn't change anything which used to set : session.cookie.expire. if we want to change this interval we can change into any days. 
+
+
+##  Deployment:
+-  for deployment there are lot's of option, popular are: `render`, netlify and `cyclic`. 
+-  heroku now becomes the paid. we will use the `render`. 
+- first i will create an account on `render`.
+-  then my next steps would be defines the node version on package.json. why, cause if we didn't specify the package. 
+- when we deploying on `render` it might cause an error, so we have to define with node version like this.
+-   `"engines": { "node": "22.11.0" }`
+    -  (just defines the engines which node version just define it.)
+- the next things is that connect `render` account to the github accout. 
+- cause currently our project is on local storage. 
+- how can `render` get code so we have to upload project on github private push. from github `render` will take the information.
+-  when in future where we update any code we can simply push to github and said to `render` just update the code. the process would be too smooth, from now. 
+
+
+## Git Push
+-   push to the git:
+  1.  `git init`
+  2. `git remote add origin giturl`
+  3. ` git status` (it will shw files that have not uncommit, )
+  4.  (in the github we don't want to uplaod the .env files which stores the sensitive information, and node_moduls all of the node modules files would be store on the package.json we don't need to upload it. )
+  5. `.env` and `nodue_modules` (ignore this files.)
+    -  create an `.gitignore` files (inside there put the .env and node_modules/ (/due to it's a folder).
+    -  which mean git will ignore this two files.) (after this node_modules and .env file will come in gray color mean it will ignore those files.)
+ 6.  git add . (add all files)
+ 7. git status (check that all of the files is changes added)
+ 8.  git commit -m "Add my first-mega-project files"
+ 9.  git status(it should shouw nothing to comming with on branch main)
+10. `git push origin master`
+
+## connect render to github
+-  first i have to connect render to github (remember that only selected repo, as i only want to give access to my project not my entire profile.)
+-  then i have to connect and steps are:
+  1.  given a name
+  2. regions
+  3. runtime(set to node)
+  4. build command(set to npm install as we will install of package from npm install)
+  5.  start command (node app.js set node cause we only run one times that's why we don't use nodemon app.js), 
+  - auto deploy ( we can set to no , on advanced option, ), select on create web service.
+- it will take time to it, if we just deploy that it will failed it, cause we use environment variable on multiple times on our code but we are not giving access to envionment variable which is why it cause as error.
+## for making successfull of deployment:
+-  configure the atlas and envionment variable.
+- till now our database is connect a local system but now we will connect with render.
+- render will have different ip address.
+- the we have to store onn mogodb. so that atlas identify the white list of render ip. 
+-  for adding the envionment variable. in environment i will each added the each envionment variable.
+- first i add each environment with key and their value each. 
+- the 3 ip of render i have to add on network access of mongodb atlas . 
+- then i also force the install process cause cloudinary lower version cause the errror: npm install --force.
+
+>white_check_mark:  now finally my project has been finished.
+
+## Coming Topic (The notes is from march 2025 notes and Project but I'm improving notes as of now)
+- in the frontend after this i have learned the
+  1.  react
+  2. tailwind.
+- As Part Of full stack project I've done this project but the course is not good enough in my pov, lot of basic topic missed just the surface level learning.
