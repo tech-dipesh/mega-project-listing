@@ -752,14 +752,14 @@ CLOUD_API_SECRET=myKey
     let originalImage=listing.image.url
     originalImage.replace("/upload", "/upload/w_250"); (first i extract the image url and i replace with upload to add the height and width, we can change any parameter.then i also render the originalImage.( i miss the one thing if user go to listing that doesn't exist we will show the flash message and redirected to the lsitings))
 
-## Maps Feautre
+## Maps Featre
 -  now we will study the map feature. we will not use that much but it is quite good.
 -  in any listings site at the end it will show the location of that listing.
 -  we will use the maps api for showing the api. there is the google maps api which have the intersting feature.
 -  like: calculate shortest distance, seeing the neighbourhood area and much more feature we can explore. 
 - it will require the credit card and debit card to use it which we will use the mapbox. 
 - accessing token mean is that user is authorized to use that token to just check in the currect user.
-### Deinfe maps ways:
+### Define maps ways:
  - for using that first we will have to use the access token from the mapbox and that accesstoken will store on .env.
  - for displaying the first map. the project is shows from the mapbox but it required the credit card that's why i use the maptiler.
  - as right now i am learnign from other, due this this it is straightforward. but when we try to implement our feature it will take lot's of time, as we have to research and fix the bug. we display a map on webpage. generallyl there is the code for entire page but we only want on show.ejs. 
@@ -785,3 +785,107 @@ CLOUD_API_SECRET=myKey
 -  (with this way like first i store the maptiler on mapToken then config and give now it shows the small map on my page, center mean longtitude and lattitiude and zoom mean how much bigger zoom. )
 
 -  all of our code have the access in ejs file, now from the ejs i will access the script. in script i will save the environment variable. the js file will saved where will store on public/js/map.js: i stored those into map.js and the script can't accept the ejs that's why the process.env value is stord on script tag and then use the same name to the map.js .
+
+
+
+
+##  GeoCoding Important:
+-  GeoCoding: GeoCoding is the process of converting address (like a street address) into geographic cordinated (like lat. and long.),
+- which you can use to place markers on a map, or position on map.
+- till now our map only understand the lat and long. so we want to convert our address to lat and long which only understand our code. 
+  when we add a new listing how can we convert into lat and long.
+   2 types of geocoding are avaible: forwardd goecoding: turning kalikalanagr, butwal into -27.248,29.248. reverse geocoding: -27.248,29.248 into kalikanagar butwal.
+  - the suggestion we get when we put some address it possible due to the geocoding. 
+  for using the mapbox sdk js goecoding i first require on listings.js: 
+  - let response= geocodingClient.forwardGeocode({
+          query: 'Butwal, Nepal',
+          limit: 1
+        })
+        .send()
+  -  (inside the post listing i require the geocoding with foreward mean string to lang and long query can be anything, and limit mean we only want 1 response.)
+      
+
+  
+  ## Storing the coordinates:
+ - GeoJson: the most simple structure in GEoJson is a point.
+ - Below is an example of point representing the approximate location of any place. 
+ - in GeoJson long. comes first in GeoJson array. for using all of functionalities we use the GeoJson, 
+  Ex: {"type: : "Point", "coordinates" : [ -152.5, 37.5] }
+  what's the usage of saving a data in GeoJson, the mongoose.
+  now first i have to define the schema : geometry:{
+    type: {
+      type: String,
+      enum: ['Point'],
+      required: true
+    },
+    coordinates: {
+      type: [Number],
+      required: true
+    }
+  }
+ - (this mean , i give the typeString, and this is Geojson format of enum will be point, first come long and lat, and i given the coridanted will be the number in form of array. ) i call the geocodinng api maptiler with using the axios. 
+  newListing.geometry = response.data.features[0].geometry.coordinates; (first )const feature = response.data.features[0];
+      const geometry = {
+        type: "Point",
+        coordinates: feature.geometry.coordinates,
+      }; (response data feature will give the output of an array, only first one mean long and lat, then cordinates will hold the value of it. )
+ - this following marker we can't directly access to the js file as these long and lat only can accept on ejs form )
+  <script>
+      let mapImport="<%= process.env.MAP_TOKEN %>";
+      let coordinates="<%= listing.geometry.coordinates %>";
+    </script> (as we directly try to use this it will give an error, so we have to convert this into jsonStringify, with ejs be <%- and JSON.stringify() , it will convert tinro json string.)
+
+-  now i will map marker the location of where we should tick the exact location. 
+  const marker = new maplibregl.Marker()       // Create a new marker instance
+        .setLngLat([77.1025, 28.7041])              // Set marker position: [longitude, latitude]
+        .addTo(map); (i first define the default marker position on map.js )
+
+
+
+## Website Homepage: day: 54
+- first fof the homepage. now we will add the filters like on airbnb.
+-  after the navbar. first i change the entire navbar look . 
+- now i will add the other things on after the navbar which is similar to the aibnb. i have added the html of top choice:  <div id="filter">
+        <div><i class="fa-solid fa-person-breastfeeding"></i></div>
+
+-  i have addded the frontend of showing from the tags, but if we really want to implement we can simply divide them into models listing.js and give each of one and work on that. i could work on that.
+
+## Switch Feature:
+- now i will work on switches: it's a toggle switch, when we click on that it will turn on or turn off.
+-  i added the switches and make the text reverse. now i want to perform something when i clicked on the toggle option.
+- i can do this with event listener. now i have done the addEventListener now i will add the fucntinoality. 
+-  we have 2 option, when we want to hide anything: visiblity hidden , mean it will hide from the code but it will occupity the space that it take. on display none, it will not shown and it will also not occupiy the space
+- Which shows the tax with when user click with the taxes 18% tax.
+
+## Mongoose Atlas Db:
+-  now using the mongoose atlas. now we have stored the data on cloudinary now we will use mongo atlas for cloud database service. 
+- now our complete database will shifted to the cloud/online. first create a account on mongo atlas. 
+- in storage there are 2 types are storage: individual storage and shared storage.
+-  individual mean we only can access and shared mean that storage can use anyone but can't have the access to the other.
+-   For set the authentication we have to set the username and password.
+-  note the username and password. now on we can create user. what does it mean create user, when we create any database . 
+- till now we only created on local host. in our localhost db, from vs code when we want to do read write we can do that.
+-   We can set who only can read access and who only have write access like this.
+-  it is like different level of permission to user.
+-  like college student don't have the access to change marks while teacher have like this.
+ -  i have add the password. now i have to connect to the local envionment  which requires the ip address. 
+ - when we will upload to the internet we have to get the local environment for hosting: option are render and heroku. 
+ - when we will deploying it will move to cloud. when it will go online we have to added th online ip. 
+ -  how can we connect the local project to online database. when we will connect to the node.js it will show the database link of string. we have to copy and change the password to your password.
+ -  we have to add that string to app.js, where we connect to the mongodb of MONGO_URL we will change there.
+  I store that password to env first, we will later not pushed the env file for security purpose, i first add on env and i changed the mongo_url to that process.env with any name and replace mongoose.connect with that same name.
+  -  now we can check all of our data that we added here will not shown we can add any new listings now.
+
+## Mongoose Session Store:
+ -` mongoose session store`. the next thing we will se before deployment is mongo session store with connect-mongo.
+ -  as i remember that we use express sesion. the storage we use is local storage.
+ --  the session storage not made for the deployment it meant only for the designing and development.
+ -  due to it will leak memory, under most condition and cannot be the scalable. it is only meant for debugging and development.
+ -  by default session storage we have to change it.
+ -  there are lot of option. also we have experience on mongo we will use service called: `connect-mongo`. the all of the cookie,  user expiry date, user token all of the will be stored here.
+ -  for using this we have to install it first. 
+ - we have to require the connect mongo and also  `express session(express-session )` is already required.
+ -  we can pass the `connect-mongo` as a middleware or we also can even pass as a variable: 
+  -ex: ` store: MongoStore.create({ mongoUrl: 'dbUrl', crypto: {  secret: secret } })`
+    
+  - with this we called where is our database,it will also be the advanced option, in advaned option we can use the encryption,  in here i pass the secret code: secret, i pass the same secret as above. 
