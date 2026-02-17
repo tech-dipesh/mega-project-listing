@@ -2,10 +2,8 @@ import expressError from "../utils/expressError.js";
 import Review from "../models/reviews.js";
 import Listing from "../models/listing.js";
 
-//list of require models that i use on listing
-const showReview=async(req, res) => {
+const showReview=async(req, res, next) => {
   try {
-
     const listing = await Listing.findById(req.params.id);
         if (!listing) {
             throw new expressError(404, "Listing not found");
@@ -20,13 +18,11 @@ const showReview=async(req, res) => {
         
         await newReview.save();
         await listing.save();
-        // res.send("your data is saved");
         req.flash("success", "Your review is publisdhed.")
-        // res.redirect(`/listings/${listing.id}`)
-        // or
       return  res.redirect(`/listings/${req.params.id}`)
       } catch (error) {
         console.error("Review submission error:", error);
+        next(error)
       }
     };
 
@@ -34,7 +30,7 @@ const destoryRoute=async (req, res) => {
   let { id, reviewId } = req.params;
   if(!req.author.equals(req.user._id)){
     req.flash("error", "you are not a owner of this review");
-    return redirect(`/listings/${id}`);
+    return res.redirect(`/listings/${id}`);
   }
   await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
   await Review.findByIdAndDelete(reviewId);
@@ -43,4 +39,4 @@ const destoryRoute=async (req, res) => {
   };
 
 export default showReview;
-  export {destoryRoute}
+export {destoryRoute}

@@ -5,6 +5,7 @@ if (process.env.NODE_ENV != "production") {
 
 process.env.NODE_NO_WARNINGS = "1";
 import "./db.js"
+import "./middleware/globalError.js"
 import express from "express"
 import path from "path"
 import mongoose, { mongo } from "mongoose";
@@ -31,6 +32,7 @@ app.use(express.urlencoded({ extended: true }));
 
 
 const store= Mongostore.create({
+  // mongooseConnection: mongoose.connection,
   client: mongoose.connection.getClient() ,
   dbName: 'homeFinder',
   crypto: {
@@ -101,6 +103,7 @@ app.all("/", (req, res, next)=>{
   req.flash("success", "Congratulations! You now have access to view my portfolio website project.");
  return res.redirect("/listings");
 })
+
 
 app.use((err, req, res, next) => {
   let { statusCode = 404, message = "something went wrong" } = err;

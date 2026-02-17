@@ -36,8 +36,7 @@ return  res.redirect("/listings");
     // newListing.geometry= response.data.features[0].geometry.coordinates;
     // Create a geometry object as expected by the schema
     newListing.geometry = geometry;
-    let saveListing = await newListing.save();
-
+     await newListing.save();
     req.flash("success", "New listing added!");
    return res.redirect("/listings");
   } catch (err) {
@@ -45,11 +44,13 @@ return  res.redirect("/listings");
   }
 };
 
- const getListing = async (req, res) => {
-  const allListings = await Listing.find({});
-  // res.send("router is running now");
-  req.flash("success", "New listing added");
-  res.render("listings/index.ejs", { allListings, currUser: req.user });
+ const getListing = async (req, res, next) => {
+  try {
+    const allListings = await Listing.find({});
+  return  res.render("listings/index.ejs", { allListings, currUser: req.user });
+  } catch (error) {
+    next(error)
+  }
 };
 
  const editListings = async (req, res) => {
@@ -57,7 +58,7 @@ return  res.redirect("/listings");
   const listing = await Listing.findById(id);
   if (!listing) {
     req.flash("error", "Listing you requested is doesn't exist");
-   return req.redirect("/listings");
+   return res.redirect("/listings");
   }
   let originalImage = listing.image.url;
   originalImage.replace("/upload", "/upload/h_300,w_250");
@@ -65,25 +66,23 @@ return  res.redirect("/listings");
 };
 
 //update route
-const updateRoute = async (req, res) => {
+const updateRoute = async (req, res, next) => {
   let { id } = req.params;
-  // let listing=await Listing.findById(id);
-  // if(!listing.owner.equals(rjeq.user)){
-  //   req.flash("error", "you don't have the right to edit the ")
-  // }
-  let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
-  if (typeof req.file !== "undefined") {
-    let url = req.file.path;
-    let filename = req.file.filename;
-    listing.image = { url, filename };
-    await listing.save();
+  try {
+    let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
+    if (typeof req.file !== "undefined") {
+      let url = req.file.path;
+      let filename = req.file.filename;
+      listing.image = { url, filename };
+      await listing.save();
+    }
+    req.flash("success", "Your Listing is updated");
+    return res.redirect(`/listings/${id}`);
+  } catch (error) {
+    next(error)
   }
-  req.flash("success", "Your Listing is updated");
-  return res.redirect(`/listings/${id}`);
-  // res.redirect("index.ejs");
 };
 
-//delete route
 const deleteRoute = async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
@@ -109,7 +108,6 @@ const deleteRoute = async (req, res) => {
       "Listing you are trying to access is deleted or does not exist. "
     );
   return  res.redirect("/listings");
-    // throw new expressError(404, "Listing not found");
   }
   res.render("listings/show.ejs", { listing, currUser: req.user });
 };

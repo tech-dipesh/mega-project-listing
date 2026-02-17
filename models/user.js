@@ -11,6 +11,5 @@ const userSchema=new Schema({
   // don't need username and password paspportjs handle it.
 });
 
-//it will automatically creates a username and password. 
 userSchema.plugin(passportLocalMongoose);
 export default mongoose.model('User', userSchema);

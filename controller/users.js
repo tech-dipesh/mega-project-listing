@@ -7,13 +7,13 @@ const signupPost=async (req, res, next)=>{
   let {username, email, password}=req.body;
   const newUser=new User({email, username})
  const registeredUser=await User.register(newUser, password);
-//  console.log(registeredUser);
  req.login(registeredUser, (err)=>{
      if(err){
       return next(err);
      }
-     req.flash("success", "welcome to the airbnb");
-     res.redirect(`/listings/:${req.body._id}`);
+  const {id}=req.body;
+    req.flash("success", "welcome to the airbnb");
+    res.redirect(`/listings/:${id}`);
  })
   }
   catch(e){
@@ -35,7 +35,7 @@ const loginPost=async (req, res)=>{
   }
 };
 
-const logOutGet=(req, res)=>{
+const logOutGet=(req, res, next)=>{
   req.logout((err)=>{
    if(err){
      next(err);

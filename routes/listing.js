@@ -1,13 +1,11 @@
   import methodOverride from "method-override"
   import express from "express"
-  const router=express.Router();
   import wrapAsync from "../utils/wrapAsync.js";
-  import expressError from "../utils/expressError.js";
   import { validateListings } from "../utils/validateListings.js";
   import { isLoggedIn } from "../middleware/isLoggedIn.js";
   import { listingSchema, reviewSchema } from "../schema.js";
-  import listing  from "../models/listing.js";
-  import {reviewSchema as Review} from "../models/reviews.js"
+  
+  const router=express.Router();
   router.use(methodOverride("_method"));
 
   //import controllder route.
