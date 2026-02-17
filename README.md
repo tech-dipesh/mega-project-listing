@@ -80,6 +80,7 @@
 - solved error, i failed missureably on finding the error of insdie the postListing, as i constant get error. now i will move forward to day 54 and look back day 53 afterwards.
 -   the erro is that i have not imported a one module using the scrript. which i have done that. now my next task is to align with the . now can even change the label of map by just changing the style.
   the error i finally encouenter is that:     let coordinate=<%- JSON.stringify(listing.geometry.coordinates) %>; i shouldn't use the double quotes on here when i put on double quotes it converted to the string, not a array but we want in array format that is causing the error.
+-   @i am getting error with mainly connecting to connect-mongo to mongodb. 
 
 
 
@@ -613,3 +614,174 @@ We will store dhte req.session.redirectUrl=req.originalUrl (in middleware). the 
 - till now we are not doiing the production level as right now we are just doing the development for that we will use 3rd party service just for development. the party service is to save our fiels.
 - They will give the url link of the links. 3rd steps would be save this links on mongoose.
 
+
+## Manipulate Form data:
+- first steps is to manipulate our forms. 
+- till now form only can send the urlencoded data which we use by sayng the express.urlencoded. 
+- for sending the files we will create a new parameter. which is the enctype: "multipart/form-data". (encodedtype). multipart form data are capable of sending data of multiple forms.
+ - `<form class="row g-3 needs-validation" action="/listings" method="POST" novalidate enctype="multipart/form-data">`
+ -  (i added the enctype enctype are just 3 types) `.post((req, res)=>{ res.send(req.body) }) `
+- if i just send the req.body, we will get the empty object.th reason is to get the empty object is, when new data is parsing it will not understasnd for that we will use the parser. for handling that we will use the multer.
+
+### Multer for Data Process:
+- Multer npm package is a middleware for handling the multiapart/form-data which is for uploading files. multer will not process any form which is not multipart. const multer=require("multer");
+- `const upload=multer({dest: "uploads/"}) `
+  - (with this way i required and i have to define the destination of the files.
+  -  this mean for parsing the form data we will use the multer, from the forms multer will extract the files. 
+  - and will save the images inside the upload folder. ) that mean we say file will be where saved, for saving the files actually inside the routes we will use the upload.single("field-name) 
+  - `.post(upload.single("listing[image]"), (req, res)=>{res.send(req.file)})`
+  -  (upload single mean one file at a time and where is our database location define there and what we want to show req.file mean file details, it show output like this;{"fieldname":"listing[image]","originalname":"dsa-core-concept.png","encoding":"7bit","mimetype":"image/png","buffer":{"type":"Buffer","data":) 
+
+### Cloud Setup:
+ -  cloud setup: we will use different third party site but for now we will use the cloudinary & .env file. 
+ - first we will crate a account. and on product envionment credintials we have to authorized our code for get access of files. 
+ - for our code we have to get the credintials. we share the code but we will never share the credintials.
+ -  this is important piece of info. in credintials there is 3 thing: Cloud Name, API SECRET and api secret, api envionment variable. 
+ - this credintials impoortant credintials details write on other files. which we not upload on internet.
+ - for saving all of our credinatial info we will create a new file extension which is .env file. 
+ - .env task is to store our envionment variable.
+ -   the file name will not have only .env i will create on outer file. we will store the SECRET with : SECRET=value, SECRET always will be the capital and there will be not any space and double quoted. once the environment variable stored on .env we can use anywhere on our project.
+ - it will load enviviorenemtn variable from .env file. 
+ - the .env files we can't directly access that, for accessing that we will use another third party libarary called: dotenv (npmpackage) . it will not worked on dependency it will work as indepedent. 
+-  we have to ad the condition of if(process.env.NODE_ENV!="production"){require("dotenv).config()} (we are currently one the development phases in here we are building the projects and deployment is deplying our website.
+- .env file we only use on development phases not in production phases. never upload the .env file on github. 
+- later when will hosting, deploy the credintials we store on .env wil see the another method.
+- during deployment time we will create a new envionment variable of node envionment to set production when our envionment value is not production  then we will use other ise not) we have to store the credintional of cloudnary not our credinatial.
+- remember that don't use any space, comma, semicolon, just go next line. 
+### Multer Store Cloudinary:
+-  for storinng our files, we will use the multer store cloudnary, for that we will use the two npm libarary one cloudinary and another is: `multer-storage-cloudinary. ` 
+ - as right now we have installed a lot's of libraary: this is huge topic we have to install 
+ - , later on we have to do own research for our own product it will take time, don't worry. 
+ - as right now for feature we know the librarry which we feel quite easy, but when  we try to implement our own thing on website it will take time to research and do . 
+  we will install two package, `cloudinary` and `multer-storage-cloudinary`.
+  -  for using them we will create a individual own file. in there we will configure a init cloudinary. 
+
+#### Setup:
+- first i created a file name called:cloudConfig.js which i will use only for the configuration.
+-  we have to configure first. for configruation we have to authorized the cloudname, apikey and api secret. 
+CLOUD_NAME=MeyKey
+CLOUD_API_KEY=Mykey
+CLOUD_API_SECRET=myKey
+- 
+  (this is dummy i changed the api code due to security reason,
+-  this is the cloud info which is not share with anyone i copy from my cloudninary api keys and pasted on the .env but have to give the name by own) 
+- `cloudinary.config({ cloud_name: process.env.CLOUD_NAME, api_key: CLOUD_API_KEY,api_secret: CLOUD_API_SECRET})`
+  -  (i have to config on config.js file with the same name with givn name before this i also hav to reuire those 2 npm package after installing. )
+  -  (in .env we can give any name but on cloudConfig.js we have to give the defailt name.)
+  now we will make the storage of those files where will we store it.
+  -  const storage=new CloudinaryStorage({
+    cloud_name: cloudinary,
+    params:{
+      folder: "air-bnb-clone",
+      allowedFormat:["png", "jpg", "jpeg"],
+      // public_id: (req, file)=> "computed-file"
+    }
+  }) 
+  - (with this way like giving the name and folder name and allowed format we have defined the storage location. )
+  module.exports={
+    cloudinary,
+    storage,
+  } (we will both export them and where we use them on our listing.js. )
+ - const {storage}=require("../cloudConfig.js");
+ - const upload=multer({storage}) (first i require the storage on listing.js and then i show the upload file location )
+ - now our form will send the data to backend and can parsed now. 
+ - {"fieldname":"listing[image]","originalname":"5be3643c2ac3458b207ee9047.jpg","encoding":"7bit","mimetype":"image/jpeg","destination":"uploads/","filename":"8e7be0d055cb9d87fbdb614c690f631b","path":"uploads\\8e7be0d055c87fbdb614c690f631b","size":105791} 
+ - (now if we upload any files, now it will take some millisecond to send data to bakcen diand send this knd of raw file with the image link, as depending on file size it will take that time ammount to load it.)
+
+
+ - 5be3643c2ac3441bff5358b207e047.jpg (the link i am getting wil stored on mongodb database);
+
+ ### Modify Listing Schema:
+ - first we have to modify the listing schema first our image schema is just simple string. 
+ - in our image now we will store 2 value. first we will save the path(file url), and also save the filename.:image: { url: String, filename: STring } filnenmae not that effective right now but it will require later.
+ - in later when we want to update the file then filanem would be useful.
+ -  rest of the would be same just 2 values would be added on image. one will come url and another filename. 
+ - if we try to run our website it will break cause based on this our entire website is mmade.
+ - in listing.js `router.post("/",upload.single("listing[image]))`, i will use upload.
+
+
+### Listing IMage Upload
+-  listing.js image update. now i passed the upload.single inside that post route. the upload.single file logic will write on controller. also i do one thign validateListing is move after the upload.single cause it willl cause the error. now inside the controller listings.js: i will use the :  
+-       let url=req.file.path;
+            let filename=req.file.filename; (to get the url and filename fo that file. )
+-  file mean entrie object and path mean url and filename what types. now if i just print the console.log(url, ".." filename) (it will print it)
+-  const newListing=new Listing(req.body.listing);
+            newListing.owner=req.user._id;
+            newListing.image={url, filename};
+            await newListing.save();
+            req.flash("success", "New listing created") (but first i have to define the newlistign otherwise it will not worked then i can use the newListing.image={url, filename}) (with this way it worked not)
+            @but my websitei is too slow when i added a new listing it takes too much time to load it. it take delay to save on the backend.
+
+  image: {
+      url: 'https://res.cloudinary.com/dsjok71po/image/upload/v1740240790/air-bnb-clone/vhoe8x3x2vgvatvei.jpg',
+      filename: 'air-bnb-clone/vhoe8x3x2vzyvgvatvei'
+    }, (when i search on the db, i find the image url and filename like this.)
+
+ - we have done the 3 step but it is not showing to the frontend. as it update the backend.
+ - my previous code:     description: "A stylish modern condo offering fantastic city views and a central location in Seoul.",
+      image: url: "1.jpg" to image: { url: "1.jpg", filename: "listing-image-25}  in my entire data.js . now i will again run the data.js to restart my database.
+  - now i have the change the url of index.ejs and show.ejs from:<%= Listing.image %> to <%= Listing.image.url %>. also on show.ejs. now display image work as expected. generally in bigger website there is fille limit of image file size, cause we have to rent out the cloud data store, if there is not limit, eveyone can upload high images, which will increase our cost.
+### Edit Preview Image:
+-  edit listing image, preview image.
+- once the listing is edited, how can we change the form. but in the edit listing there comes the url, which we have to change to file upload. -  first on new.ejs form i added the enctype.
+-   first we will make capable of forms to accept the files and send to the backend.we will change the routes of backend, that accept the image data, on req.file. upload that file on cloudinary . then we will have the acess of filename and url, then we will change database. 
+  now i will make the form capable of updating the listing image. we will fix the edit.ejs same like we fix the new.ejs. first i will make the encytype multipart, now form can accept the image but how can it will send the backend. in my listing.js route: i add the same method of sending data before validateListings both on put and post route of new and edit. when it is updated on updateListing i put on the variable, the update.
+
+   - let listing= await Listing.findByIdAndUpdate(id, {...req.body.listing})
+  -  let url=req.file.path;
+    let filename=req.file.filename;
+    listing.image={url, filename};
+    await listing.save(); (first i save on the variable of name listing of previous save, then i save the url and filename from the file.path and filename) then i stored them on the url and filename which is our data.js image object. then  i saved.
+    but there is the catch: if we didn't upload the any image leave just as it, the new the url and filename will be blank and store the undefined value on backend, for avoiding that. for that first we will check if req.file existed then we will only update otherwise not. in js for checking any variable undefined or not we can check by typeof undefined like this:
+      if(typeof req.file !== "undefined"){
+    let url=req.file.path;
+    let filename=req.file.filename;
+    listing.image={url, filename};
+    await listing.save();
+  }   (it just check the condtion of the whether if req.file is not blank mean new image is uploaded then it will run this condition)
+  @when i create a new listing the error comes listignSchema is not defined with create with the image)
+  image preview for listing: for updating the existing listing, we want to preview the old listing what our old picture look like. then user can decide whether listing should be updated or not. inside the edit.ejs:   <div class="mb-3">
+          Original Listing: <hr/>
+          <img src="<%=listing.image.url" alt="<%=listing[title]">;
+      </div> (i show the old image just before the file, but there is the catch if someone upload at high quaility image it will also show the high quality on there with cause the error, like it will take too much time to show, instead we will compress that image, this is just for the edit.ejs and not for the show.ejs) 
+  we also can compress the picture quaility but also cloudinary also provides us the multiple option of transfom of image. for ex: if we want to blur the image we can simply do the res.cloudinary.com/demo/image/upload/e_blur: 300/sample.jpg (with this way we can blur the image, this is due to the cloudinary internal api) 
+  how can we compress that image: who render our image inside the controllers folder of listings.js. if(!listing){
+      req.flash("error", "Listing you requested is doesn't exist");
+      req.redirect("/listings");
+    }
+    let originalImage=listing.image.url
+    originalImage.replace("/upload", "/upload/w_250"); (first i extract the image url and i replace with upload to add the height and width, we can change any parameter.then i also render the originalImage.( i miss the one thing if user go to listing that doesn't exist we will show the flash message and redirected to the lsitings))
+
+## Maps Feautre
+-  now we will study the map feature. we will not use that much but it is quite good.
+-  in any listings site at the end it will show the location of that listing.
+-  we will use the maps api for showing the api. there is the google maps api which have the intersting feature.
+-  like: calculate shortest distance, seeing the neighbourhood area and much more feature we can explore. 
+- it will require the credit card and debit card to use it which we will use the mapbox. 
+- accessing token mean is that user is authorized to use that token to just check in the currect user.
+### Deinfe maps ways:
+ - for using that first we will have to use the access token from the mapbox and that accesstoken will store on .env.
+ - for displaying the first map. the project is shows from the mapbox but it required the credit card that's why i use the maptiler.
+ - as right now i am learnign from other, due this this it is straightforward. but when we try to implement our feature it will take lot's of time, as we have to research and fix the bug. we display a map on webpage. generallyl there is the code for entire page but we only want on show.ejs. 
+ - first i have to add the 2 line script on boilerplate.js for the maptiler.  <div class="col-6 offest-3 mb-3">
+            <div id="map" class="col-6 offest-3 mb-3"><h3>Address:</h3>
+            </div>
+            </div> (i added the basic of where will it located.)
+            <% if(listing.reviews.length>0){ %> (i aded the logic of if only reviews exist then all reviews will be shown)
+
+-    maptilersdk.config.apiKey = 'YOUR_MAPTILER_API_KEY_HERE';
+   -     const map = new maptilersdk.Map({
+          container: 'map', 
+          style: maptilersdk.MapStyle.STREETS,
+        }); (in here first i passed the api key and then inside th function i give em );
+-  let mapToken="<%= process.env.MAP_TOKEN %>"
+      maptilersdk.config.apiKey = mapToken;
+        const map = new maptilersdk.Map({
+          container: 'map',
+          style: maptilersdk.MapStyle.STREETS,
+              center: [23.4653, 67.6983],
+          zoom: 9, 
+        });
+-  (with this way like first i store the maptiler on mapToken then config and give now it shows the small map on my page, center mean longtitude and lattitiude and zoom mean how much bigger zoom. )
+
+-  all of our code have the access in ejs file, now from the ejs i will access the script. in script i will save the environment variable. the js file will saved where will store on public/js/map.js: i stored those into map.js and the script can't accept the ejs that's why the process.env value is stord on script tag and then use the same name to the map.js .
