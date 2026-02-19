@@ -2,11 +2,7 @@ import axios from "axios";
 import Listing from "../models/listing.js";
 
  const contactForm = (req, res) => {
-  req.flash(
-    "error",
-    "sorry for the inconvinance, i will deploy contact form asap, contact me at @tech-dipesh linkedin"
-  );
-return  res.redirect("/listings");
+return  res.redirect("/contact");
   // res.render("listings/contact.ejs");
 };
 

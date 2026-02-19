@@ -1,157 +1,125 @@
-# mega-project-listing: 
-  - My Mega Project
-## The technology i have used:
-1. Bootstrap
-2. JavaScript
-3. Exprss.Js
-4. Node.Js
-5. EJS
-6. MongoDb
+# 🏡 homeFinder — Airbnb Clone
 
-## Finished:
-2025/February/15
+> A full-stack property listing web application built with Node.js, Express, MongoDB, and EJS. Features authentication, authorization, image uploads, interactive maps, and cloud deployment.
 
-## This is my first Beginner friendly project that is related to BackEnd. Which is not production ready Project but I've done as much i've learn in early 2025 February.
+<div align="center">
+**🗓️ Completed:** February 15, 2025 &nbsp;|&nbsp; **👨‍💻 Type:** Beginner Backend Project &nbsp;|&nbsp; **🚀 Deployed on:** Render
 
+</div>
 
+---
 
+## 📑 Table of Contents
 
+- [📖 About the Project](#-about-the-project)
+- [✨ Features](#-features)
+- [🛠️ Tech Stack](#️-tech-stack)
+- [📦 NPM Packages](#-npm-packages)
+- [🏗️ Project Architecture](#️-project-architecture)
+- [⚙️ Environment Setup](#️-environment-setup)
+- [🚀 Installation & Run](#-installation--run)
+- [🗂️ Folder Structure](#️-folder-structure)
+- [🔐 Authentication & Authorization](#-authentication--authorization)
+- [🖼️ Image Upload Flow](#️-image-upload-flow)
+- [🗺️ Maps & Geocoding](#️-maps--geocoding)
+- [🧠 Key Learnings & Notes](#-key-learnings--notes)
+- [🐛 Problems Faced & Solutions](#-problems-faced--solutions)
+- [📋 .gitignore Reference](#-gitignore-reference)
+- [☁️ Deployment](#️-deployment)
+- [🔮 Future Improvements](#-future-improvements)
+- [📄 License](#-license)
 
-  ## Packages that i've used:
-  - axios
-  - cloudinary
-  - connect-flash
-  - connect-mongo
-  - dotenv
-  - ejs
-  - ejs-mate
-  - express
-  - express-session
-  - joi
-  - method-override
-  - mongoose
-  - multer
-  - multer-storage-cloudinary
-  - passport
-  - passport-local
-  - passport-local-mongoose
- 
+---
 
+## 📖 About the Project
 
+**homeFinder** is a beginner-friendly, full-stack web application modeled after Airbnb. It allows users to create accounts, list properties with images and locations, leave reviews with star ratings, and explore listings on an interactive map.
 
-## Post Production:
-  - I've make more Shorter code by convertin all the arrow function.
-  - Also Update the ejs files
-  - 
+> ⚠️ **Note:** This is a **learning project**, not production-ready. It was built to understand backend fundamentals — from routing and middleware to sessions, authentication, and deployment.
+
+---
 
 
+## ✨ Features
 
-## Problems that i faced while building this project
-  - With updating the duplicate data fix afer 2 to 3 hours, with parent directly problem
-  - When try to create a dynamic routing we've to must use: `new` keyword for that which cuase my lot of time during debugging.
-  - get the navBar issue with not align and also not geting the my color choice which i've fix with google/internet.
-  -  The name is mismatched which wasted my over the 2 to 3 hours to solve just basic problem, make the comments required to users to add anything.
-  - in listings routes, we've to use the lots of middleware like: `validateListing, validateReviews` which is not correned property which i've fix that with taking lot of time
-  - During thee review import modules for getting the parent directy we've to use: `..` not `.`
-  - for gettign a sibling items import folder method should have: `./file` not the `file` cause it's represent the library of not ./
-  - the `saveinitialized` is the session if not started/uninitiazation will store on session. it will set to the true which  now deprecated warning will not show during express Session
-  - During the Connect Flash it keep says path is not defined i forget to require the path.
-  -   The error i am encountering is that flash will only print once.
-    - Solution: i already have printed on console then it is not parsed to the ejs after delete the console line it worked.
-    - the flash message will only print once and then will vanished even though it preseneted on the ej
-    - But it will only come once for temporary and after one time it wil vanished.
-  - The error on the connect flash-message is due to the typo error it should be success i write the succes on listing.js file of route.
-  - The Eror that i face it shows the connect flash message before teh body, due to bootstrap alert stylying issue.
-  - The error i am encouter is Login dn signup porcess becomes too slow. also when i add a new listing it is not configuring well to username route. fix that.
-  now we will start authorization:
-  - - also on in case middleware is not running or get the error that mean current user is not saved in that case we can check with currUser with && condition and check both conditon. it is running but the username is not showing in some listing and also some is got error of username.
-  - the error i am encoutered due to the .populate("owner") method. the error of async true is ejs also take the html comments.
-  - so next time don't comment any html on ejs template. yes we made only on front end side but if we send a post request from the hoppscotch we can bypass our logic for this we also have to make the logic on database.
-  -   the one things i have done just now it might occur error later. on routes `listing.js` validateListings shifted to the utils validateListing converted to models and i require there and used it there 
-  - `listing = require("../models/listings.js")`; (i think it should be the listings.js but when i use that i got the error)
-  -  <div class="card-title"><%= review.author.username</div> (i added this @it might be cause the error. ) and after this line:                 <div class="card-title"><%= review.author.username</div> (it might also have the error) 
-  if we want show the stars according to range the above is code. now we will complelety remove the range order to this starblity rating. 
--  The error i am facing: i am not able to submit the rating, as it get the cannot get `post` error and also when i logged in i am not able to logout as it says cannot get logout error.  
- -  finally i find the error th error is i didn't require on review.js to happened this event. and also i have to add: const router = express.Router({ mergeParams: true });
-  (for the requring a i require the child which is required. )
--   @the error i not showing the picture file which i upload on the internet. also show the npm error when we trying to download the package of cloudinary.
- - @i am still getting error of not able to show the geocoding.
-        we will just change the query to: req.body.location which we get what we search for.
-- solved error, i failed missureably on finding the error of insdie the postListing, as i constant get error. now i will move forward to day 54 and look back day 53 afterwards.
--   the erro is that i have not imported a one module using the scrript. which i have done that. now my next task is to align with the . now can even change the label of map by just changing the style.
-  the error i finally encouenter is that:     let coordinate=<%- JSON.stringify(listing.geometry.coordinates) %>; i shouldn't use the double quotes on here when i put on double quotes it converted to the string, not a array but we want in array format that is causing the error.
--   @i am getting error with mainly connecting to connect-mongo to mongodb. 
+| Feature | Status |
+|---|---|
+| 🏠 Create / Read / Update / Delete Listings | ✅ Done |
+| 👤 User Signup & Login | ✅ Done |
+| 🔐 Session-based Authentication (Passport.js) | ✅ Done |
+| 🛡️ Route Authorization (Owner only edit/delete) | ✅ Done |
+| ⭐ Star Rating Reviews (Starability CSS) | ✅ Done |
+| 🖼️ Image Upload via Cloudinary | ✅ Done |
+| 🗺️ Interactive Map (MapTiler SDK) | ✅ Done |
+| 📍 Geocoding (Address → Lat/Long) | ✅ Done |
+| ⚡ Flash Messages (connect-flash) | ✅ Done |
+| 💾 Cloud Database (MongoDB Atlas) | ✅ Done |
+| 🗃️ Session Store (connect-mongo) | ✅ Done |
+| 🧾 Schema Validation (Joi) | ✅ Done |
+| 💰 Tax Toggle Switch (UI) | ✅ Done |
+| 🚀 Deployed on Render | ✅ Done |
 
+---
 
+## 🛠️ Tech Stack
 
-## Imp Notes For Future Learning:
-- `show dbs` to show all the dbs on the mongodb.
-- never ever fear of using docs when you forget it, it could be really useful to all to understand by doing it rather than remember it.
-- 
-- Use `npm-check` for showing what have we used and what not.
-- `req.body` is used to extract a data send by form on `POST` request which data is hidden on url, while `req.params.` extract a data directly from url for `GET` request where data is visible.
-- req.body and req.params difference:When working with `req.body`, it's used to extract data sent from forms (usually in POST requests), where the data is hidden and not visible in the URL. On the other hand, `req.params` extracts data directly from the URL (commonly in GET requests), where the data is visible and part of the URL path.
-- middlewares is the important topics on backend to learn.
+### 🖥️ Frontend
+- **EJS** — Templating engine
+- **EJS-Mate** — Layout/boilerplate support for EJS
+- **Bootstrap 5** — Responsive UI framework
+- **Starability CSS** — Star rating component
 
+### ⚙️ Backend
+- **Node.js** — Runtime environment
+- **Express.js** — Web framework & routing
 
-## Steps that i've Used to build this project with the Proper Docs:
-  - Initalize a my package file with setup a `express` port `ejs, mongoose` 
-  - Also setup all the model with listing schema
-  - separate our folder with ejs frontend with nested routes setup.
-  - Setup the nodemon for fast refresh 
-  - Create the dynamic routing of the id.
-  - Parse the incomng bodies data with: `app.use(express.urlencoded({extended:true}))`
-  - Send a data to the server from client in ejs with: `app.set("view engine", "ejs"`
-  - setup other ejs for showing a backend stats with also server the static files of the css, js, and images.
-  - for path setup we've to use the `path` library.
-  - make input fiels with giving correct input fromat for align with the database.
-  - During post method have to extract a input data with same name on form.
-  - during req.body we can send a data with different way like: `name='listing[title]` send a data with key
-  -  `new Listing(req.body.listing)` create a new db on mongodb with body data.
-  - `await newData.save()` save the data.
-  - `method-override` used to pefrom `put/delete` method
-  -  Used the spread operator: ` Listing.findByIdAndUpdate(id, {...req.body.listing})` to get The element of that id from the database.
-  - Array list we can map throught the entire aray to show the list.
-  - delete the routes with the `async await` as a promises for performing on asynchrnous operation.
-  - as request is send by client side while respones is send by server side.
-  - middleware is helpful betweenthe request and responsie status for performing a operationg.
-  - famous middlewrae funcction are: `methodOverride` for crud operation, `bodyParser` for send a data from body
-  - encoded our middlware function: with `app.use(express.urlencoded({extended:true}))`
-  
-  ### More Basic Steps:
-    -   - the intend shoudl alwasy be anyone should access from any browsign method and any devies.
-  - `utils` folder have opertin like custom error clas, valid synchrounousation.
-  - on custom expresserror w'eve pass the status code and the messsage and assing on the constructor.
-  - in the last year i've used a `commonjs` which is not recommend module but at that time i don't know much about that.
-  - use `app.use(*)` for catch all the non existent route.
-  - with getting the message from customExpressError.
-  - for async routes i've wrap with common function on the `wrapAsync`
-  - `status 400` mean bad request due to client side mistake which server can't handle.
-  -  can send and new throw error on try catc hblock where value is empty/invalid.
-  - created a custom error file with: `error.ejs`
+### 🗄️ Database
+- **MongoDB** — NoSQL database
+- **Mongoose** — ODM for MongoDB
+- **MongoDB Atlas** — Cloud-hosted MongoDB
 
-  ### Middleware:
-    - the req, and res which have the object can be access from anywhere while response should access from middleware
-    - possiblity of the chainign on the middlweeare
-    - middlwae execute any codeand also can end the request-response cycle.
-    - middlware have only 2 choice, it can  responsed or either middlwares can call the next middlwares. like it will call the upcoming middlewares and handle the all of the remaining tasks.
+### ☁️ Cloud Services
+- **Cloudinary** — Image storage & transformation
+- **MapTiler / Mapbox** — Interactive maps & geocoding
 
-  ### Validation Error && Bootstrap && Ejs-Mate:
-    - on the client side forms, for form constraing. where client side validation can be a: uniinteded data, unfulfiled data.
-    - server side validation rules are is that match out with filter.
-    - on the new file i've done lot of bootstarp code for success message and also the failure message.
-    - with custom error handler with both side client/server side.
-    - `ejs-mate`- is usedful to create a template inside a ejs file
+### 🔐 Auth & Sessions
+- **Passport.js** — Authentication middleware
+- **passport-local** — Username/password strategy
+- **passport-local-mongoose** — Mongoose + Passport integration
+- **express-session** — Session management
+- **connect-mongo** — MongoDB-backed session store
+- **connect-flash** — Flash messages
 
+---
 
-  
-  ## Bootsrap Stylying:
-    - inside the show.ejse we've use a: `-listing-card` for stylying
-    - on the delete form, we use the `post` method which action would be: `reviews/<%-listing._id%>`
-    - have to setup on main folder with: `app.engine("ejs", ejsMate)`
-    - create a layour structure of: `boilerplate, header, footer.ejs` files on the ejs-mate
-    - Also write a bootsrarp stylying with the ejs-mate.
+## 📦 NPM Packages
 
+<details>
+<summary>Click Here to Know About All Npm Packages:</summary>
+
+| Package | Purpose |
+|---|---|
+| `express` | Web framework |
+| `ejs` | Templating engine |
+| `ejs-mate` | EJS layout support |
+| `mongoose` | MongoDB ODM |
+| `dotenv` | Environment variable loader |
+| `method-override` | Support PUT/DELETE from HTML forms |
+| `joi` | Schema validation |
+| `multer` | Handle multipart/form-data (file uploads) |
+| `multer-storage-cloudinary` | Cloudinary storage engine for Multer |
+| `cloudinary` | Cloudinary SDK |
+| `axios` | HTTP requests (for geocoding API) |
+| `passport` | Authentication middleware |
+| `passport-local` | Local username/password strategy |
+| `passport-local-mongoose` | Mongoose plugin for Passport |
+| `express-session` | Session handling |
+| `connect-mongo` | MongoDB session store |
+| `connect-flash` | Flash messages |
+
+</details>
+
+---
 
 ## More step to add:
   - showing custom error message on `error.ejs` folder with custom messages such as: message, trace, stack.
