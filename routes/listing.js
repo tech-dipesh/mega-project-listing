@@ -3,12 +3,10 @@
   import wrapAsync from "../utils/wrapAsync.js";
   import { validateListings } from "../utils/validateListings.js";
   import { isLoggedIn } from "../middleware/isLoggedIn.js";
-  import { listingSchema, reviewSchema } from "../schema.js";
   
   const router=express.Router();
   router.use(methodOverride("_method"));
 
-  //import controllder route.
   import {getListing, contactForm, postListing, editListings, updateRoute, deleteRoute, reviewId} from "../controller/listings.js"
 
   import multer from "multer"
@@ -23,19 +21,11 @@
 
   router.route("/")
   .get( wrapAsync(getListing))
-  .post(isLoggedIn, upload.single("listing[image]"), validateListings, wrapAsync(postListing));
-  // validateListings,
-  // .post( postListing);  
-          // router.get("/", wrapAsync(async (req, res) => {
-            //   const allListings = await Listing.find({});
-            // }));
+  // .post(isLoggedIn, upload.single("listing[image]"), validateListings, wrapAsync(postListing));
+  .post( postListing);
 
-  // .post(upload.single("listing[image]"), (req, res)=>{
-  //   res.send(req.file)
-  // })
-            
 
-  //edit any listings route
+  router.get("/:id", reviewId);
   router.get("/:id/edit", isLoggedIn, wrapAsync (editListings));
 
 
@@ -49,6 +39,5 @@
     res.render("listings/donate.ejs");
   });
   
-  router.get("/:id", reviewId);
 
   export {router};

@@ -28,13 +28,12 @@ return  res.redirect("/listings");
       type: "Point",
       coordinates: feature.geometry.coordinates,
     };
-
+    console.log('request is', req)
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
     newListing.image = { url: req.file.path, filename: req.file.filename };
 
     // newListing.geometry= response.data.features[0].geometry.coordinates;
-    // Create a geometry object as expected by the schema
     newListing.geometry = geometry;
      await newListing.save();
     req.flash("success", "New listing added!");
@@ -46,23 +45,29 @@ return  res.redirect("/listings");
 
  const getListing = async (req, res, next) => {
   try {
+    // data: listing[description], title, image, price, location, country
     const allListings = await Listing.find({});
+    console.log('all', allListings)
   return  res.render("listings/index.ejs", { allListings, currUser: req.user });
   } catch (error) {
     next(error)
   }
 };
 
- const editListings = async (req, res) => {
+ const editListings = async (req, res, next) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id);
-  if (!listing) {
-    req.flash("error", "Listing you requested is doesn't exist");
-   return res.redirect("/listings");
+  try {
+    const listing = await Listing.findById(id);
+    if (!listing) {
+      req.flash("error", "Listing you requested is doesn't exist");
+      return res.redirect("/listings");
   }
-  let originalImage = listing.image.url;
-  originalImage.replace("/upload", "/upload/h_300,w_250");
-  res.render("listings/edit.ejs", { listing, originalImage, currUser: req.user  });
+    let originalImage = listing.image.url;
+    originalImage.replace("/upload", "/upload/h_300,w_250");
+     return  res.render("listings/edit.ejs", { listing, originalImage, currUser: req.user  });
+  } catch (error) {
+    next(error)  
+  }
 };
 
 //update route
@@ -90,26 +95,30 @@ const deleteRoute = async (req, res) => {
   return res.redirect("/listings");
 };
 
-// show review id
- const reviewId = async (req, res) => {
+ const reviewId = async (req, res, next) => {
   let { id } = req.params;
-  const listing = await Listing.findById(id)
+  try {
+    
+    const listing = await Listing.findById(id)
     .populate({
       path: "reviews",
       populate: { path: "author" },
     })
     .populate("owner");
-  // .populate("reviews").populate("author");
-
-  if (!listing) {
-    // instead throw the message we can send the flash message
+    // .populate("reviews").populate("author");
+    
+    if (!listing) {
+      // instead throw the message we can send the flash message
     req.flash(
       "error",
       "Listing you are trying to access is deleted or does not exist. "
     );
-  return  res.redirect("/listings");
+    return  res.redirect("/listings");
   }
-  res.render("listings/show.ejs", { listing, currUser: req.user });
+  return res.render("listings/show.ejs", { listing, currUser: req.user });
+} catch (error) {
+  next(error)
+}
 };
 
 

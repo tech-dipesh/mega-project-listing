@@ -3,6 +3,7 @@ import { saveRedirectUrl } from "../middleware/saveRedirecturl.js";
 import User from "../models/user.js"
 
 const signupPost=async (req, res, next)=>{
+  const {id}=req.body;
   try{
   let {username, email, password}=req.body;
   const newUser=new User({email, username})
@@ -11,9 +12,8 @@ const signupPost=async (req, res, next)=>{
      if(err){
       return next(err);
      }
-  const {id}=req.body;
-    req.flash("success", "welcome to the airbnb");
-    res.redirect(`/listings/:${id}`);
+  req.flash("success", "welcome to the airbnb");
+  return res.redirect(`/listings/:${id}`);
  })
   }
   catch(e){

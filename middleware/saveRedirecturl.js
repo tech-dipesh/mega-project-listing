@@ -4,5 +4,5 @@ export const saveRedirectUrl=(req, res, next)=>{
     res.locals.redirectUrl=req.session.redirectUrl;
     delete req.session.redirectUrl;
   }
-  next();
+  next()
 }
