@@ -82,7 +82,7 @@
       <br><br>
       <input type="number" name="listing[price]" placeholder="Price is only is: &#2352;&#2370;" value="<%= listing.price %>">
       <br><br>
-      <input type="text" name="listing[location]" value="<%= listing.location %>" required>
+      <input type="text" name="listing[location]" value="<%= listing?.location %>" required>
       <br><br>
       <select name="listing[country]" id="">
         <% const countries = ["Nepal", "India", "Bhutan", "Japan", "South Korea", "Indonesia", "Bangladesh", "Thailand"]; %>

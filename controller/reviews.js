@@ -18,6 +18,7 @@ const showReview=async(req, res, next) => {
     await newReview.save();
     await listing.save();
     req.flash("success", "Your review is publisdhed.")
+    // return res.json({id: req.params.id})
     return  res.redirect(`/listings/${req.params.id}`)
     } catch (error) {
       console.error("Review submission error:", error);
@@ -35,6 +36,7 @@ const destoryRoute=async (req, res, next) => {
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
     await Review.findByIdAndDelete(reviewId);
     req.flash("success", "Your review is deleted")
+    // return res.json({id})
     return res.redirect(`/listings/${id}`);
   } catch (error) {
     next(error)

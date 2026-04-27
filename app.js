@@ -58,9 +58,13 @@ const sessionOptions = {
 };
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 app.use(session(sessionOptions));
 app.use(flash());
 app.engine('ejs', engine);
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views')); 
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -78,8 +82,6 @@ app.use((req, res, next) => {
 
 
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
 
 app.use(express.static(path.join(__dirname, "public")));
 

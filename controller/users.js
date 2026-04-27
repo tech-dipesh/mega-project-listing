@@ -13,6 +13,7 @@ const signupPost=async (req, res, next)=>{
       return next(err);
      }
   req.flash("success", "welcome to the airbnb");
+  // return res.json({id})
   return res.redirect(`/listings/:${id}`);
  })
   }
@@ -27,6 +28,7 @@ const signupPost=async (req, res, next)=>{
 const loginPost=async (req, res)=>{
   try {
     req.flash("success", "Welcome back to our Listing site")
+      // return res.json({id})
     let redirectUrl=res.locals.redirectUrl || "/listings";
    return res.redirect(redirectUrl)
   } 
@@ -40,6 +42,7 @@ const logOutGet=(req, res, next)=>{
    if(err){
      next(err);
    }
+    //  return res.json({id})
    req.flash("success", "you are logged out!")
   return res.redirect("/listings")
   })

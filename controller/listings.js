@@ -3,13 +3,12 @@ import Listing from "../models/listing.js";
 
  const contactForm = (req, res) => {
 return  res.redirect("/contact");
-  // res.render("listings/contact.ejs");
 };
 
 
  const postListing = async (req, res, next) => {
   try {
-    const query = req.body.listing.location;
+    const query = req.body.listing?.location;
     const response = await axios.get(
       `https://api.maptiler.com/geocoding/${encodeURIComponent(query)}.json`,
       {
@@ -27,7 +26,7 @@ return  res.redirect("/contact");
     console.log('request is', req)
     const newListing = new Listing(req.body.listing);
     newListing.owner = req.user._id;
-    newListing.image = { url: req.file.path, filename: req.file.filename };
+    newListing.image = { url: req.file?.path, filename: req.file.filename };
 
     // newListing.geometry= response.data.features[0].geometry.coordinates;
     newListing.geometry = geometry;
@@ -43,7 +42,7 @@ return  res.redirect("/contact");
   try {
     // data: listing[description], title, image, price, location, country
     const allListings = await Listing.find({});
-    console.log('all', allListings)
+    // return res.json({allListings, curr: req.user})
   return  res.render("listings/index.ejs", { allListings, currUser: req.user });
   } catch (error) {
     next(error)
@@ -72,12 +71,13 @@ const updateRoute = async (req, res, next) => {
   try {
     let listing = await Listing.findByIdAndUpdate(id, { ...req.body.listing });
     if (typeof req.file !== "undefined") {
-      let url = req.file.path;
+      let url = req.file?.path;
       let filename = req.file.filename;
       listing.image = { url, filename };
       await listing.save();
     }
     req.flash("success", "Your Listing is updated");
+    // return res.json({id})
     return res.redirect(`/listings/${id}`);
   } catch (error) {
     next(error)
@@ -88,6 +88,7 @@ const deleteRoute = async (req, res) => {
   let { id } = req.params;
   await Listing.findByIdAndDelete(id);
   req.flash("success", "Your listing is deleted");
+  // return res.json({message: "success"})
   return res.redirect("/listings");
 };
 
@@ -109,6 +110,7 @@ const deleteRoute = async (req, res) => {
       "error",
       "Listing you are trying to access is deleted or does not exist. "
     );
+    // return res.json({message: "hello"})
     return  res.redirect("/listings");
   }
   return res.render("listings/show.ejs", { listing, currUser: req.user });

@@ -20,7 +20,7 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(async (req, res)=>{
     newReview.author;
     listing.reviews.push(newReview);
     await newReview.save();
-    await listing.save;
+    await listing.save();
     req.flash("success", "New Review Created");
    return res.redirect(`/listings/${listing._id}`);
   } 
@@ -31,7 +31,7 @@ router.post("/", isLoggedIn, validateReview, wrapAsync(async (req, res)=>{
 }))
 
 // router.post("/", (reviewController.showReview));
-router.post("/", isLoggedIn,  validateReview, wrapAsync(reviewController.showReview));
+// router.post("/", isLoggedIn,  validateReview, wrapAsync(reviewController.showReview));
 // Corrected delete route for reviews
 // router.delete("/:reviewId", (reviewController.destoryRoute));
 
